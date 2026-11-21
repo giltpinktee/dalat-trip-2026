@@ -1302,7 +1302,7 @@
       </div>
       <div class="search-bar-wrap" id="searchBarWrap">
         <span style="font-size:14px;">🔍</span>
-        <input class="search-input" id="globalSearchInput" type="search" placeholder="Tìm tên địa điểm, quán ăn, đường..." oninput="handleSearchInput(this.value)" />
+        <input class="search-input" id="globalSearchInput" type="search" placeholder="Tìm theo tên địa điểm, quán ăn..." oninput="handleSearchInput(this.value)" />
         <button class="search-clear-btn" onclick="closeSearchBar()" title="Đóng tìm kiếm">✕</button>
       </div>
       <div class="sync-strip">
@@ -3081,9 +3081,9 @@
       if (searchQuery) {
         const needle = stripVN(searchQuery);
         const matchedPlaces = sortByVotesThenRating(
-          PLACES.filter(p => stripVN(`${p.name} ${p.address} ${p.desc}`).includes(needle))
+          PLACES.filter(p => stripVN(p.name).includes(needle))
         );
-        const matchedRentals = RENTALS.filter(r => stripVN(`${r.name} ${r.address} ${r.desc}`).includes(needle));
+        const matchedRentals = RENTALS.filter(r => stripVN(r.name).includes(needle));
         const totalFound = matchedPlaces.length + matchedRentals.length;
         html += `<div class="info-banner"><strong>🔍 Kết quả tìm kiếm cho "${searchQuery.replace(/</g, "&lt;")}":</strong> tìm thấy <strong>${totalFound}</strong> địa điểm.</div>`;
         if (!totalFound) {
