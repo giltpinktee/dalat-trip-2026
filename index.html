@@ -2885,12 +2885,27 @@
       return lbl;
     }
 
+    const IS_IOS_UA = /iPhone|iPad|iPod/i.test(navigator.userAgent || "");
     const IS_MOBILE_UA = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "");
 
     function buildMapsUrl(rawQuery) {
       const q = (rawQuery || "").trim();
       const fullQ = /lâm đồng/i.test(q) ? q : `${q}, Lâm Đồng`;
       return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullQ)}`;
+    }
+
+    function buildTikTokHref(rawQuery) {
+      const q = (rawQuery || "").trim();
+      if (IS_IOS_UA) {
+        return `tiktok://search?keyword=${encodeURIComponent(q)}`;
+      }
+      return `https://www.tiktok.com/search?q=${encodeURIComponent(q)}`;
+    }
+
+    function copyTikTokKeyword(q) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(q).catch(() => {});
+      }
     }
 
     function renderCard(place, indexInList, showSlotTag, showRouteFrame = false, isPinnedMove = false) {
@@ -2900,7 +2915,7 @@
       const isTop = !visited && voters.length > 0 && indexInList === 0 && !showRouteFrame && !isPinnedMove;
 
       const mapsUrl = buildMapsUrl(place.mapQuery);
-      const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(place.tiktokQuery)}`;
+      const tiktokUrl = buildTikTokHref(place.tiktokQuery);
 
       const routeObj = ROUTES[place.route] || ROUTES["trung-tam"];
       const tags = [];
@@ -2984,7 +2999,7 @@
               <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
                 ${SVG_MAPS} Google Maps
               </a>
-              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener">
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(place.tiktokQuery).replace(/"/g, '&quot;')})">
                 ${SVG_TIKTOK} Xem TikTok
               </a>
             </div>
@@ -3343,7 +3358,7 @@
       const voters = getVoters(r.id);
       const userVoted = currentUser && voters.includes(currentUser);
       const mapsUrl = buildMapsUrl(r.mapQuery);
-      const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(r.tiktokQuery)}`;
+      const tiktokUrl = buildTikTokHref(r.tiktokQuery);
       const ribbonHtml = r.hot ? `<div class="hot-ribbon">🔥 HOT TIKTOK</div>` : "";
       const pics = (r.images && r.images.length) ? r.images : [];
       const imgsHtml = pics.map((src, i) =>
@@ -3399,7 +3414,7 @@
               <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
                 ${SVG_MAPS} Google Maps
               </a>
-              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener">
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(r.tiktokQuery).replace(/"/g, '&quot;')})">
                 ${SVG_TIKTOK} Review TikTok
               </a>
             </div>
