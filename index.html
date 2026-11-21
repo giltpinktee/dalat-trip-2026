@@ -873,6 +873,28 @@
       color: #fff;
     }
 
+    .btn-call {
+      background: #ECFDF5;
+      border-color: #A7F3D0;
+      color: #047857;
+    }
+
+    .rental-perks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 8px 0 10px;
+    }
+
+    .perk-chip {
+      font-size: 11px;
+      font-weight: 700;
+      background: #E6F1EC;
+      color: #133528;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
     .empty-box {
       text-align: center;
       padding: 34px 18px;
@@ -1246,6 +1268,7 @@
       { id: "day23", label: "Ngày 23", icon: "📅", type: "day" },
       { id: "day24", label: "Ngày 24", icon: "🌄", type: "day" },
       { id: "day25", label: "Ngày 25", icon: "🌸", type: "day" },
+      { id: "rentals", label: "Thuê xe", icon: "🛵", type: "rentals" },
       { id: "sightseeing", label: "Tham quan", icon: "📸", type: "sightseeing" },
       { id: "cafe", label: "Cafe", icon: "☕", type: "cafe" },
       { id: "food", label: "Ăn uống", icon: "🍜", type: "food" },
@@ -1974,6 +1997,182 @@
       {"id": "d25-sg-linhphuoc", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "trai-mat-cau-dat", "distKm": 8.0, "images": ["images/d24-sg-linhphuoc_1.webp", "images/d24-sg-linhphuoc_2.webp", "images/d24-sg-linhphuoc_3.webp", "images/d24-sg-linhphuoc_4.webp", "images/d24-sg-linhphuoc_5.webp", "images/d24-sg-linhphuoc_6.webp"], "group": "", "name": "Chùa Linh Phước – Chùa Ve Chai (Dự phòng 25)", "address": "120 Tự Phước, Trại Mát, P11, Đà Lạt", "rating": 4.7, "ratingText": "4.6–4.7", "distance": "8 km", "price": "Miễn phí (gửi xe 10k)", "desc": "Chùa khảm sành sứ độc nhất VN, dự phòng nếu ngày 24 chưa kịp ghé.", "mapQuery": "120 Tự Phước, Phường 11, Đà Lạt", "tiktokQuery": "Chua Linh Phuoc Da Lat"}
     ];
 
+    const RENTALS = [
+  {
+    "id": "rx-mrdin",
+    "name": "Thuê xe máy Mr. Din",
+    "address": "78 Lý Tự Trọng, P2, Đà Lạt",
+    "distKm": 0.2,
+    "distance": "0.2 km (đi bộ 2 phút · cùng đường KS!)",
+    "ratingText": "4.5–4.8",
+    "phone": "0965968151",
+    "phoneDisplay": "0965 968 151 · 02633 986 987",
+    "priceDetail": "Xe số: 90–100k/ngày · Xe ga: 120–150k/ngày",
+    "hot": true,
+    "perks": [
+      "Giao tận KS miễn phí",
+      "Không cọc tiền mặt",
+      "2 nón + áo mưa",
+      "Sát Stop & Go"
+    ],
+    "desc": "Tiệm uy tín bậc nhất trên TikTok & nằm CÙNG ĐƯỜNG Lý Tự Trọng với Mỹ Lan Hotel (24) và Stop and Go (88)! Dàn xe mới, leo dốc khỏe, thủ tục cực nhanh.",
+    "mapQuery": "78 Lý Tự Trọng, Phường 2, Đà Lạt",
+    "tiktokQuery": "Thue xe may Mr Din Da Lat",
+    "images": [
+      "images/rx-mrdin_1.webp",
+      "images/rx-mrdin_2.webp",
+      "images/rx-mrdin_3.webp",
+      "images/rx-mrdin_4.webp",
+      "images/rx-mrdin_5.webp",
+      "images/rx-mrdin_6.webp"
+    ]
+  },
+  {
+    "id": "rx-happyday",
+    "name": "Thuê xe máy Happy Day Travel",
+    "address": "127 Phan Bội Châu, P2, Đà Lạt",
+    "distKm": 0.6,
+    "distance": "0.6 km (đi bộ 7 phút)",
+    "ratingText": "4.5",
+    "phone": "02633904904",
+    "phoneDisplay": "02633 904 904 · 0263 3986 986",
+    "priceDetail": "Xe số: 90–100k/ngày · Xe ga (Vision/AB/Lead): 120–150k/ngày",
+    "hot": false,
+    "perks": [
+      "Giao nhận 24/7",
+      "Bảo dưỡng định kỳ",
+      "Cứu hộ dọc đường nhanh",
+      "Chỉ cần CCCD"
+    ],
+    "desc": "Đơn vị quy mô lớn rất chuyên nghiệp, xe đồng đều ít lỗi vặt, hỗ trợ cứu hộ dọc đường siêu nhanh quanh trung tâm.",
+    "mapQuery": "127 Phan Bội Châu, Phường 2, Đà Lạt",
+    "tiktokQuery": "Thue xe may Happy Day Da Lat",
+    "images": [
+      "images/rx-happyday_1.webp",
+      "images/rx-happyday_2.webp",
+      "images/rx-happyday_3.webp",
+      "images/rx-happyday_4.webp",
+      "images/rx-happyday_5.webp",
+      "images/rx-happyday_6.webp"
+    ]
+  },
+  {
+    "id": "rx-ratxin",
+    "name": "Thuê xe máy Rất Xịn (Motorbike Rental)",
+    "address": "Khu trung tâm P1–P2 (giao miễn phí quanh Chợ ĐL)",
+    "distKm": 0.8,
+    "distance": "~0.8 km (giao tận KS miễn phí)",
+    "ratingText": "4.7–4.9",
+    "phone": "0899184307",
+    "phoneDisplay": "0899 184 307",
+    "priceDetail": "Xe ga đời mới (AB 2024–2026, Vario, PG-1): 140–160k/ngày",
+    "hot": true,
+    "perks": [
+      "Tặng sẵn 1L xăng",
+      "Có giá kẹp ĐT xem Maps",
+      "2 nón sạch",
+      "Xe đời mới 2024–2026"
+    ],
+    "desc": "Cực hot với Gen Z trên TikTok nhờ dàn xe đời mới tinh, có sẵn giá kẹp điện thoại xem Google Maps & 1 lít xăng sẵn trong bình.",
+    "mapQuery": "Chợ Đà Lạt, Phường 1, Đà Lạt",
+    "tiktokQuery": "Thue xe may Rat Xin Da Lat",
+    "images": [
+      "images/rx-ratxin_1.webp",
+      "images/rx-ratxin_2.webp",
+      "images/rx-ratxin_3.webp",
+      "images/rx-ratxin_4.webp",
+      "images/rx-ratxin_5.webp",
+      "images/rx-ratxin_6.webp"
+    ]
+  },
+  {
+    "id": "rx-thaovy",
+    "name": "Thuê xe máy Thảo Vy",
+    "address": "Lô A13 KQH Nguyễn Khuyến, P5, Đà Lạt",
+    "distKm": 1.8,
+    "distance": "1.8 km (giao tận KS miễn phí)",
+    "ratingText": "4.3–4.8",
+    "phone": "0919331288",
+    "phoneDisplay": "0919 331 288 · 02633 988 699",
+    "priceDetail": "Xe số: 80–100k/ngày · Xe ga: 120–140k/ngày",
+    "hot": true,
+    "perks": [
+      "Giao tận KS miễn phí",
+      "Xe số/ga/côn khỏe",
+      "Lâu năm uy tín",
+      "Chủ siêu nhiệt tình"
+    ],
+    "desc": "Thương hiệu lâu năm nổi tiếng tại Đà Lạt, dàn xe đa dạng đi đèo dốc cực khỏe, ít hỏng vặt, chủ quán hay chỉ thêm chỗ ăn ngon.",
+    "mapQuery": "KQH Nguyễn Khuyến, Phường 5, Đà Lạt",
+    "tiktokQuery": "Thue xe may Thao Vy Da Lat",
+    "images": [
+      "images/rx-thaovy_1.webp",
+      "images/rx-thaovy_2.webp",
+      "images/rx-thaovy_3.webp",
+      "images/rx-thaovy_4.webp",
+      "images/rx-thaovy_5.webp",
+      "images/rx-thaovy_6.webp"
+    ]
+  },
+  {
+    "id": "rx-haidalat",
+    "name": "Thuê xe máy Hải Đà Lạt",
+    "address": "Hẻm 5 Ma Trang Sơn, P5, Đà Lạt",
+    "distKm": 2.2,
+    "distance": "2.2 km (giao tận KS miễn phí)",
+    "ratingText": "4.8–5.0",
+    "phone": "0398181831",
+    "phoneDisplay": "039 8181 831 · Zalo 0911 632 771",
+    "priceDetail": "Xe số: 80–100k/ngày · Xe ga: 120–140k/ngày",
+    "hot": false,
+    "perks": [
+      "Không cọc tiền",
+      "Kèm bộ vá xe + áo mưa",
+      "Đổi xe ngay nếu lỗi",
+      "Giao miễn phí"
+    ],
+    "desc": "Rất được lòng phượt thủ & khách tự túc, đánh giá gần như tuyệt đối 5 sao nhờ hỗ trợ đổi xe nhanh và không yêu cầu cọc tiền.",
+    "mapQuery": "Hẻm 5 Ma Trang Sơn, Phường 5, Đà Lạt",
+    "tiktokQuery": "Thue xe may Hai Da Lat",
+    "images": [
+      "images/rx-haidalat_1.webp",
+      "images/rx-haidalat_2.webp",
+      "images/rx-haidalat_3.webp",
+      "images/rx-haidalat_4.webp",
+      "images/rx-haidalat_5.webp",
+      "images/rx-haidalat_6.webp"
+    ]
+  },
+  {
+    "id": "rx-dusam",
+    "name": "Xe máy Du Sam / Hoàng Thiện (Từ file TikToker)",
+    "address": "Giao nhận tận khách sạn trung tâm Đà Lạt",
+    "distKm": 2.5,
+    "distance": "Giao tận Mỹ Lan Hotel",
+    "ratingText": "4.4",
+    "phone": "0378728479",
+    "phoneDisplay": "Du Sam: 0378 728 479 · Hoàng Thiện: 0918 825 688",
+    "priceDetail": "Tham khảo: ~100–130k/xe/ngày",
+    "hot": false,
+    "perks": [
+      "Giao tận khách sạn",
+      "Giá mềm",
+      "Gợi ý từ TikToker"
+    ],
+    "desc": "Hai đầu mối thuê xe được lưu sẵn trong file lịch trình gốc của TikToker — có thể gọi hỏi giá song song để so sánh.",
+    "mapQuery": "24 Lý Tự Trọng, Phường 2, Đà Lạt",
+    "tiktokQuery": "Thue xe may Du Sam Da Lat",
+    "images": [
+      "images/rx-dusam_1.webp",
+      "images/rx-dusam_2.webp",
+      "images/rx-dusam_3.webp",
+      "images/rx-dusam_4.webp",
+      "images/rx-dusam_5.webp",
+      "images/rx-dusam_6.webp"
+    ]
+  }
+];
+
     // =========================================================
     // 2. STATE & REAL-TIME SYNC
     // =========================================================
@@ -2469,6 +2668,14 @@
       const mainEl = document.getElementById("mainContent");
       let html = "";
 
+      if (activeMainTab === "rentals") {
+        html += `<div class="info-banner"><strong>Top 6 chỗ thuê xe máy Đà Lạt uy tín (sắp xếp từ GẦN → XA Mỹ Lan Hotel – 24 Lý Tự Trọng).</strong> Nhóm 4 người cần 2 xe từ sáng 23/11 đến trưa 25/11 — nhớ hỏi giá đỡ ĐT & quay video xe trước khi nhận!</div>`;
+        const list = [...RENTALS].sort((a, b) => a.distKm - b.distKm);
+        html += `<div class="card-list">${list.map((r, i) => renderRentalCard(r, i)).join("")}</div>`;
+        mainEl.innerHTML = html;
+        return;
+      }
+
       if (activeMainTab === "sightseeing") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ điểm Tham quan & Chụp hình (chưa đến)</strong> — tự động xếp theo nhiều người vote nhất.</div>`;
         const list = sortByVotesThenRating(PLACES.filter(p => p.category === "tham-quan" && !isVisited(p.id)));
@@ -2681,8 +2888,77 @@
       }, 3000);
     }
 
+    function renderRentalCard(r, idx) {
+      const voters = getVoters(r.id);
+      const userVoted = currentUser && voters.includes(currentUser);
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.mapQuery)}`;
+      const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(r.tiktokQuery)}`;
+      const ribbonHtml = r.hot ? `<div class="hot-ribbon">🔥 HOT TIKTOK</div>` : "";
+      const pics = (r.images && r.images.length) ? r.images : [];
+      const imgsHtml = pics.map((src, i) =>
+        `<img src="${src}" alt="${r.name} (${i + 1})" loading="lazy" class="${i === 0 ? "active-slide" : ""}" onerror="this.style.display='none'" />`
+      ).join("");
+      const dotsHtml = pics.length > 1
+        ? `<div class="slide-dots">${pics.map((_, i) => `<span class="slide-dot ${i === 0 ? "active" : ""}"></span>`).join("")}</div>`
+        : "";
+      const counterHtml = pics.length > 1
+        ? `<div class="slide-counter">📷 <span class="sc-num">1</span>/${pics.length}</div>`
+        : "";
+      const votersHtml = voters.length
+        ? `<span class="voter-label">Vote (${voters.length}/4):</span>` +
+          voters.map(v => `<span class="voter-chip voter-${v}">${v}</span>`).join("")
+        : `<span class="voter-label">Chưa ai vote</span>`;
+
+      return `
+        <article class="card" style="border: 2px solid #1D4D3B33;">
+          <div class="card-media" data-place-id="${r.id}" data-slide="0" data-total="${pics.length}" onclick="openGallery('${r.id}')">
+            ${ribbonHtml}
+            ${imgsHtml}
+            ${counterHtml}
+            ${dotsHtml}
+            <div class="media-badges-bottom">
+              <div class="media-left-pills">
+                <span class="cat-badge cat-tham-quan">🛵 #${idx + 1} GẦN KS</span>
+              </div>
+              <span class="media-rating">⭐ ${r.ratingText}</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <h3 class="card-name">${r.name}</h3>
+            <div class="card-addr">${r.address}</div>
+            <div class="stats-row">
+              <span class="stat-chip">📍 Cách KS: ${r.distance}</span>
+              <span class="stat-chip">📞 ${r.phoneDisplay}</span>
+            </div>
+            <div class="stats-row" style="margin-top:0;">
+              <span class="stat-chip">💰 ${r.priceDetail}</span>
+            </div>
+            <div class="rental-perks">
+              ${(r.perks || []).map(pk => `<span class="perk-chip">✓ ${pk}</span>`).join("")}
+            </div>
+            <p class="card-desc">${r.desc}</p>
+            <div class="voters-row">${votersHtml}</div>
+
+            <div class="actions-grid">
+              <a class="act-btn btn-call" href="tel:${r.phone}">📞 Gọi ngay</a>
+              <button class="act-btn btn-vote ${userVoted ? "voted" : ""}" onclick="toggleVote('${r.id}')">
+                ${userVoted ? "♥ Đã vote" : "♡ Vote"} (${voters.length})
+              </button>
+              <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
+                ${SVG_MAPS} Google Maps
+              </a>
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" target="_blank" rel="noopener">
+                ${SVG_TIKTOK} Review TikTok
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
     function openGallery(placeId) {
-      const place = PLACES.find(p => p.id === placeId);
+      const place = PLACES.find(p => p.id === placeId) || RENTALS.find(r => r.id === placeId);
       if (!place || !place.images || !place.images.length) return;
       galleryImages = place.images;
       const box = document.querySelector(`.card-media[data-place-id="${placeId}"]`);
