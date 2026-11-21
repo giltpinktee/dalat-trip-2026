@@ -1194,9 +1194,9 @@
           </button>
         </div>
       </div>
-      <div class="sync-strip" onclick="openSyncModal()">
-        <span id="syncStatusText">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
-        <span>🚌 00:05 (23/11) → 15:35 (25/11)</span>
+      <div class="sync-strip">
+        <span id="syncStatusText" onclick="openSyncModal()">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
+        <span onclick="openTripInfoModal()" style="text-decoration: underline; font-weight: 700;">🚌 Vé & KS (3 km)</span>
       </div>
       <div class="admin-bar" id="adminBar">
         <div class="admin-bar-title">👑 Chế độ ADMIN: Nhấn giữ (0.5s) lên thẻ bất kỳ để chuyển ngày / buổi</div>
@@ -1304,7 +1304,40 @@
     <div class="gallery-thumbs" id="galleryThumbs"></div>
   </div>
 
-  <!-- MOVE DAY/SLOT MODAL (PHI ONLY) -->
+  <!-- TRIP INFO MODAL (VÉ XE & KHÁCH SẠN) -->
+  <div class="modal-backdrop" id="tripInfoModal" onclick="if(event.target===this) closeTripInfoModal()">
+    <div class="modal-card">
+      <h2 class="modal-title">🚌 Vé xe & Khách sạn</h2>
+      <p class="modal-sub">Thông tin cố định của đoàn 4 người (3 vali lớn)</p>
+      <div class="guide-box" style="margin-top:0;">
+        <strong>🏨 Khách sạn: Mỹ Lan Hotel</strong><br/>
+        • Địa chỉ: <code>24 Đường Lý Tự Trọng, P2, Đà Lạt</code><br/>
+        • Phòng: Suite Gia Đình Có Ban Công (4 người · 1.300.000đ)<br/>
+        • Nhận phòng: 14:00 (23/11) · Trả phòng: 12:00 (25/11)<br/>
+        • SĐT KS: <a href="tel:0399252412" style="color:var(--pine);font-weight:700;">0399 252 412</a>
+      </div>
+      <div class="guide-box">
+        <strong>📍 Khoảng cách Bến xe Đà Lạt ↔ Khách sạn:</strong><br/>
+        • Bến xe Đà Lạt: <code>1 Tô Hiến Thành, P3, Đà Lạt</code><br/>
+        • Khoảng cách: <strong>~3.0 km (~8–10 phút đi xe)</strong><br/>
+        • Di chuyển 3 vali lớn: Xe trung chuyển FUTA (miễn phí, gọi <code>1900 6067</code>) hoặc taxi 7 chỗ (~50–60k).
+      </div>
+      <div class="guide-box">
+        <strong>🎫 Vé Phương Trang (FUTA) — 4 vé khứ hồi:</strong><br/>
+        • <strong>Lượt đi (<code>QBBL9G5H</code>):</strong> <strong>00:05 · 23/11</strong> (BX Miền Đông Mới, có mặt trước 23:50 ngày 22/11) · Ghế: <strong>A06, A09, A10, A11</strong><br/>
+        • <strong>Lượt về (<code>QBB009UM</code>):</strong> <strong>15:35 · 25/11</strong> (BX Đà Lạt, có mặt trước <strong>15:20</strong>) · Ghế: <strong>A03, A04, A05, A07</strong>
+      </div>
+      <div class="actions-grid" style="border-top:none; padding-top:10px;">
+        <a class="act-btn btn-call" href="tel:0399252412">📞 Gọi KS Mỹ Lan</a>
+        <a class="act-btn btn-call" href="tel:19006067">📞 Gọi FUTA</a>
+        <a class="act-btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=24+L%C3%BD+T%E1%BB%B1+Tr%E1%BB%8Dng,+Ph%C6%B0%E1%BB%9Dng+2,+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener">🗺 Maps Khách sạn</a>
+        <a class="act-btn btn-maps" href="https://www.google.com/maps/search/?api=1&query=1+T%C3%B4+Hi%E1%BA%BFn+Th%C3%A0nh,+Ph%C6%B0%E1%BB%9Dng+3,+%C4%90%C3%A0+L%E1%BA%A1t" target="_blank" rel="noopener">🗺 Maps Bến xe</a>
+      </div>
+      <button class="secondary-btn" onclick="closeTripInfoModal()">Đóng</button>
+    </div>
+  </div>
+
+  <!-- MOVE DAY/SLOT MODAL (ADMIN ONLY) -->
   <div class="modal-backdrop" id="moveModal">
     <div class="modal-card">
       <h2 class="modal-title">📌 Chuyển ngày / buổi</h2>
@@ -2561,6 +2594,14 @@
     // =========================================================
     // 5. SYNC MODAL
     // =========================================================
+    function openTripInfoModal() {
+      document.getElementById("tripInfoModal").classList.add("open");
+    }
+
+    function closeTripInfoModal() {
+      document.getElementById("tripInfoModal").classList.remove("open");
+    }
+
     function openSyncModal() {
       document.getElementById("dbUrlInput").value = dbUrl;
       document.getElementById("syncModal").classList.add("open");
