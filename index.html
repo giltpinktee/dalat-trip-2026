@@ -2885,8 +2885,8 @@
       return lbl;
     }
 
-    const IS_IOS_UA = /iPhone|iPad|iPod/i.test(navigator.userAgent || "");
-    const IS_MOBILE_UA = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "");
+    const IS_IOS_UA = /iPhone|iPad|iPod/i.test(navigator.userAgent || "") || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const IS_MOBILE_UA = IS_IOS_UA || /Android/i.test(navigator.userAgent || "");
 
     function buildMapsUrl(rawQuery) {
       const q = (rawQuery || "").trim();
