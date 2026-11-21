@@ -2906,10 +2906,13 @@
 
     function buildTikTokHref(rawQuery) {
       const q = (rawQuery || "").trim();
-      // Mở thẳng danh sách video TikTok của đúng địa điểm qua Google Video Search:
-      // 1) Không bị rơi về trang chủ TikTok, không đòi đăng nhập
-      // 2) Chạm vào bất kỳ clip nào (link tiktok.com/@.../video/...) sẽ nhảy thẳng vào đúng video đó trong app TikTok!
-      return `https://www.google.com/search?tbm=vid&q=${encodeURIComponent("site:tiktok.com " + q)}`;
+      if (IS_IOS_UA) {
+        return `tiktok://search?keyword=${encodeURIComponent(q)}`;
+      }
+      if (/Android/i.test(navigator.userAgent || "")) {
+        return `snssdk1233://search?keyword=${encodeURIComponent(q)}`;
+      }
+      return `https://www.tiktok.com/search?q=${encodeURIComponent(q)}`;
     }
 
     function copyPlaceName(name) {
