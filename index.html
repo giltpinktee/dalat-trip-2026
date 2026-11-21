@@ -582,20 +582,25 @@
     .bottom-nav-inner {
       max-width: 640px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
       gap: 4px;
     }
+    .bottom-nav-inner::-webkit-scrollbar { display: none; }
 
     .bnav-btn {
+      flex: 1 0 auto;
+      min-width: 70px;
       border: none;
       background: transparent;
       color: var(--muted);
-      padding: 6px 4px;
+      padding: 6px 8px;
       border-radius: 12px;
       font-family: inherit;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
+      white-space: nowrap;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -887,6 +892,8 @@
     // Tab lớn nhất (Bottom Nav) — sau này thêm day24, day25 ngay đây
     const MAIN_TABS = [
       { id: "day23", label: "Ngày 23", icon: "📅", type: "day" },
+      { id: "sightseeing", label: "Tham quan", icon: "📸", type: "sightseeing" },
+      { id: "cafe", label: "Cafe", icon: "☕", type: "cafe" },
       { id: "food", label: "Ăn uống", icon: "🍜", type: "food" },
       { id: "unvisited", label: "Chưa đến", icon: "📍", type: "unvisited" },
       { id: "visited", label: "Đã đến", icon: "✅", type: "visited" }
@@ -1719,13 +1726,19 @@
     }
 
     function renderBottomNav() {
+      const sightCount = PLACES.filter(p => p.category === "tham-quan" && !isVisited(p.id)).length;
+      const cafeCount = PLACES.filter(p => p.category === "cafe" && !isVisited(p.id)).length;
       const foodCount = PLACES.filter(p => p.category === "an-uong" && !isVisited(p.id)).length;
       const unvisitedCount = PLACES.filter(p => !isVisited(p.id)).length;
       const visitedCount = PLACES.filter(p => isVisited(p.id)).length;
       const navEl = document.getElementById("bottomNavInner");
       navEl.innerHTML = MAIN_TABS.map(tab => {
         let badge = "";
-        if (tab.type === "food" && foodCount > 0) {
+        if (tab.type === "sightseeing" && sightCount > 0) {
+          badge = `<span class="bnav-badge pine">${sightCount}</span>`;
+        } else if (tab.type === "cafe" && cafeCount > 0) {
+          badge = `<span class="bnav-badge">${cafeCount}</span>`;
+        } else if (tab.type === "food" && foodCount > 0) {
           badge = `<span class="bnav-badge">${foodCount}</span>`;
         } else if (tab.type === "unvisited" && unvisitedCount > 0) {
           badge = `<span class="bnav-badge">${unvisitedCount}</span>`;
@@ -1789,6 +1802,26 @@
     function renderContent() {
       const mainEl = document.getElementById("mainContent");
       let html = "";
+
+      if (activeMainTab === "sightseeing") {
+        html += `<div class="info-banner"><strong>Tổng hợp toàn bộ điểm Tham quan & Chụp hình (chưa đến)</strong> — tự động xếp theo nhiều người vote nhất.</div>`;
+        const list = sortByVotesThenRating(PLACES.filter(p => p.category === "tham-quan" && !isVisited(p.id)));
+        html += list.length
+          ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
+          : `<div class="empty-box">🎉 Cả nhóm đã đi hết tất cả điểm tham quan!</div>`;
+        mainEl.innerHTML = html;
+        return;
+      }
+
+      if (activeMainTab === "cafe") {
+        html += `<div class="info-banner"><strong>Tổng hợp toàn bộ quán Cafe đẹp (chưa đến)</strong> — tự động xếp theo nhiều người vote nhất.</div>`;
+        const list = sortByVotesThenRating(PLACES.filter(p => p.category === "cafe" && !isVisited(p.id)));
+        html += list.length
+          ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
+          : `<div class="empty-box">🎉 Cả nhóm đã ghé hết tất cả quán cafe!</div>`;
+        mainEl.innerHTML = html;
+        return;
+      }
 
       if (activeMainTab === "food") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ quán Ăn uống (chưa đến)</strong> — ngon, bổ, rẻ gần KS, tự động xếp theo nhiều người vote nhất.</div>`;
