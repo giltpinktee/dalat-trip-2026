@@ -1073,6 +1073,11 @@
     const DAY_SLOTS = {
       day23: [
         {
+          id: "an-sang",
+          label: "Ăn sáng",
+          banner: "<strong>Ăn sáng 23/11 (07:30 – 09:00):</strong> Top 6 quán ăn sáng ngon–bổ–rẻ sát Mỹ Lan Hotel (dùng chung cho cả Plan A & Plan B)."
+        },
+        {
           id: "sang",
           label: "Sáng",
           plans: [
@@ -1080,7 +1085,7 @@
               id: "A",
               label: "Plan A",
               sub: "Chưa nhận phòng",
-              banner: "<strong>Sáng 23 · Plan A (07:00 – 12:00):</strong> Xuống BX Đà Lạt → xe trung chuyển/taxi 7 chỗ về <strong>Stop and Go Coffee (88 Lý Tự Trọng)</strong> gửi 3 vali lớn, nghỉ chân + chụp hình tại quán & ăn sáng gần đó. Chờ 14:00 nhận phòng Mỹ Lan Hotel (cách 300m)."
+              banner: "<strong>Sáng 23 · Plan A (07:00 – 12:00):</strong> Xuống BX Đà Lạt → xe trung chuyển/taxi 7 chỗ về <strong>Stop and Go Coffee (88 Lý Tự Trọng)</strong> gửi 3 vali lớn, nghỉ chân + chụp hình tại quán. Chờ 14:00 nhận phòng Mỹ Lan Hotel (cách 300m)."
             },
             {
               id: "B",
@@ -1142,6 +1147,92 @@
     };
 
     const PLACES = [
+      // ===== NGÀY 23 · ĂN SÁNG (6 QUÁN NGON BỔ RẺ GẦN KS - DÙNG CHUNG PLAN A & B) =====
+      {
+        id: "d23-sa-belinh",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-sa-belinh_1.webp", "images/d23-sa-belinh_2.webp", "images/d23-sa-belinh_3.webp", "images/d23-sa-belinh_4.webp", "images/d23-sa-belinh_5.webp", "images/d23-sa-belinh_6.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Bánh mì xíu mại Bé Linh",
+        address: "26 Hoàng Diệu, P5, Đà Lạt",
+        rating: 4.6, ratingText: "4.6",
+        distance: "2.0 km",
+        price: "~25–35k/người",
+        desc: "Quán bánh mì xíu mại nổi tiếng, xíu mại chắc thịt, nước dùng ngọt thanh kèm da heo & chả. Lưu ý hay hết sớm trước 9h30.",
+        mapQuery: "26 Hoàng Diệu, Phường 5, Đà Lạt",
+        tiktokQuery: "Banh mi xiu mai Be Linh Da Lat"
+      },
+      {
+        id: "d23-sa-ri79",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-sa-ri79_1.webp", "images/d23-sa-ri79_3.webp", "images/d23-sa-ri79_4.webp", "images/d23-sa-ri79_5.webp", "images/d23-sa-ri79_6.webp", "images/d23-sa-ri79_7.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Bánh mì xíu mại Ri 79",
+        address: "1 Thông Thiên Học, P2, Đà Lạt",
+        rating: 4.3, ratingText: "4.0–4.5",
+        distance: "1.0 km",
+        price: "~25–35k/người",
+        desc: "Rất sát đường Lý Tự Trọng, nước dùng đậm đà chuẩn vị Đà Lạt, ăn nóng sáng sớm cực hợp.",
+        mapQuery: "1 Thông Thiên Học, Phường 2, Đà Lạt",
+        tiktokQuery: "Banh mi xiu mai Ri 79 Da Lat"
+      },
+      {
+        id: "d23-as-balon",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-as-balon_1.webp", "images/d23-as-balon_2.webp", "images/d23-as-balon_3.webp", "images/d23-as-balon_4.webp", "images/d23-as-balon_5.webp", "images/d23-as-balon_6.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Mì Quảng Bà Lòn",
+        address: "Hẻm 8 Trần Nhật Duật, P5, Đà Lạt",
+        rating: 4.3, ratingText: "4.2–4.4",
+        distance: "2.0 km",
+        price: "~35–45k/người",
+        desc: "Quán local nổi tiếng với mì Quảng sườn heo đậm đà, nước lèo ngọt thanh, rau sống tươi, giá cực hạt dẻ.",
+        mapQuery: "Hẻm 8 Trần Nhật Duật, Phường 5, Đà Lạt",
+        tiktokQuery: "Mi Quang Ba Lon Da Lat"
+      },
+      {
+        id: "d23-as-banhcanle",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-as-banhcanle_1.webp", "images/d23-as-banhcanle_2.webp", "images/d23-as-banhcanle_3.webp", "images/d23-as-banhcanle_4.webp", "images/d23-as-banhcanle_5.webp", "images/d23-as-banhcanle_6.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Bánh căn Lệ",
+        address: "27/44 Yersin, P10, Đà Lạt",
+        rating: 4.2, ratingText: "4.1–4.3",
+        distance: "2.2 km",
+        price: "~35–50k/người",
+        desc: "Bánh căn đổ khuôn nóng hổi, vỏ giòn nhẹ nhân trứng gà/trứng cút, chấm nước mắm xíu mại hành xanh cực cuốn.",
+        mapQuery: "27/44 Yersin, Phường 10, Đà Lạt",
+        tiktokQuery: "Banh can Le Yersin Da Lat"
+      },
+      {
+        id: "d23-as-xuanan",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-as-xuanan_1.webp", "images/d23-as-xuanan_2.webp", "images/d23-as-xuanan_3.webp", "images/d23-as-xuanan_4.webp", "images/d23-as-xuanan_5.webp", "images/d23-as-xuanan_6.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Bánh canh Xuân An",
+        address: "15A Nhà Chung, P3, Đà Lạt",
+        rating: 4.1, ratingText: "4.0–4.2",
+        distance: "1.2 km",
+        price: "~40–50k/người",
+        desc: "Thương hiệu lâu đời hơn 30 năm ngay trung tâm, sợi bánh canh bột lọc dai trong, nước dùng xương ngọt thanh, giò heo mềm.",
+        mapQuery: "15A Nhà Chung, Phường 3, Đà Lạt",
+        tiktokQuery: "Banh canh Xuan An Da Lat"
+      },
+      {
+        id: "d23-as-nhachung",
+        day: "day23", slot: "an-sang",
+        category: "an-uong", hot: false, images: ["images/d23-as-nhachung_1.webp", "images/d23-as-nhachung_2.webp", "images/d23-as-nhachung_3.webp", "images/d23-as-nhachung_4.webp", "images/d23-as-nhachung_5.webp", "images/d23-as-nhachung_6.webp"],
+        group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
+        name: "Bánh căn Nhà Chung",
+        address: "13 Nhà Chung, P3, Đà Lạt",
+        rating: 4.0, ratingText: "4.0",
+        distance: "1.2 km",
+        price: "~35–50k/người",
+        desc: "Ngay sát trung tâm (cạnh Bánh canh Xuân An), bánh căn trứng lòng đào nóng hổi, nước chấm xíu mại kèm xoài bào.",
+        mapQuery: "13 Nhà Chung, Phường 3, Đà Lạt",
+        tiktokQuery: "Banh can Nha Chung Da Lat"
+      },
+
       // ===== NGÀY 23 · SÁNG · PLAN A =====
       {
         id: "d23-sa-stopandgo",
@@ -1156,34 +1247,6 @@
         desc: "Mở từ 04:30 sáng (lễ tân 24/7), hỗ trợ giữ 3 vali lớn, sân vườn thông vintage chụp hình rất chill. Đi bộ qua Mỹ Lan Hotel chỉ 3 phút.",
         mapQuery: "88 Lý Tự Trọng, Phường 2, Đà Lạt",
         tiktokQuery: "Stop and Go Coffee 88 Ly Tu Trong Da Lat"
-      },
-      {
-        id: "d23-sa-belinh",
-        day: "day23", slot: "sang", plan: "A",
-        category: "an-uong", hot: false, images: ["images/d23-sa-belinh_1.webp", "images/d23-sa-belinh_2.webp", "images/d23-sa-belinh_3.webp", "images/d23-sa-belinh_4.webp", "images/d23-sa-belinh_5.webp", "images/d23-sa-belinh_6.webp"],
-        group: "Ăn sáng gần KS (07:45 – 09:00)",
-        name: "Bánh mì xíu mại Bé Linh",
-        address: "26 Hoàng Diệu, P5, Đà Lạt",
-        rating: 4.6, ratingText: "4.6",
-        distance: "2.0 km",
-        price: "~25–35k/người",
-        desc: "Quán bánh mì xíu mại nổi tiếng, xíu mại chắc thịt, nước dùng ngọt thanh kèm da heo & chả. Lưu ý hay hết sớm trước 9h30.",
-        mapQuery: "26 Hoàng Diệu, Phường 5, Đà Lạt",
-        tiktokQuery: "Banh mi xiu mai Be Linh Da Lat"
-      },
-      {
-        id: "d23-sa-ri79",
-        day: "day23", slot: "sang", plan: "A",
-        category: "an-uong", hot: false, images: ["images/d23-sa-ri79_1.webp", "images/d23-sa-ri79_3.webp", "images/d23-sa-ri79_4.webp", "images/d23-sa-ri79_5.webp", "images/d23-sa-ri79_6.webp", "images/d23-sa-ri79_7.webp"],
-        group: "Ăn sáng gần KS (07:45 – 09:00)",
-        name: "Bánh mì xíu mại Ri 79",
-        address: "1 Thông Thiên Học, P2, Đà Lạt",
-        rating: 4.3, ratingText: "4.0–4.5",
-        distance: "1.0 km",
-        price: "~25–35k/người",
-        desc: "Rất sát đường Lý Tự Trọng, nước dùng đậm đà chuẩn vị Đà Lạt, ăn nóng sáng sớm cực hợp.",
-        mapQuery: "1 Thông Thiên Học, Phường 2, Đà Lạt",
-        tiktokQuery: "Banh mi xiu mai Ri 79 Da Lat"
       },
 
       // ===== NGÀY 23 · SÁNG · PLAN B (5 ĐIỂM CHỤP HÌNH) =====
@@ -1556,7 +1619,7 @@
 
     let currentUser = localStorage.getItem(LS_USER) || "";
     let activeMainTab = "day23";
-    let activeSlotByDay = { day23: "sang" };
+    let activeSlotByDay = { day23: "an-sang" };
     let activePlanBySlot = { "day23:sang": "A" };
     let state = { votes: {}, visited: {} };
     let dbUrl = "";
