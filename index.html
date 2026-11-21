@@ -728,6 +728,71 @@
     .admin-act-btn:active { transform: scale(0.97); }
     .admin-act-btn.danger { background: rgba(201, 59, 59, 0.85); border-color: rgba(255,255,255,0.25); }
 
+    /* Member Vote Filter Bar */
+    .member-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+    .member-filter-bar::-webkit-scrollbar { display: none; }
+
+    .mf-chip {
+      flex: 1 0 auto;
+      border: 1.5px solid #D5D2C8;
+      background: #EAE7DF;
+      color: #6B726E;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      opacity: 0.78;
+      transition: all 0.16s ease;
+    }
+    .mf-chip .mf-cnt {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 1px 6px;
+      border-radius: 999px;
+      font-size: 10.5px;
+      font-weight: 800;
+    }
+    .mf-chip.active {
+      opacity: 1;
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
+    }
+    .mf-chip.active .mf-cnt {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+    .mf-chip.active.mf-PHI { background: #1D4D3B; }
+    .mf-chip.active.mf-PHẤN { background: #D96636; }
+    .mf-chip.active.mf-HÂN { background: #2B6CB0; }
+    .mf-chip.active.mf-GẤM { background: #9B3B6B; }
+
+    .mf-clear-btn {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--danger);
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .admin-login-btn {
       width: 100%;
       margin-top: 10px;
@@ -1188,14 +1253,14 @@
           <button class="user-pill" onclick="openLoginModal()" title="Đổi tài khoản">
             👤 <span id="currentUserLabel">Chọn tên</span> ▾
           </button>
-          <button class="sync-btn" onclick="openSyncModal()" title="Cài đặt đồng bộ 4 máy">
-            ⚙
+          <button class="sync-btn" id="topRightActionBtn" onclick="handleTopRightAction()" title="Copy link">
+            <span id="topRightIcon">🔗</span>
             <span class="sync-dot-mini" id="syncDotMini"></span>
           </button>
         </div>
       </div>
       <div class="sync-strip">
-        <span id="syncStatusText" onclick="openSyncModal()">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
+        <span id="syncStatusText" onclick="handleSyncStripClick()">🟡 Chế độ cục bộ</span>
         <span onclick="openTripInfoModal()" style="text-decoration: underline; font-weight: 700;">🚌 Vé & KS (3 km)</span>
       </div>
       <div class="admin-bar" id="adminBar">
@@ -2283,9 +2348,67 @@
     let activeMainTab = "day23";
     let activeSlotByDay = { day23: "an-sang", day24: "san-may", day25: "san-may" };
     let activePlanBySlot = { "day23:sang": "A" };
+    let selectedMemberFilters = [];
     let state = { votes: {}, visited: {}, moved: {} };
     let dbUrl = "";
     let eventSource = null;
+
+    function toggleMemberFilter(member) {
+      const idx = selectedMemberFilters.indexOf(member);
+      if (idx >= 0) selectedMemberFilters.splice(idx, 1);
+      else selectedMemberFilters.push(member);
+      render();
+    }
+
+    function clearMemberFilters() {
+      selectedMemberFilters = [];
+      render();
+    }
+
+    function applyMemberFilter(items) {
+      if (!selectedMemberFilters.length) return items;
+      return items.filter(p => {
+        const voters = getVoters(p.id);
+        return selectedMemberFilters.some(m => voters.includes(m));
+      });
+    }
+
+    function renderMemberFilterBar(items) {
+      const chips = MEMBERS.map(m => {
+        const cnt = items.filter(p => getVoters(p.id).includes(m)).length;
+        const active = selectedMemberFilters.includes(m);
+        return `
+          <button class="mf-chip mf-${m} ${active ? "active" : ""}" onclick="toggleMemberFilter('${m}')" title="Lọc các điểm ${m} đã vote">
+            <span>${m}</span>
+            <span class="mf-cnt">${cnt}</span>
+          </button>
+        `;
+      }).join("");
+      const clearBtn = selectedMemberFilters.length
+        ? `<button class="mf-clear-btn" onclick="clearMemberFilters()">✕ Bỏ lọc</button>`
+        : "";
+      return `<div class="member-filter-bar">${chips}${clearBtn}</div>`;
+    }
+
+    async function copyCleanLink() {
+      const shareUrl = window.location.href.split("?")[0];
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        showToast("🔗 Đã copy link web gửi Messenger!");
+      } catch (e) {
+        prompt("Copy link này gửi vào Messenger:", shareUrl);
+      }
+    }
+
+    function handleTopRightAction() {
+      if (currentUser === "ADMIN") openSyncModal();
+      else copyCleanLink();
+    }
+
+    function handleSyncStripClick() {
+      if (currentUser === "ADMIN") openSyncModal();
+      else copyCleanLink();
+    }
 
     function getEffectiveLoc(place) {
       const mv = state.moved && state.moved[place.id];
@@ -2446,6 +2569,8 @@
       const label = document.getElementById("currentUserLabel");
       const logoutBtn = document.getElementById("logoutBtn");
       const adminBar = document.getElementById("adminBar");
+      const topRightIcon = document.getElementById("topRightIcon");
+      const topRightBtn = document.getElementById("topRightActionBtn");
       if (currentUser) {
         label.textContent = currentUser === "ADMIN" ? "👑 ADMIN" : currentUser;
         logoutBtn.style.display = "block";
@@ -2453,9 +2578,10 @@
         label.textContent = "Chọn tên";
         logoutBtn.style.display = "none";
       }
-      if (adminBar) {
-        adminBar.classList.toggle("show", currentUser === "ADMIN");
-      }
+      const isAdmin = currentUser === "ADMIN";
+      if (adminBar) adminBar.classList.toggle("show", isAdmin);
+      if (topRightIcon) topRightIcon.textContent = isAdmin ? "⚙" : "🔗";
+      if (topRightBtn) topRightBtn.title = isAdmin ? "Cài đặt đồng bộ (ADMIN)" : "Copy link gửi Messenger";
     }
 
     function openAdminPassModal() {
@@ -2603,6 +2729,7 @@
     }
 
     function openSyncModal() {
+      if (currentUser !== "ADMIN") { copyCleanLink(); return; }
       document.getElementById("dbUrlInput").value = dbUrl;
       document.getElementById("syncModal").classList.add("open");
     }
@@ -2837,58 +2964,72 @@
 
       if (activeMainTab === "rentals") {
         html += `<div class="info-banner"><strong>Top 6 chỗ thuê xe máy Đà Lạt uy tín (sắp xếp từ GẦN → XA Mỹ Lan Hotel – 24 Lý Tự Trọng).</strong> Nhóm 4 người cần 2 xe từ sáng 23/11 đến trưa 25/11 — nhớ hỏi giá đỡ ĐT & quay video xe trước khi nhận!</div>`;
-        const list = [...RENTALS].sort((a, b) => a.distKm - b.distKm);
-        html += `<div class="card-list">${list.map((r, i) => renderRentalCard(r, i)).join("")}</div>`;
+        const allList = [...RENTALS].sort((a, b) => a.distKm - b.distKm);
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
+        html += list.length
+          ? `<div class="card-list">${list.map((r, i) => renderRentalCard(r, i)).join("")}</div>`
+          : `<div class="empty-box">Chưa có tiệm thuê xe nào được <strong>${selectedMemberFilters.join(", ")}</strong> vote.</div>`;
         mainEl.innerHTML = html;
         return;
       }
 
       if (activeMainTab === "sightseeing") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ điểm Tham quan & Chụp hình (chưa đến)</strong> — tự động xếp theo nhiều người vote nhất.</div>`;
-        const list = sortByVotesThenRating(PLACES.filter(p => p.category === "tham-quan" && !isVisited(p.id)));
+        const allList = sortByVotesThenRating(PLACES.filter(p => p.category === "tham-quan" && !isVisited(p.id)));
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
         html += list.length
           ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
-          : `<div class="empty-box">🎉 Cả nhóm đã đi hết tất cả điểm tham quan!</div>`;
+          : `<div class="empty-box">Không có điểm tham quan nào khớp bộ lọc vote hiện tại.</div>`;
         mainEl.innerHTML = html;
         return;
       }
 
       if (activeMainTab === "cafe") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ quán Cafe đẹp (chưa đến)</strong> — tự động xếp theo nhiều người vote nhất.</div>`;
-        const list = sortByVotesThenRating(PLACES.filter(p => p.category === "cafe" && !isVisited(p.id)));
+        const allList = sortByVotesThenRating(PLACES.filter(p => p.category === "cafe" && !isVisited(p.id)));
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
         html += list.length
           ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
-          : `<div class="empty-box">🎉 Cả nhóm đã ghé hết tất cả quán cafe!</div>`;
+          : `<div class="empty-box">Không có quán cafe nào khớp bộ lọc vote hiện tại.</div>`;
         mainEl.innerHTML = html;
         return;
       }
 
       if (activeMainTab === "food") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ quán Ăn uống (chưa đến)</strong> — ngon, bổ, rẻ gần KS, tự động xếp theo nhiều người vote nhất.</div>`;
-        const list = sortByVotesThenRating(PLACES.filter(p => p.category === "an-uong" && !isVisited(p.id)));
+        const allList = sortByVotesThenRating(PLACES.filter(p => p.category === "an-uong" && !isVisited(p.id)));
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
         html += list.length
           ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
-          : `<div class="empty-box">🎉 Cả nhóm đã ăn hết tất cả quán trong danh sách!</div>`;
+          : `<div class="empty-box">Không có quán ăn nào khớp bộ lọc vote hiện tại.</div>`;
         mainEl.innerHTML = html;
         return;
       }
 
       if (activeMainTab === "unvisited") {
         html += `<div class="info-banner"><strong>Tổng hợp toàn bộ điểm chưa đến</strong> trên tất cả các ngày & buổi, tự xếp nhiều người vote nhất lên đầu.</div>`;
-        const list = sortByVotesThenRating(PLACES.filter(p => !isVisited(p.id)));
+        const allList = sortByVotesThenRating(PLACES.filter(p => !isVisited(p.id)));
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
         html += list.length
           ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
-          : `<div class="empty-box">🎉 Cả nhóm đã đi hết tất cả địa điểm!</div>`;
+          : `<div class="empty-box">Không có điểm chưa đến nào khớp bộ lọc vote hiện tại.</div>`;
         mainEl.innerHTML = html;
         return;
       }
 
       if (activeMainTab === "visited") {
         html += `<div class="info-banner"><strong>Các địa điểm cả nhóm đã đến.</strong> Bấm <em>Hoàn tác</em> nếu lỡ tay bấm nhầm.</div>`;
-        const list = PLACES.filter(p => isVisited(p.id)).sort((a, b) => (state.visited[b.id]?.at || 0) - (state.visited[a.id]?.at || 0));
+        const allList = PLACES.filter(p => isVisited(p.id)).sort((a, b) => (state.visited[b.id]?.at || 0) - (state.visited[a.id]?.at || 0));
+        html += renderMemberFilterBar(allList);
+        const list = applyMemberFilter(allList);
         html += list.length
           ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
-          : `<div class="empty-box">Chưa có địa điểm nào ở mục <strong>Đã đến</strong>. Đi xong chỗ nào nhớ bấm <strong>✓ Đã đến</strong> nhé!</div>`;
+          : `<div class="empty-box">Chưa có địa điểm nào ở mục <strong>Đã đến</strong> (hoặc khớp bộ lọc).</div>`;
         mainEl.innerHTML = html;
         return;
       }
@@ -2913,6 +3054,10 @@
       }
 
       if (bannerText) html += `<div class="info-banner">${bannerText}</div>`;
+
+      // Thanh lọc theo thành viên (ẩn xám mặc định + đếm số lượt vote trong buổi đang chọn)
+      html += renderMemberFilterBar(items);
+      items = applyMemberFilter(items);
 
       const routeOn = isRouteModeOn();
       const userLabel = currentUser || "bạn";
