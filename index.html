@@ -482,18 +482,18 @@
       pointer-events: none;
     }
 
-    /* Diagonal HOT CHECK IN Ribbon */
+    /* Diagonal HOT CHECK IN Ribbon (Red) */
     .hot-ribbon {
       position: absolute;
-      top: 16px;
-      left: -34px;
-      z-index: 4;
+      top: 15px;
+      left: -36px;
+      z-index: 5;
       background: linear-gradient(135deg, #FF3B5C 0%, #FF6B2B 100%);
       color: #fff;
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       letter-spacing: 0.5px;
-      padding: 4px 36px;
+      padding: 4px 38px;
       transform: rotate(-38deg);
       box-shadow: 0 3px 10px rgba(255, 59, 92, 0.42);
       text-transform: uppercase;
@@ -501,11 +501,36 @@
       pointer-events: none;
     }
 
+    /* Diagonal FREE Ribbon (Green) - parallel right below red ribbon when both exist */
+    .free-ribbon {
+      position: absolute;
+      top: 15px;
+      left: -36px;
+      z-index: 4;
+      background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      padding: 4px 38px;
+      transform: rotate(-38deg);
+      box-shadow: 0 3px 10px rgba(5, 150, 105, 0.42);
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .free-ribbon.below-hot {
+      top: 39px;
+      left: -22px;
+      padding: 3.5px 42px;
+      font-size: 9px;
+    }
+
     .media-badges-bottom {
       position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 9px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
       z-index: 3;
       display: flex;
       align-items: center;
@@ -513,11 +538,35 @@
       gap: 6px;
     }
 
+    .media-left-pills {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #fff;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+    }
+    .time-sang { background: rgba(217, 119, 6, 0.94); }
+    .time-chieu { background: rgba(37, 99, 235, 0.9); }
+    .time-toi { background: rgba(49, 46, 129, 0.94); }
+
     .cat-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 800;
       letter-spacing: 0.3px;
       padding: 4px 9px;
@@ -525,11 +574,80 @@
       color: #fff;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.22);
     }
-    .cat-tham-quan { background: rgba(29, 77, 59, 0.9); }
-    .cat-cafe { background: rgba(120, 68, 33, 0.92); }
-    .cat-an-uong { background: rgba(217, 102, 54, 0.92); }
+    .cat-tham-quan { background: rgba(29, 77, 59, 0.92); }
+    .cat-cafe { background: rgba(120, 68, 33, 0.94); }
+    .cat-an-uong { background: rgba(217, 102, 54, 0.94); }
+
+    /* Route Mode Bar & Colored Route Frames */
+    .route-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 8px 11px;
+      margin-bottom: 11px;
+      font-size: 12px;
+    }
+    .route-bar-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .route-bar-info strong { color: var(--ink); font-size: 12.5px; }
+    .route-bar-info span { color: var(--muted); font-size: 11px; }
+
+    .route-toggle-btn {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .route-toggle-btn.on {
+      background: var(--pine);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(29, 77, 59, 0.25);
+    }
+    .route-toggle-btn.off {
+      background: var(--surface-soft);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .route-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 16px 0 9px;
+      padding: 7px 11px;
+      border-radius: 11px;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+    .route-group-header small {
+      font-weight: 600;
+      opacity: 0.92;
+      font-size: 11px;
+    }
+
+    .tag-route {
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
 
     .media-rating {
       background: rgba(255, 255, 255, 0.95);
@@ -1059,15 +1177,32 @@
     const DEFAULT_FIREBASE_URL = "https://dalat-9b971-default-rtdb.asia-southeast1.firebasedatabase.app";
     const MEMBERS = ["PHI", "PHẤN", "HÂN", "GẤM"];
 
-    // Tab lớn nhất (Bottom Nav) — sau này thêm day24, day25 ngay đây
+    // Tab lớn nhất (Bottom Nav)
     const MAIN_TABS = [
       { id: "day23", label: "Ngày 23", icon: "📅", type: "day" },
+      { id: "day24", label: "Ngày 24", icon: "🌄", type: "day" },
+      { id: "day25", label: "Ngày 25", icon: "🌸", type: "day" },
       { id: "sightseeing", label: "Tham quan", icon: "📸", type: "sightseeing" },
       { id: "cafe", label: "Cafe", icon: "☕", type: "cafe" },
       { id: "food", label: "Ăn uống", icon: "🍜", type: "food" },
       { id: "unvisited", label: "Chưa đến", icon: "📍", type: "unvisited" },
       { id: "visited", label: "Đã đến", icon: "✅", type: "visited" }
     ];
+
+    const TIME_META = {
+      "sang":  { label: "☀️ Sáng",  cls: "time-sang" },
+      "chieu": { label: "☁️ Chiều", cls: "time-chieu" },
+      "toi":   { label: "🌙 Tối",   cls: "time-toi" }
+    };
+
+    const ROUTES = {
+      "trung-tam":        { label: "Tuyến Trung Tâm (P1 · P2 · P5 · P6)", color: "#1D4D3B" },
+      "p3-tuyen-lam":     { label: "Tuyến P3 · Đống Đa · Hồ Tuyền Lâm",    color: "#D96636" },
+      "p9-p10":           { label: "Tuyến P9 · P10 · Ga Đà Lạt · Khe Sanh", color: "#2563EB" },
+      "trai-mat-cau-dat": { label: "Tuyến QL20 · Trại Mát · Xuân Thọ · Cầu Đất", color: "#7C3AED" },
+      "ta-nung":          { label: "Tuyến Vạn Thành · Cam Ly · Đèo Tà Nung", color: "#0D9488" },
+      "p7-san-may":       { label: "Tuyến P7 · Đồi Đa Phú · Thiên Phúc Đức", color: "#DB2777" }
+    };
 
     // Các buổi bên trong từng Ngày
     const DAY_SLOTS = {
@@ -1115,6 +1250,55 @@
           label: "Tối",
           banner: "<strong>Tối 23/11 (20:00 – 21:30):</strong> Dạo Chợ Đêm & ăn vặt sát Mỹ Lan Hotel rồi về ngủ sớm giữ sức sáng 24 đi sớm!"
         }
+      ],
+      day24: [
+        {
+          id: "san-may",
+          label: "Săn mây",
+          banner: "<strong>Săn mây & Bình minh 24/11 (04:30 – 07:30):</strong> Ngày Best Choice / Must-Go! Chọn 1 điểm săn mây đỉnh nhất cuối tháng 11."
+        },
+        {
+          id: "an-sang",
+          label: "Ăn sáng",
+          banner: "<strong>Ăn sáng 24/11 (07:30 – 09:00):</strong> Nạp năng lượng nóng hổi sau khi săn mây lạnh dọc cung đường về."
+        },
+        {
+          id: "sang",
+          label: "Sáng",
+          banner: "<strong>Check-in sáng 24/11 (09:00 – 11:30):</strong> Trọn trục Đông Nam Cầu Đất → Xuân Thọ → Trại Mát → Khe Sanh (chùa đẹp, vườn hoa, vườn hồng chín, đồi chè)."
+        },
+        {
+          id: "an-trua",
+          label: "Ăn trưa",
+          banner: "<strong>Ăn trưa 24/11 (11:30 – 13:30):</strong> 8 quán cơm nhà & đặc sản ngon–bổ–rẻ dọc đường từ Trại Mát về KS nghỉ trưa."
+        },
+        {
+          id: "chieu",
+          label: "Chiều",
+          banner: "<strong>Chiều 24/11 (14:30 – 18:00):</strong> Thiên đường cafe ngập hoa & săn hoàng hôn triệu view khu P11 – Trại Mát – Xóm Lèo & P3!"
+        },
+        {
+          id: "an-chieu",
+          label: "Ăn chiều",
+          banner: "<strong>Ăn chiều / Bữa tối chính 24/11 (18:30 – 20:30):</strong> Đổi vị hoàn toàn so với Ngày 23: gà nướng cơm lam, ốc nhồi thịt, nướng lavender, buffet rau..."
+        },
+        {
+          id: "toi",
+          label: "Tối",
+          banner: "<strong>Tối 24/11 (20:30 – 22:00):</strong> Chill đêm cuối ở Đà Lạt quanh trung tâm sát Mỹ Lan Hotel."
+        }
+      ],
+      day25: [
+        {
+          id: "sang",
+          label: "Sáng",
+          banner: "<strong>Sáng 25/11 (07:30 – 11:30):</strong> Đồi Cỏ Hồng nắng sớm, Thiền Viện Trúc Lâm ngập hoa, Chùa Linh Ẩn, vườn hoa & nông trại Tà Nung! (Nhớ về KS trả phòng lúc 12:00)."
+        },
+        {
+          id: "trua-ve",
+          label: "Trả phòng & Về",
+          banner: "<strong>12:00 Trả phòng Mỹ Lan Hotel → Ăn trưa & Mua quà L'angfarm → 14:30 ra BX Đà Lạt</strong> (có mặt trước 15:20, xe FUTA QBB009UM xuất bến <strong>15:35</strong>)."
+        }
       ]
     };
 
@@ -1152,6 +1336,7 @@
         id: "d23-sa-belinh",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-sa-belinh_1.webp", "images/d23-sa-belinh_2.webp", "images/d23-sa-belinh_3.webp", "images/d23-sa-belinh_4.webp", "images/d23-sa-belinh_5.webp", "images/d23-sa-belinh_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 2.0,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Bánh mì xíu mại Bé Linh",
         address: "26 Hoàng Diệu, P5, Đà Lạt",
@@ -1166,6 +1351,7 @@
         id: "d23-sa-ri79",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-sa-ri79_1.webp", "images/d23-sa-ri79_3.webp", "images/d23-sa-ri79_4.webp", "images/d23-sa-ri79_5.webp", "images/d23-sa-ri79_6.webp", "images/d23-sa-ri79_7.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 1.0,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Bánh mì xíu mại Ri 79",
         address: "1 Thông Thiên Học, P2, Đà Lạt",
@@ -1180,6 +1366,7 @@
         id: "d23-as-balon",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-as-balon_1.webp", "images/d23-as-balon_2.webp", "images/d23-as-balon_3.webp", "images/d23-as-balon_4.webp", "images/d23-as-balon_5.webp", "images/d23-as-balon_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 2.0,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Mì Quảng Bà Lòn",
         address: "Hẻm 8 Trần Nhật Duật, P5, Đà Lạt",
@@ -1194,6 +1381,7 @@
         id: "d23-as-banhcanle",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-as-banhcanle_1.webp", "images/d23-as-banhcanle_2.webp", "images/d23-as-banhcanle_3.webp", "images/d23-as-banhcanle_4.webp", "images/d23-as-banhcanle_5.webp", "images/d23-as-banhcanle_6.webp"],
+        time: "sang", free: false, route: "p9-p10", distKm: 2.2,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Bánh căn Lệ",
         address: "27/44 Yersin, P10, Đà Lạt",
@@ -1208,6 +1396,7 @@
         id: "d23-as-xuanan",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-as-xuanan_1.webp", "images/d23-as-xuanan_2.webp", "images/d23-as-xuanan_3.webp", "images/d23-as-xuanan_4.webp", "images/d23-as-xuanan_5.webp", "images/d23-as-xuanan_6.webp"],
+        time: "sang", free: false, route: "p3-tuyen-lam", distKm: 1.2,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Bánh canh Xuân An",
         address: "15A Nhà Chung, P3, Đà Lạt",
@@ -1222,6 +1411,7 @@
         id: "d23-as-nhachung",
         day: "day23", slot: "an-sang",
         category: "an-uong", hot: false, images: ["images/d23-as-nhachung_1.webp", "images/d23-as-nhachung_2.webp", "images/d23-as-nhachung_3.webp", "images/d23-as-nhachung_4.webp", "images/d23-as-nhachung_5.webp", "images/d23-as-nhachung_6.webp"],
+        time: "sang", free: false, route: "p3-tuyen-lam", distKm: 1.2,
         group: "Top 6 quán ăn sáng ngon–bổ–rẻ gần KS",
         name: "Bánh căn Nhà Chung",
         address: "13 Nhà Chung, P3, Đà Lạt",
@@ -1238,6 +1428,7 @@
         id: "d23-sa-stopandgo",
         day: "day23", slot: "sang", plan: "A",
         category: "cafe", hot: false, images: ["images/d23-sa-stopandgo_1.webp", "images/d23-sa-stopandgo_2.webp", "images/d23-sa-stopandgo_3.webp", "images/d23-sa-stopandgo_4.webp", "images/d23-sa-stopandgo_5.webp", "images/d23-sa-stopandgo_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 0.3,
         group: "Nghỉ chân · Gửi 3 vali & Chụp hình",
         name: "Stop and Go Coffee & Boutique Hotel",
         address: "88 Lý Tự Trọng, P2, Đà Lạt (Hotline: 0263 3556 996)",
@@ -1254,6 +1445,7 @@
         id: "d23-sb-donbosco",
         day: "day23", slot: "sang", plan: "B",
         category: "tham-quan", hot: true, images: ["images/d23-sb-donbosco_1.webp", "images/d23-sb-donbosco_2.webp", "images/d23-sb-donbosco_3.webp", "images/d23-sb-donbosco_4.webp", "images/d23-sb-donbosco_5.webp", "images/d23-sb-donbosco_6.webp"],
+        time: "sang", free: true, route: "trung-tam", distKm: 0.5,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Nhà Mục Vụ Don Bosco",
         address: "36 Bùi Thị Xuân, P2, Đà Lạt",
@@ -1268,6 +1460,7 @@
         id: "d23-sb-domaine",
         day: "day23", slot: "sang", plan: "B",
         category: "tham-quan", hot: true, images: ["images/d23-sb-domaine_1.webp", "images/d23-sb-domaine_2.webp", "images/d23-sb-domaine_3.webp", "images/d23-sb-domaine_4.webp", "images/d23-sb-domaine_5.webp", "images/d23-sb-domaine_6.webp"],
+        time: "sang", free: true, route: "trung-tam", distKm: 1.5,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Nhà thờ Domaine de Marie",
         address: "1 Ngô Quyền, P6, Đà Lạt",
@@ -1282,6 +1475,7 @@
         id: "d23-sb-bacau",
         day: "day23", slot: "sang", plan: "B",
         category: "tham-quan", hot: true, images: ["images/d23-sb-bacau_1.webp", "images/d23-sb-bacau_2.webp", "images/d23-sb-bacau_3.webp", "images/d23-sb-bacau_4.webp", "images/d23-sb-bacau_5.webp", "images/d23-sb-bacau_6.webp"],
+        time: "sang", free: true, route: "trung-tam", distKm: 2.0,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Cung đường Bắc Âu",
         address: "Đường Nguyễn Hữu Cảnh, P2, Đà Lạt",
@@ -1296,6 +1490,7 @@
         id: "d23-sb-still",
         day: "day23", slot: "sang", plan: "B",
         category: "cafe", hot: true, images: ["images/d23-sb-still_1.webp", "images/d23-sb-still_2.webp", "images/d23-sb-still_3.webp", "images/d23-sb-still_4.webp", "images/d23-sb-still_5.webp", "images/d23-sb-still_6.webp"],
+        time: "sang", free: false, route: "p9-p10", distKm: 2.2,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Still Cafe",
         address: "59 Nguyễn Trãi, P9, Đà Lạt",
@@ -1310,6 +1505,7 @@
         id: "d23-sb-hanthuyen",
         day: "day23", slot: "sang", plan: "B",
         category: "tham-quan", hot: false, images: ["images/d23-sb-hanthuyen_1.webp", "images/d23-sb-hanthuyen_2.webp", "images/d23-sb-hanthuyen_3.webp", "images/d23-sb-hanthuyen_4.webp", "images/d23-sb-hanthuyen_5.webp", "images/d23-sb-hanthuyen_6.webp"],
+        time: "sang", free: true, route: "trung-tam", distKm: 1.5,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Đường Hàn Thuyên",
         address: "Đường Hàn Thuyên, P6, Đà Lạt",
@@ -1326,6 +1522,7 @@
         id: "d23-tr-long",
         day: "day23", slot: "an-trua",
         category: "an-uong", hot: false, images: ["images/d23-tr-long_1.webp", "images/d23-tr-long_2.webp", "images/d23-tr-long_3.webp", "images/d23-tr-long_4.webp", "images/d23-tr-long_5.webp", "images/d23-tr-long_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 1.0,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Bánh ướt lòng gà Long",
         address: "Hẻm 202 Phan Đình Phùng, P2, Đà Lạt",
@@ -1340,6 +1537,7 @@
         id: "d23-tr-nhungoc",
         day: "day23", slot: "an-trua",
         category: "an-uong", hot: false, images: ["images/d23-tr-nhungoc_1.webp", "images/d23-tr-nhungoc_2.webp", "images/d23-tr-nhungoc_3.webp", "images/d23-tr-nhungoc_4.webp", "images/d23-tr-nhungoc_5.webp", "images/d23-tr-nhungoc_6.webp"],
+        time: "sang", free: false, route: "p3-tuyen-lam", distKm: 1.5,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Cơm Niêu Như Ngọc",
         address: "1/18 Hồ Tùng Mậu, P3, Đà Lạt",
@@ -1354,6 +1552,7 @@
         id: "d23-tr-trang",
         day: "day23", slot: "an-trua",
         category: "an-uong", hot: false, images: ["images/d23-tr-trang_2.webp", "images/d23-tr-trang_3.webp", "images/d23-tr-trang_4.webp", "images/d23-tr-trang_5.webp", "images/d23-tr-trang_6.webp", "images/d23-tr-trang_7.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 0.8,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Bánh ướt lòng gà Trang",
         address: "15F Tăng Bạt Hổ, P1, Đà Lạt",
@@ -1368,6 +1567,7 @@
         id: "d23-tr-bahung",
         day: "day23", slot: "an-trua",
         category: "an-uong", hot: false, images: ["images/d23-tr-bahung_1.webp", "images/d23-tr-bahung_2.webp", "images/d23-tr-bahung_3.webp", "images/d23-tr-bahung_4.webp", "images/d23-tr-bahung_5.webp", "images/d23-tr-bahung_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 1.2,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Nem nướng Bà Hùng",
         address: "328 Phan Đình Phùng, P2, Đà Lạt",
@@ -1382,6 +1582,7 @@
         id: "d23-tr-comga",
         day: "day23", slot: "an-trua",
         category: "an-uong", hot: false, images: ["images/d23-tr-comga_1.webp", "images/d23-tr-comga_2.webp", "images/d23-tr-comga_3.webp", "images/d23-tr-comga_4.webp", "images/d23-tr-comga_5.webp", "images/d23-tr-comga_6.webp"],
+        time: "sang", free: false, route: "trung-tam", distKm: 0.5,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Cơm gà Phan Rang / Cơm phần Bùi Thị Xuân",
         address: "Trục đường Bùi Thị Xuân – Phan Đình Phùng, P2",
@@ -1398,6 +1599,7 @@
         id: "d23-ch-tramnang",
         day: "day23", slot: "chieu",
         category: "cafe", hot: true, images: ["images/d23-ch-tramnang_1.webp", "images/d23-ch-tramnang_2.webp", "images/d23-ch-tramnang_3.webp", "images/d23-ch-tramnang_4.webp", "images/d23-ch-tramnang_5.webp", "images/d23-ch-tramnang_6.webp"],
+        time: "chieu", free: false, route: "p3-tuyen-lam", distKm: 2.5,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Trạm Nắng",
         address: "18 Đống Đa, P3, Đà Lạt",
@@ -1412,6 +1614,7 @@
         id: "d23-ch-hxh",
         day: "day23", slot: "chieu",
         category: "tham-quan", hot: true, images: ["images/d23-ch-hxh_1.webp", "images/d23-ch-hxh_2.webp", "images/d23-ch-hxh_3.webp", "images/d23-ch-hxh_4.webp", "images/d23-ch-hxh_5.webp", "images/d23-ch-hxh_6.webp"],
+        time: "chieu", free: true, route: "trung-tam", distKm: 1.2,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Hồ Xuân Hương & Quảng trường Lâm Viên",
         address: "Đường Trần Quốc Toản, P1 – P10, Đà Lạt",
@@ -1426,6 +1629,7 @@
         id: "d23-ch-sitooterie",
         day: "day23", slot: "chieu",
         category: "cafe", hot: true, images: ["images/d23-ch-sitooterie_1.webp", "images/d23-ch-sitooterie_3.webp", "images/d23-ch-sitooterie_4.webp", "images/d23-ch-sitooterie_5.webp", "images/d23-ch-sitooterie_6.webp", "images/d23-ch-sitooterie_7.webp"],
+        time: "chieu", free: false, route: "p9-p10", distKm: 2.5,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Sitooterie - Coffee & Stories",
         address: "2/35 Khởi Nghĩa Bắc Sơn, P10, Đà Lạt",
@@ -1440,6 +1644,7 @@
         id: "d23-ch-gadalat",
         day: "day23", slot: "chieu",
         category: "tham-quan", hot: true, images: ["images/d23-ch-gadalat_1.webp", "images/d23-ch-gadalat_2.webp", "images/d23-ch-gadalat_3.webp", "images/d23-ch-gadalat_4.webp", "images/d23-ch-gadalat_5.webp", "images/d23-ch-gadalat_6.webp"],
+        time: "chieu", free: false, route: "p9-p10", distKm: 2.5,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Ga Đà Lạt",
         address: "1 Quang Trung, P10, Đà Lạt",
@@ -1454,6 +1659,7 @@
         id: "d23-ch-doimotnguoi",
         day: "day23", slot: "chieu",
         category: "cafe", hot: true, images: ["images/d23-ch-doimotnguoi_1.webp", "images/d23-ch-doimotnguoi_2.webp", "images/d23-ch-doimotnguoi_3.webp", "images/d23-ch-doimotnguoi_4.webp", "images/d23-ch-doimotnguoi_5.webp", "images/d23-ch-doimotnguoi_6.webp"],
+        time: "chieu", free: false, route: "p3-tuyen-lam", distKm: 3.5,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Đợi Một Người (Cafe)",
         address: "Đường Khởi Nghĩa Bắc Sơn, P3, Đà Lạt",
@@ -1468,6 +1674,7 @@
         id: "d23-ch-docnhabo",
         day: "day23", slot: "chieu",
         category: "tham-quan", hot: true, images: ["images/d23-ch-docnhabo_1.webp", "images/d23-ch-docnhabo_2.webp", "images/d23-ch-docnhabo_3.webp", "images/d23-ch-docnhabo_4.webp", "images/d23-ch-docnhabo_5.webp", "images/d23-ch-docnhabo_6.webp"],
+        time: "chieu", free: true, route: "p3-tuyen-lam", distKm: 1.8,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Dốc Nhà Bò",
         address: "Cuối đường Đào Duy Từ, P3, Đà Lạt",
@@ -1484,6 +1691,7 @@
         id: "d23-ac-thuongthuong",
         day: "day23", slot: "an-chieu",
         category: "an-uong", hot: false, images: ["images/d23-ac-thuongthuong_1.webp", "images/d23-ac-thuongthuong_2.webp", "images/d23-ac-thuongthuong_3.webp", "images/d23-ac-thuongthuong_4.webp", "images/d23-ac-thuongthuong_5.webp", "images/d23-ac-thuongthuong_6.webp"],
+        time: "toi", free: false, route: "p3-tuyen-lam", distKm: 3.0,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Tiệm nướng Thương Thương",
         address: "30 Đặng Thái Thân, P3, Đà Lạt",
@@ -1498,6 +1706,7 @@
         id: "d23-ac-chu",
         day: "day23", slot: "an-chieu",
         category: "an-uong", hot: false, images: ["images/d23-ac-chu_1.webp", "images/d23-ac-chu_2.webp", "images/d23-ac-chu_3.webp", "images/d23-ac-chu_4.webp", "images/d23-ac-chu_5.webp", "images/d23-ac-chu_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 1.2,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Quán nướng Chu",
         address: "Lô B1-18 KQH Golf Valley, P2, Đà Lạt",
@@ -1512,6 +1721,7 @@
         id: "d23-ac-batoa",
         day: "day23", slot: "an-chieu",
         category: "an-uong", hot: false, images: ["images/d23-ac-batoa_1.webp", "images/d23-ac-batoa_2.webp", "images/d23-ac-batoa_3.webp", "images/d23-ac-batoa_4.webp", "images/d23-ac-batoa_5.webp", "images/d23-ac-batoa_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 1.8,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Lẩu bò Ba Toa – Quán Gỗ",
         address: "Hẻm 1 Hoàng Diệu, P5, Đà Lạt",
@@ -1526,6 +1736,7 @@
         id: "d23-ac-fungi",
         day: "day23", slot: "an-chieu",
         category: "an-uong", hot: false, images: ["images/d23-ac-fungi_1.webp", "images/d23-ac-fungi_2.webp", "images/d23-ac-fungi_3.webp", "images/d23-ac-fungi_4.webp", "images/d23-ac-fungi_5.webp", "images/d23-ac-fungi_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 0.8,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Fungi Chingu (Nướng Hàn Quốc)",
         address: "1 Nguyễn Thị Minh Khai, P1, Đà Lạt",
@@ -1540,6 +1751,7 @@
         id: "d23-ac-taongo",
         day: "day23", slot: "an-chieu",
         category: "an-uong", hot: false, images: ["images/d23-ac-taongo_1.webp", "images/d23-ac-taongo_2.webp", "images/d23-ac-taongo_3.webp", "images/d23-ac-taongo_4.webp", "images/d23-ac-taongo_5.webp", "images/d23-ac-taongo_6.webp"],
+        time: "toi", free: false, route: "p3-tuyen-lam", distKm: 2.5,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Lẩu gà lá é Tao Ngộ (quán gốc)",
         address: "Số 5 đường 3 Tháng 4, P3, Đà Lạt",
@@ -1556,6 +1768,7 @@
         id: "d23-to-chodem",
         day: "day23", slot: "toi",
         category: "tham-quan", hot: true, images: ["images/d23-to-chodem_1.webp", "images/d23-to-chodem_2.webp", "images/d23-to-chodem_3.webp", "images/d23-to-chodem_4.webp", "images/d23-to-chodem_5.webp", "images/d23-to-chodem_6.webp"],
+        time: "toi", free: true, route: "trung-tam", distKm: 0.8,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Chợ Đêm Đà Lạt & Sữa đậu nành nóng",
         address: "Nguyễn Thị Minh Khai, P1, Đà Lạt",
@@ -1570,6 +1783,7 @@
         id: "d23-to-didinh",
         day: "day23", slot: "toi",
         category: "an-uong", hot: false, images: ["images/d23-to-didinh_1.webp", "images/d23-to-didinh_2.webp", "images/d23-to-didinh_3.webp", "images/d23-to-didinh_4.webp", "images/d23-to-didinh_5.webp", "images/d23-to-didinh_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 1.8,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Bánh tráng nướng dì Đinh",
         address: "26 Hoàng Diệu, P5, Đà Lạt",
@@ -1584,6 +1798,7 @@
         id: "d23-to-thanhthao",
         day: "day23", slot: "toi",
         category: "an-uong", hot: false, images: ["images/d23-to-thanhthao_1.webp", "images/d23-to-thanhthao_2.webp", "images/d23-to-thanhthao_3.webp", "images/d23-to-thanhthao_4.webp", "images/d23-to-thanhthao_5.webp", "images/d23-to-thanhthao_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 0.6,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Kem bơ Thanh Thảo",
         address: "76 Nguyễn Văn Trỗi, P2, Đà Lạt",
@@ -1598,6 +1813,7 @@
         id: "d23-to-hongtra",
         day: "day23", slot: "toi",
         category: "cafe", hot: false, images: ["images/d23-to-hongtra_1.webp", "images/d23-to-hongtra_2.webp", "images/d23-to-hongtra_3.webp", "images/d23-to-hongtra_4.webp", "images/d23-to-hongtra_5.webp", "images/d23-to-hongtra_6.webp"],
+        time: "toi", free: false, route: "trung-tam", distKm: 0.7,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Hồng trà Hòa Bình",
         address: "Khu Hòa Bình, P1, Đà Lạt",
@@ -1607,7 +1823,69 @@
         desc: "Trà sữa/hồng trà nóng ấm ngay khu Hòa Bình, tiện mua cầm tay đi dạo phố đêm.",
         mapQuery: "Khu Hòa Bình, Phường 1, Đà Lạt",
         tiktokQuery: "Hong tra Hoa Binh Da Lat"
-      }
+      },
+      // ===== NGÀY 24 & NGÀY 25 (BEST CHOICE · HOA · CHÙA · HOÀNG HÔN) =====
+      {"id": "d24-sm-binhminhoi", "day": "day24", "slot": "san-may", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "p9-p10", "distKm": 3.5, "images": ["images/d24-sm-binhminhoi_1.webp", "images/d24-sm-binhminhoi_2.webp", "images/d24-sm-binhminhoi_3.webp", "images/d24-sm-binhminhoi_4.webp", "images/d24-sm-binhminhoi_5.webp", "images/d24-sm-binhminhoi_6.webp"], "group": "", "name": "Tiệm cà phê Bình Minh Ơi", "address": "89 Hoàng Hoa Thám, P10, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "3.5 km", "price": "~60–75k/người", "desc": "Siêu gần KS nếu ngại dậy chạy xa, vừa săn mây đón bình minh vừa ăn bánh căn nóng cực chill.", "mapQuery": "89 Hoàng Hoa Thám, Phường 10, Đà Lạt", "tiktokQuery": "Tiem ca phe Binh Minh Oi Da Lat"},
+      {"id": "d24-sm-trendoicomay", "day": "day24", "slot": "san-may", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 14.0, "images": ["images/d24-sm-trendoicomay_1.webp", "images/d24-sm-trendoicomay_2.webp", "images/d24-sm-trendoicomay_3.webp", "images/d24-sm-trendoicomay_4.webp", "images/d24-sm-trendoicomay_5.webp", "images/d24-sm-trendoicomay_6.webp"], "group": "", "name": "Tiệm cà phê Trên Đồi Có Mây", "address": "Cua Cây Mai, xã Xuân Thọ, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "14 km", "price": "~65–90k (gồm vé)", "desc": "Gần hơn Cầu Đất 10km, ngồi cafe ấm ngắm biển mây + nhiều góc chụp kiểu Hàn Quốc cực ảo.", "mapQuery": "Cua Cây Mai, Xã Xuân Thọ, Đà Lạt", "tiktokQuery": "Tren Doi Co May Da Lat"},
+      {"id": "d24-sm-doimay", "day": "day24", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 15.0, "images": ["images/d24-sm-doimay_1.webp", "images/d24-sm-doimay_2.webp", "images/d24-sm-doimay_3.webp", "images/d24-sm-doimay_4.webp", "images/d24-sm-doimay_5.webp", "images/d24-sm-doimay_6.webp"], "group": "", "name": "Đồi Mây Đà Lạt (KDL Đồi Mây)", "address": "Thôn Túy Sơn, xã Xuân Thọ, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "15 km", "price": "~80–100k/người", "desc": "View thung lũng 360° săn mây, nhiều tiểu cảnh hoa và quán cafe đẹp dọc đường Cầu Đất.", "mapQuery": "Thôn Túy Sơn, Xã Xuân Thọ, Đà Lạt", "tiktokQuery": "Doi May Da Lat Cau Dat"},
+      {"id": "d24-sm-caugo", "day": "day24", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 25.0, "images": ["images/d24-sm-caugo_1.webp", "images/d24-sm-caugo_2.webp", "images/d24-sm-caugo_3.webp", "images/d24-sm-caugo_4.webp", "images/d24-sm-caugo_5.webp", "images/d24-sm-caugo_6.webp"], "group": "", "name": "Cầu gỗ săn mây Cầu Đất", "address": "Thôn Trường Thọ, xã Xuân Trường, Đà Lạt", "rating": 4.6, "ratingText": "4.6", "distance": "25 km", "price": "~90–120k/người", "desc": "BEST CHOICE SỐ 1: Cầu gỗ vươn thẳng ra biển mây + bình minh cực phẩm đẹp nhất Đà Lạt.", "mapQuery": "Thôn Trường Thọ, Xã Xuân Trường, Đà Lạt", "tiktokQuery": "Cau go san may Cau Dat Da Lat"},
+      {"id": "d24-sm-thienphucduc", "day": "day24", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p7-san-may", "distKm": 8.0, "images": ["images/d24-sm-thienphucduc_1.webp", "images/d24-sm-thienphucduc_2.webp", "images/d24-sm-thienphucduc_3.webp", "images/d24-sm-thienphucduc_4.webp", "images/d24-sm-thienphucduc_5.webp", "images/d24-sm-thienphucduc_6.webp"], "group": "", "name": "Đồi Thiên Phúc Đức", "address": "Phường 7, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "8 km", "price": "Miễn phí", "desc": "Gần trung tâm, có cây thông cô đơn huyền thoại nhìn thẳng sang đỉnh núi Langbiang.", "mapQuery": "Đồi Thiên Phúc Đức, Phường 7, Đà Lạt", "tiktokQuery": "Doi Thien Phuc Duc Da Lat"},
+      {"id": "d24-sm-daphu", "day": "day24", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p7-san-may", "distKm": 10.0, "images": ["images/d24-sm-daphu_1.webp", "images/d24-sm-daphu_2.webp", "images/d24-sm-daphu_3.webp", "images/d24-sm-daphu_4.webp", "images/d24-sm-daphu_5.webp", "images/d24-sm-daphu_6.webp"], "group": "", "name": "Đồi Đa Phú", "address": "Phường 7, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "10 km", "price": "Miễn phí", "desc": "Đồi thông rộng hoang sơ, ngắm biển mây + bình minh miễn phí (đường đất dăm, nên đi xe số).", "mapQuery": "Đồi Đa Phú, Phường 7, Đà Lạt", "tiktokQuery": "Doi Da Phu Da Lat san may"},
+      {"id": "d24-as-thientrang", "day": "day24", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 1.5, "images": ["images/d24-as-thientrang_1.webp", "images/d24-as-thientrang_2.webp", "images/d24-as-thientrang_3.webp", "images/d24-as-thientrang_4.webp", "images/d24-as-thientrang_5.webp", "images/d24-as-thientrang_6.webp"], "group": "", "name": "Bún bò Huế Thiên Trang", "address": "2 Hồ Tùng Mậu, P10, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "1.5 km", "price": "~45–55k/người", "desc": "Quán bún bò lâu năm nằm trong biệt thự cổ rộng rãi, nước dùng đậm đà, rau sống tươi.", "mapQuery": "2 Hồ Tùng Mậu, Phường 10, Đà Lạt", "tiktokQuery": "Bun bo Hue Thien Trang Da Lat"},
+      {"id": "d24-as-banhcanbmo", "day": "day24", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 3.5, "images": ["images/d24-as-banhcanbmo_1.webp", "images/d24-as-banhcanbmo_2.webp", "images/d24-as-banhcanbmo_3.webp", "images/d24-as-banhcanbmo_4.webp", "images/d24-as-banhcanbmo_5.webp", "images/d24-as-banhcanbmo_6.webp"], "group": "", "name": "Bánh căn nóng Bình Minh Ơi", "address": "89 Hoàng Hoa Thám, P10, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "3.5 km", "price": "~40–60k/người", "desc": "Đúng trục đường từ Cầu Đất / Trại Mát về, ăn bánh căn nóng trong không gian đồi cực chill.", "mapQuery": "89 Hoàng Hoa Thám, Phường 10, Đà Lạt", "tiktokQuery": "Banh can Binh Minh Oi Da Lat"},
+      {"id": "d24-as-phouyen", "day": "day24", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p7-san-may", "distKm": 3.0, "images": ["images/d24-as-phouyen_1.webp", "images/d24-as-phouyen_2.webp", "images/d24-as-phouyen_3.webp", "images/d24-as-phouyen_4.webp", "images/d24-as-phouyen_5.webp", "images/d24-as-phouyen_6.webp"], "group": "", "name": "Phở Uyên", "address": "167 Xô Viết Nghệ Tĩnh, P7, Đà Lạt", "rating": 4.5, "ratingText": "4.4–4.6", "distance": "3.0 km", "price": "~30–40k/người", "desc": "Quán phở gia truyền vintage cực nổi (có yaourt phô mai nhà làm ngon đỉnh, tiện hướng P7).", "mapQuery": "167 Xô Viết Nghệ Tĩnh, Phường 7, Đà Lạt", "tiktokQuery": "Pho Uyen Da Lat"},
+      {"id": "d24-as-bunbodung", "day": "day24", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 8.0, "images": ["images/d24-as-bunbodung_1.webp", "images/d24-as-bunbodung_2.webp", "images/d24-as-bunbodung_3.webp", "images/d24-as-bunbodung_4.webp", "images/d24-as-bunbodung_5.webp", "images/d24-as-bunbodung_6.webp"], "group": "", "name": "Bún bò Huế Dung (Trại Mát)", "address": "Khu Chùa Linh Phước, Tự Phước, P11, Đà Lạt", "rating": 4.2, "ratingText": "4.2", "distance": "8 km", "price": "~30–40k/người", "desc": "Ngay khu Trại Mát, tô bún nóng hổi cực hợp sau khi săn mây Cầu Đất sáng lạnh.", "mapQuery": "120 Tự Phước, Phường 11, Đà Lạt", "tiktokQuery": "Bun bo Hue Trai Mat Da Lat"},
+      {"id": "d24-as-banhmiql20", "day": "day24", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 10.0, "images": ["images/d24-as-banhmiql20_1.webp", "images/d24-as-banhmiql20_2.webp", "images/d24-as-banhmiql20_3.webp", "images/d24-as-banhmiql20_4.webp", "images/d24-as-banhmiql20_5.webp", "images/d24-as-banhmiql20_6.webp"], "group": "", "name": "Bánh mì nóng Quốc lộ 20", "address": "Trục Quốc lộ 20, Trại Mát – Xuân Thọ", "rating": 4.1, "ratingText": "4.1", "distance": "8–14 km", "price": "~15–25k/người", "desc": "Bánh mì nướng giòn rụm dọc đường đi săn mây sớm, cực nhanh gọn & tiết kiệm.", "mapQuery": "Quốc lộ 20, Trại Mát, Đà Lạt", "tiktokQuery": "Banh mi nong Da Lat"},
+      {"id": "d24-sg-nhatom", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "p9-p10", "distKm": 3.5, "images": ["images/d24-sg-nhatom_1.webp", "images/d24-sg-nhatom_2.webp", "images/d24-sg-nhatom_3.webp", "images/d24-sg-nhatom_4.webp", "images/d24-sg-nhatom_5.webp", "images/d24-sg-nhatom_6.webp"], "group": "", "name": "Vườn hồng Nhà Tom", "address": "86 Khe Sanh, P10, Đà Lạt", "rating": 4.4, "ratingText": "4.2–4.5", "distance": "3.5 km", "price": "~20k (ăn thử hồng)", "desc": "ĐÚNG MÙA CUỐI THÁNG 11: Vườn hồng chín đỏ rực + chú chó Golden Tom siêu hot TikTok!", "mapQuery": "86 Khe Sanh, Phường 10, Đà Lạt", "tiktokQuery": "Vuon hong Nha Tom Da Lat"},
+      {"id": "d24-sg-dinh1", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "p9-p10", "distKm": 4.0, "images": ["images/d24-sg-dinh1_1.webp", "images/d24-sg-dinh1_2.webp", "images/d24-sg-dinh1_3.webp", "images/d24-sg-dinh1_4.webp", "images/d24-sg-dinh1_5.webp", "images/d24-sg-dinh1_6.webp"], "group": "", "name": "Dinh 1 Bảo Đại (King Palace)", "address": "1 Trần Quang Diệu, P10, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "4.0 km", "price": "~90k/người", "desc": "Kiến trúc Pháp hoàng gia cổ kính + hàng cây tràm cổ thụ chụp hình cực sang.", "mapQuery": "1 Trần Quang Diệu, Phường 10, Đà Lạt", "tiktokQuery": "Dinh 1 Bao Dai Da Lat"},
+      {"id": "d24-sg-chuatau", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": false, "free": true, "route": "p9-p10", "distKm": 4.5, "images": ["images/d24-sg-chuatau_1.webp", "images/d24-sg-chuatau_2.webp", "images/d24-sg-chuatau_3.webp", "images/d24-sg-chuatau_4.webp", "images/d24-sg-chuatau_5.webp", "images/d24-sg-chuatau_6.webp"], "group": "", "name": "Chùa Thiên Vương Cổ Sát (Chùa Tàu)", "address": "385 Khe Sanh, P10, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.4", "distance": "4.5 km", "price": "Miễn phí", "desc": "Nằm ngay sát Vườn hồng Nhà Tom, kiến trúc Á Đông cổ kính, có tượng Phật gỗ trầm hương.", "mapQuery": "385 Khe Sanh, Phường 10, Đà Lạt", "tiktokQuery": "Chua Thien Vuong Co Sat Da Lat"},
+      {"id": "d24-sg-sunnyfarm", "day": "day24", "slot": "sang", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 6.5, "images": ["images/d24-sg-sunnyfarm_1.webp", "images/d24-sg-sunnyfarm_2.webp", "images/d24-sg-sunnyfarm_3.webp", "images/d24-sg-sunnyfarm_4.webp", "images/d24-sg-sunnyfarm_5.webp", "images/d24-sg-sunnyfarm_6.webp"], "group": "", "name": "Sunny Farm – Nấc Thang Lên Thiên Đường", "address": "Dốc số 7, Trại Mát, P11, Đà Lạt", "rating": 4.0, "ratingText": "4.0", "distance": "6.5 km", "price": "~60k/người", "desc": "Tiểu cảnh nấc thang trắng vô cực ngắm mây & thung lũng siêu nổi tiếng.", "mapQuery": "Dốc số 7, Trại Mát, Phường 11, Đà Lạt", "tiktokQuery": "Sunny Farm Da Lat"},
+      {"id": "d24-sg-linhphuoc", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "trai-mat-cau-dat", "distKm": 8.0, "images": ["images/d24-sg-linhphuoc_1.webp", "images/d24-sg-linhphuoc_2.webp", "images/d24-sg-linhphuoc_3.webp", "images/d24-sg-linhphuoc_4.webp", "images/d24-sg-linhphuoc_5.webp", "images/d24-sg-linhphuoc_6.webp"], "group": "", "name": "Chùa Linh Phước (Chùa Ve Chai)", "address": "120 Tự Phước, Trại Mát, P11, Đà Lạt", "rating": 4.7, "ratingText": "4.6–4.7", "distance": "8 km", "price": "Miễn phí (gửi xe 10k)", "desc": "Kiến trúc khảm sành sứ độc nhất VN, rồng 49m, lên hình cực hoành tráng.", "mapQuery": "120 Tự Phước, Phường 11, Đà Lạt", "tiktokQuery": "Chua Linh Phuoc Da Lat"},
+      {"id": "d24-sg-chika", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 12.0, "images": ["images/d24-sg-chika_1.webp", "images/d24-sg-chika_2.webp", "images/d24-sg-chika_3.webp", "images/d24-sg-chika_4.webp", "images/d24-sg-chika_5.webp", "images/d24-sg-chika_6.webp"], "group": "", "name": "Chika Farm Đà Lạt", "address": "Thôn Đa Quý, xã Xuân Thọ, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "12 km", "price": "~110k/người", "desc": "Nông trại cừu & lạc đà Alpaca phong cách châu Âu giữa đồi cỏ xanh mướt.", "mapQuery": "Thôn Đa Quý, Xã Xuân Thọ, Đà Lạt", "tiktokQuery": "Chika Farm Da Lat"},
+      {"id": "d24-sg-camtucau", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 13.0, "images": ["images/d24-sg-camtucau_1.webp", "images/d24-sg-camtucau_2.webp", "images/d24-sg-camtucau_3.webp", "images/d24-sg-camtucau_4.webp", "images/d24-sg-camtucau_5.webp", "images/d24-sg-camtucau_6.webp"], "group": "", "name": "Vườn hoa Cẩm Tú Cầu Trại Mát", "address": "Thôn Lộc Quý, xã Xuân Thọ, Đà Lạt", "rating": 4.2, "ratingText": "4.0–4.3", "distance": "13 km", "price": "~30–50k/người", "desc": "Cánh đồng hoa cẩm tú cầu to tròn rực rỡ, chụp ảnh nàng thơ siêu ăn ảnh.", "mapQuery": "Thôn Lộc Quý, Xã Xuân Thọ, Đà Lạt", "tiktokQuery": "Vuon hoa Cam Tu Cau Trai Mat Da Lat"},
+      {"id": "d24-sg-hoabattu", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 15.0, "images": ["images/d24-sg-hoabattu_1.webp", "images/d24-sg-hoabattu_2.webp", "images/d24-sg-hoabattu_3.webp", "images/d24-sg-hoabattu_4.webp", "images/d24-sg-hoabattu_5.webp", "images/d24-sg-hoabattu_6.webp"], "group": "", "name": "Cánh đồng hoa Bất Tử", "address": "Quốc lộ 20, xã Xuân Thọ, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "15 km", "price": "~30k/người", "desc": "Sườn đồi hoa bất tử dưới tán thông cực vintage, ngay trục đường từ Cầu Đất về.", "mapQuery": "Quốc lộ 20, Xã Xuân Thọ, Đà Lạt", "tiktokQuery": "Canh dong hoa bat tu Da Lat"},
+      {"id": "d24-sg-eurogarden", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 23.0, "images": ["images/d24-sg-eurogarden_1.webp", "images/d24-sg-eurogarden_2.webp", "images/d24-sg-eurogarden_3.webp", "images/d24-sg-eurogarden_4.webp", "images/d24-sg-eurogarden_5.webp", "images/d24-sg-eurogarden_6.webp"], "group": "", "name": "Euro Garden Cầu Đất", "address": "Quốc lộ 20, xã Xuân Trường, Đà Lạt", "rating": 4.2, "ratingText": "4.0–4.3", "distance": "23 km", "price": "~75–120k/người", "desc": "Châu Âu thu nhỏ 7.2 ha giữa đồi chè: toa tàu lửa đỏ, kiến trúc cổ điển, đồi hoa bốn mùa.", "mapQuery": "Quốc lộ 20, Xã Xuân Trường, Đà Lạt", "tiktokQuery": "Euro Garden Cau Dat Da Lat"},
+      {"id": "d24-sg-doiche", "day": "day24", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "trai-mat-cau-dat", "distKm": 24.0, "images": ["images/d24-sg-doiche_1.webp", "images/d24-sg-doiche_2.webp", "images/d24-sg-doiche_3.webp", "images/d24-sg-doiche_4.webp", "images/d24-sg-doiche_5.webp", "images/d24-sg-doiche_6.webp"], "group": "", "name": "Đồi chè Cầu Đất & Tuabin Điện Gió", "address": "Thôn Trường Thọ, xã Xuân Trường, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "24 km", "price": "Miễn phí", "desc": "Đồi chè xanh ngút ngàn + tuabin điện gió trắng khổng lồ — ảnh nắng sáng cực trong!", "mapQuery": "Thôn Trường Thọ, Xã Xuân Trường, Đà Lạt", "tiktokQuery": "Doi che Cau Dat Da Lat"},
+      {"id": "d24-tr-bahuong", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trung-tam", "distKm": 1.3, "images": ["images/d24-tr-bahuong_1.webp", "images/d24-tr-bahuong_2.webp", "images/d24-tr-bahuong_3.webp", "images/d24-tr-bahuong_4.webp", "images/d24-tr-bahuong_5.webp", "images/d24-tr-bahuong_6.webp"], "group": "", "name": "Bánh bèo số 4 Bà Hường", "address": "402 Phan Đình Phùng, P2, Đà Lạt", "rating": 4.4, "ratingText": "4.2–4.5", "distance": "1.3 km", "price": "~35–45k/người", "desc": "Bánh bèo chén truyền thống lâu đời cực ngon, nhân tôm thịt đậm đà kèm chả cây.", "mapQuery": "402 Phan Đình Phùng, Phường 2, Đà Lạt", "tiktokQuery": "Banh beo so 4 Ba Huong Da Lat"},
+      {"id": "d24-tr-miquangha", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 2.0, "images": ["images/d24-tr-miquangha_1.webp", "images/d24-tr-miquangha_2.webp", "images/d24-tr-miquangha_3.webp", "images/d24-tr-miquangha_4.webp", "images/d24-tr-miquangha_5.webp", "images/d24-tr-miquangha_6.webp"], "group": "", "name": "Mì Quảng Hội An", "address": "14 Yersin, P10, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "2.0 km", "price": "~40–50k/người", "desc": "Nước lèo tôm thịt đậm đà, đúng trục từ P10 về khách sạn.", "mapQuery": "14 Yersin, Phường 10, Đà Lạt", "tiktokQuery": "Mi Quang Hoi An 14 Yersin Da Lat"},
+      {"id": "d24-tr-cothu", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 2.2, "images": ["images/d24-tr-cothu_1.webp", "images/d24-tr-cothu_2.webp", "images/d24-tr-cothu_3.webp", "images/d24-tr-cothu_4.webp", "images/d24-tr-cothu_5.webp", "images/d24-tr-cothu_6.webp"], "group": "", "name": "Cơm tấm Cô Thu", "address": "19 Nguyễn Trãi, P9, Đà Lạt", "rating": 4.3, "ratingText": "4.1–4.4", "distance": "2.2 km", "price": "~40–55k/người", "desc": "Sườn nướng dày mềm thấm vị, ngay sát Ga Đà Lạt trên đường về KS.", "mapQuery": "19 Nguyễn Trãi, Phường 9, Đà Lạt", "tiktokQuery": "Com tam Co Thu Da Lat"},
+      {"id": "d24-tr-comlinh", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 2.5, "images": ["images/d24-tr-comlinh_1.webp", "images/d24-tr-comlinh_2.webp", "images/d24-tr-comlinh_3.webp", "images/d24-tr-comlinh_4.webp", "images/d24-tr-comlinh_5.webp", "images/d24-tr-comlinh_6.webp"], "group": "", "name": "Quán Cơm Linh", "address": "23 Sương Nguyệt Ánh, P9, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "2.5 km", "price": "~80–120k/người", "desc": "Cơm nhà siêu ngon, nhân viên cực dễ thương, nhóm 4 người gọi mâm cơm gia đình rất hợp.", "mapQuery": "23 Sương Nguyệt Ánh, Phường 9, Đà Lạt", "tiktokQuery": "Quan com Linh Da Lat"},
+      {"id": "d24-tr-phoatiso", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 2.5, "images": ["images/d24-tr-phoatiso_1.webp", "images/d24-tr-phoatiso_2.webp", "images/d24-tr-phoatiso_3.webp", "images/d24-tr-phoatiso_4.webp", "images/d24-tr-phoatiso_5.webp", "images/d24-tr-phoatiso_6.webp"], "group": "", "name": "Phở Atiso Đà Lạt", "address": "H19 KQH Phạm Hồng Thái, P10, Đà Lạt", "rating": 4.2, "ratingText": "4.2", "distance": "2.5 km", "price": "~50k/người", "desc": "Đặc sản phở nấu cùng bông Atiso thanh mát, lạ miệng, đúng trục đường về KS.", "mapQuery": "H19 KQH Phạm Hồng Thái, Phường 10, Đà Lạt", "tiktokQuery": "Pho Atiso Da Lat"},
+      {"id": "d24-tr-3mecon", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 3.0, "images": ["images/d24-tr-3mecon_1.webp", "images/d24-tr-3mecon_2.webp", "images/d24-tr-3mecon_3.webp", "images/d24-tr-3mecon_4.webp", "images/d24-tr-3mecon_5.webp", "images/d24-tr-3mecon_6.webp"], "group": "", "name": "Cơm niêu 3 Mẹ Con", "address": "1C Hoàng Hoa Thám, P10, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "3.0 km", "price": "~70–100k/người", "desc": "Cơm niêu gia đình ngon bổ rẻ, nằm đúng trục đường từ Trại Mát về trung tâm.", "mapQuery": "1C Hoàng Hoa Thám, Phường 10, Đà Lạt", "tiktokQuery": "Com nieu 3 Me Con Da Lat"},
+      {"id": "d24-tr-comgahai", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 8.0, "images": ["images/d24-tr-comgahai_1.webp", "images/d24-tr-comgahai_2.webp", "images/d24-tr-comgahai_3.webp", "images/d24-tr-comgahai_4.webp", "images/d24-tr-comgahai_5.webp", "images/d24-tr-comgahai_6.webp"], "group": "", "name": "Cơm Gà Hải (Trại Mát)", "address": "Quốc lộ 20, Trại Mát, P11, Đà Lạt", "rating": 4.1, "ratingText": "4.1", "distance": "8 km", "price": "~35–55k/người", "desc": "Cơm gà xối mỡ / gà xé siêu rẻ & chắc bụng ngay khu Trại Mát.", "mapQuery": "Quốc lộ 20, Trại Mát, Phường 11, Đà Lạt", "tiktokQuery": "Com ga Trai Mat Da Lat"},
+      {"id": "d24-tr-caonguyen", "day": "day24", "slot": "an-trua", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 23.0, "images": ["images/d24-tr-caonguyen_1.webp", "images/d24-tr-caonguyen_2.webp", "images/d24-tr-caonguyen_3.webp", "images/d24-tr-caonguyen_4.webp", "images/d24-tr-caonguyen_5.webp", "images/d24-tr-caonguyen_6.webp"], "group": "", "name": "Nhà hàng Cao Nguyên (Cầu Đất)", "address": "Thôn Cầu Đất, xã Xuân Trường, Đà Lạt", "rating": 4.1, "ratingText": "4.1", "distance": "23 km", "price": "~70–100k/người", "desc": "Cơm phần gia đình rộng rãi nếu ăn sớm ngay khu đồi chè Cầu Đất.", "mapQuery": "Thôn Cầu Đất, Xã Xuân Trường, Đà Lạt", "tiktokQuery": "Quan an Cau Dat Da Lat"},
+      {"id": "d24-ch-vuonmuahe", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "p3-tuyen-lam", "distKm": 2.8, "images": ["images/d24-ch-vuonmuahe_1.webp", "images/d24-ch-vuonmuahe_2.webp", "images/d24-ch-vuonmuahe_3.webp", "images/d24-ch-vuonmuahe_4.webp", "images/d24-ch-vuonmuahe_5.webp", "images/d24-ch-vuonmuahe_6.webp"], "group": "", "name": "Khu Vườn Mùa Hè", "address": "27 Hẻm 1 Đặng Thái Thân, P3, Đà Lạt", "rating": 4.6, "ratingText": "4.6", "distance": "2.8 km", "price": "~60–75k/người", "desc": "Cực hợp gu thích hoa: Không gian ngập tràn hoa lá & cây xanh cổ tích, lên ảnh cực thơ.", "mapQuery": "27 Hẻm 1 Đặng Thái Thân, Phường 3, Đà Lạt", "tiktokQuery": "Khu Vuon Mua He Da Lat"},
+      {"id": "d24-ch-lululola", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "p3-tuyen-lam", "distKm": 3.2, "images": ["images/d24-ch-lululola_1.webp", "images/d24-ch-lululola_2.webp", "images/d24-ch-lululola_3.webp", "images/d24-ch-lululola_4.webp", "images/d24-ch-lululola_5.webp", "images/d24-ch-lululola_6.webp"], "group": "", "name": "Lululola Coffee (Acoustic Hoàng Hôn)", "address": "32/2 Đường 3 Tháng 4, P3, Đà Lạt", "rating": 4.5, "ratingText": "4.4–4.5", "distance": "3.2 km", "price": "~80–150k/người", "desc": "View panorama thung lũng + sân khấu nhạc sống Acoustic ngắm hoàng hôn cực lãng mạn.", "mapQuery": "32/2 Đường 3 Tháng 4, Phường 3, Đà Lạt", "tiktokQuery": "Lululola Coffee Da Lat"},
+      {"id": "d24-ch-cheoveooo", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 4.5, "images": ["images/d24-ch-cheoveooo_1.webp", "images/d24-ch-cheoveooo_2.webp", "images/d24-ch-cheoveooo_3.webp", "images/d24-ch-cheoveooo_4.webp", "images/d24-ch-cheoveooo_5.webp", "images/d24-ch-cheoveooo_6.webp"], "group": "", "name": "Tiệm cà phê Cheo Veooo", "address": "Hẻm 116 Hùng Vương, P11, Đà Lạt", "rating": 4.6, "ratingText": "4.6", "distance": "4.5 km", "price": "~55–70k/người", "desc": "Căn nhà gỗ mộc mạc huyền thoại trên TikTok, view thung lũng đón hoàng hôn cực thơ.", "mapQuery": "Hẻm 116 Hùng Vương, Phường 11, Đà Lạt", "tiktokQuery": "Cheo Veooo Da Lat"},
+      {"id": "d24-ch-jju", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 4.5, "images": ["images/d24-ch-jju_1.webp", "images/d24-ch-jju_2.webp", "images/d24-ch-jju_3.webp", "images/d24-ch-jju_4.webp", "images/d24-ch-jju_5.webp", "images/d24-ch-jju_6.webp"], "group": "", "name": "JJU Coffee", "address": "Đường Lâm Văn Thạnh, P11, Đà Lạt", "rating": 4.4, "ratingText": "4.4", "distance": "4.5 km", "price": "~55–70k/người", "desc": "Quán cafe style Hàn Quốc xinh xắn ở P11, ánh nắng chiều lên hình cực trong trẻo.", "mapQuery": "Đường Lâm Văn Thạnh, Phường 11, Đà Lạt", "tiktokQuery": "JJU Coffee Da Lat"},
+      {"id": "d24-ch-tuimoto", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 5.5, "images": ["images/d24-ch-tuimoto_1.webp", "images/d24-ch-tuimoto_2.webp", "images/d24-ch-tuimoto_3.webp", "images/d24-ch-tuimoto_4.webp", "images/d24-ch-tuimoto_5.webp", "images/d24-ch-tuimoto_6.webp"], "group": "", "name": "Tiệm cà phê Túi Mơ To", "address": "Hẻm 31 Sào Nam, P11, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "5.5 km", "price": "~55–75k/người", "desc": "MUST-GO: Vườn cúc họa mi ngập hoa + nhà gỗ + ngắm hoàng hôn chuyển sang thung lũng đèn lồng.", "mapQuery": "Hẻm 31 Sào Nam, Phường 11, Đà Lạt", "tiktokQuery": "Tiem ca phe Tui Mo To Da Lat"},
+      {"id": "d24-ch-docthi", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 5.5, "images": ["images/d24-ch-docthi_1.webp", "images/d24-ch-docthi_2.webp", "images/d24-ch-docthi_3.webp", "images/d24-ch-docthi_4.webp", "images/d24-ch-docthi_5.webp", "images/d24-ch-docthi_6.webp"], "group": "", "name": "Tiệm cà phê Dốc Thị", "address": "Hẻm 108 Hùng Vương, P11, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "5.5 km", "price": "~60–75k/người", "desc": "Thiết kế ruộng bậc thang nhiều vườn hoa + nhà gỗ ngắm hoàng hôn Trại Mát.", "mapQuery": "Hẻm 108 Hùng Vương, Phường 11, Đà Lạt", "tiktokQuery": "Tiem ca phe Doc Thi Da Lat"},
+      {"id": "d24-ch-viyeumaden", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": false, "free": false, "route": "trai-mat-cau-dat", "distKm": 5.5, "images": ["images/d24-ch-viyeumaden_1.webp", "images/d24-ch-viyeumaden_2.webp", "images/d24-ch-viyeumaden_3.webp", "images/d24-ch-viyeumaden_4.webp", "images/d24-ch-viyeumaden_5.webp", "images/d24-ch-viyeumaden_6.webp"], "group": "", "name": "Tiệm cà phê Vì Yêu Mà Đến", "address": "678 Hùng Vương, P11, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "5.5 km", "price": "~55–70k/người", "desc": "Cafe sân vườn hoa & view đồi thoáng mát ngay trục Hùng Vương P11.", "mapQuery": "678 Hùng Vương, Phường 11, Đà Lạt", "tiktokQuery": "Tiem ca phe Vi Yeu Ma Den Da Lat"},
+      {"id": "d24-ch-hoanghonchieu", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 6.5, "images": ["images/d24-ch-hoanghonchieu_1.webp", "images/d24-ch-hoanghonchieu_2.webp", "images/d24-ch-hoanghonchieu_3.webp", "images/d24-ch-hoanghonchieu_4.webp", "images/d24-ch-hoanghonchieu_5.webp", "images/d24-ch-hoanghonchieu_6.webp"], "group": "", "name": "Tiệm cà phê Hoàng Hôn Chiều", "address": "Dốc số 9, Trại Mát, P11, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "6.5 km", "price": "~60–75k/người", "desc": "Đồi cao không bị che chắn, bầu trời hoàng hôn rộng bậc nhất Trại Mát.", "mapQuery": "Dốc số 9, Trại Mát, Phường 11, Đà Lạt", "tiktokQuery": "Tiem ca phe Hoang Hon Chieu Da Lat"},
+      {"id": "d24-ch-loicuagio", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 6.5, "images": ["images/d24-ch-loicuagio_1.webp", "images/d24-ch-loicuagio_2.webp", "images/d24-ch-loicuagio_3.webp", "images/d24-ch-loicuagio_4.webp", "images/d24-ch-loicuagio_5.webp", "images/d24-ch-loicuagio_6.webp"], "group": "", "name": "Tiệm cà phê Lời Của Gió", "address": "Đường Huỳnh Tấn Phát, Xóm Lèo, P11, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "6.5 km", "price": "~60–80k/người", "desc": "View 360° Xóm Lèo siêu viral TikTok ngắm hoàng hôn & đèn lồng nhà kính.", "mapQuery": "Đường Huỳnh Tấn Phát, Phường 11, Đà Lạt", "tiktokQuery": "Tiem ca phe Loi Cua Gio Da Lat"},
+      {"id": "d24-ch-changvang", "day": "day24", "slot": "chieu", "category": "cafe", "time": "chieu", "hot": true, "free": false, "route": "trai-mat-cau-dat", "distKm": 6.5, "images": ["images/d24-ch-changvang_1.webp", "images/d24-ch-changvang_2.webp", "images/d24-ch-changvang_3.webp", "images/d24-ch-changvang_4.webp", "images/d24-ch-changvang_5.webp", "images/d24-ch-changvang_6.webp"], "group": "", "name": "Chạng Vạng Coffee & BBQ", "address": "Đường Huỳnh Tấn Phát, Xóm Lèo, P11, Đà Lạt", "rating": 4.2, "ratingText": "4.0–4.3", "distance": "6.5 km", "price": "~55–75k/người", "desc": "Tiện 2 trong 1: chiều chụp hoàng hôn Xóm Lèo, tối ngồi ăn BBQ ngắm đèn luôn.", "mapQuery": "Đường Huỳnh Tấn Phát, Phường 11, Đà Lạt", "tiktokQuery": "Chang Vang Coffee Xom Leo Da Lat"},
+      {"id": "d24-ac-oc33", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 1.5, "images": ["images/d24-ac-oc33_1.webp", "images/d24-ac-oc33_2.webp", "images/d24-ac-oc33_3.webp", "images/d24-ac-oc33_4.webp", "images/d24-ac-oc33_5.webp", "images/d24-ac-oc33_6.webp"], "group": "", "name": "Ốc Nhồi Thịt 33 (quán gốc)", "address": "175 Hai Bà Trưng, P6, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "1.5 km", "price": "~100–150k/người", "desc": "Đặc sản ốc bươu nhồi thịt nướng thố thơm lừng + lẩu đuôi bò cực hợp trời lạnh.", "mapQuery": "175 Hai Bà Trưng, Phường 6, Đà Lạt", "tiktokQuery": "Oc nhoi thit 33 Hai Ba Trung Da Lat"},
+      {"id": "d24-ac-bobicuon", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 2.0, "images": ["images/d24-ac-bobicuon_1.webp", "images/d24-ac-bobicuon_2.webp", "images/d24-ac-bobicuon_3.webp", "images/d24-ac-bobicuon_4.webp", "images/d24-ac-bobicuon_5.webp", "images/d24-ac-bobicuon_6.webp"], "group": "", "name": "Tiệm Bò Bị Cuốn", "address": "142 Nguyễn Công Trứ, P8, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "2.0 km", "price": "~70–100k/người", "desc": "Bò lá lốt, mỡ chài nướng thơm phức cuốn rau rừng + bánh tráng, cực ngon bổ rẻ.", "mapQuery": "142 Nguyễn Công Trứ, Phường 8, Đà Lạt", "tiktokQuery": "Tiem Bo Bi Cuon Da Lat"},
+      {"id": "d24-ac-luahong", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "p9-p10", "distKm": 2.0, "images": ["images/d24-ac-luahong_1.webp", "images/d24-ac-luahong_2.webp", "images/d24-ac-luahong_3.webp", "images/d24-ac-luahong_4.webp", "images/d24-ac-luahong_5.webp", "images/d24-ac-luahong_6.webp"], "group": "", "name": "Gà nướng cơm lam Lửa Hồng", "address": "2 Trần Hưng Đạo, P10, Đà Lạt", "rating": 4.6, "ratingText": "4.4–4.7", "distance": "2.0 km", "price": "~90–130k/người", "desc": "Gà ta nướng than da giòn + cơm lam ống tre chấm muối đậu chuẩn vị núi rừng.", "mapQuery": "2 Trần Hưng Đạo, Phường 10, Đà Lạt", "tiktokQuery": "Ga nuong com lam Da Lat"},
+      {"id": "d24-ac-lavender", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": true, "free": false, "route": "p9-p10", "distKm": 2.2, "images": ["images/d24-ac-lavender_1.webp", "images/d24-ac-lavender_2.webp", "images/d24-ac-lavender_3.webp", "images/d24-ac-lavender_4.webp", "images/d24-ac-lavender_5.webp", "images/d24-ac-lavender_6.webp"], "group": "", "name": "Túi Nướng Lavender", "address": "17/6 Nguyễn Trãi, P9, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "2.2 km", "price": "~180–250k/người", "desc": "Concept nướng hoa oải hương độc lạ, không gian rộng, có nhạc violin cực chill.", "mapQuery": "17/6 Nguyễn Trãi, Phường 9, Đà Lạt", "tiktokQuery": "Tui Nuong Lavender Da Lat"},
+      {"id": "d24-ac-khoithong", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "p3-tuyen-lam", "distKm": 2.8, "images": ["images/d24-ac-khoithong_1.webp", "images/d24-ac-khoithong_2.webp", "images/d24-ac-khoithong_3.webp", "images/d24-ac-khoithong_4.webp", "images/d24-ac-khoithong_5.webp", "images/d24-ac-khoithong_6.webp"], "group": "", "name": "Tiệm nướng Khói Thông", "address": "23/2 Đặng Thái Thân, P3, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "2.8 km", "price": "~150–200k/người", "desc": "Ăn nướng BBQ & gà nướng cơm lam ngay giữa rừng thông thoáng mát (cạnh Khu Vườn Mùa Hè).", "mapQuery": "23/2 Đặng Thái Thân, Phường 3, Đà Lạt", "tiktokQuery": "Tiem nuong Khoi Thong Da Lat"},
+      {"id": "d24-ac-leguda", "day": "day24", "slot": "an-chieu", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "p3-tuyen-lam", "distKm": 3.0, "images": ["images/d24-ac-leguda_1.webp", "images/d24-ac-leguda_2.webp", "images/d24-ac-leguda_3.webp", "images/d24-ac-leguda_4.webp", "images/d24-ac-leguda_5.webp", "images/d24-ac-leguda_6.webp"], "group": "", "name": "Léguda Buffet Rau (Đồi Robin)", "address": "Đồi Robin, Đường Đống Đa, P3, Đà Lạt", "rating": 4.1, "ratingText": "4.0–4.2", "distance": "3.0 km", "price": "~100–150k/người", "desc": "Buffet 20+ loại rau Đà Lạt tươi ăn thả ga, view nhìn xuống toàn cảnh thành phố.", "mapQuery": "Đồi Robin, Đường Đống Đa, Phường 3, Đà Lạt", "tiktokQuery": "Lau rau Leguda Da Lat"},
+      {"id": "d24-to-kembophung", "day": "day24", "slot": "toi", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 0.6, "images": ["images/d24-to-kembophung_1.webp", "images/d24-to-kembophung_2.webp", "images/d24-to-kembophung_3.webp", "images/d24-to-kembophung_4.webp", "images/d24-to-kembophung_5.webp", "images/d24-to-kembophung_6.webp"], "group": "", "name": "Kem bơ Phụng", "address": "97A Nguyễn Văn Trỗi, P2, Đà Lạt", "rating": 4.2, "ratingText": "4.2", "distance": "0.6 km (sát KS)", "price": "~35–45k/người", "desc": "Quán kem bơ nổi tiếng sát khách sạn, bơ dẻo béo kèm kem dừa mát lạnh.", "mapQuery": "97A Nguyễn Văn Trỗi, Phường 2, Đà Lạt", "tiktokQuery": "Kem bo Phung Da Lat"},
+      {"id": "d24-to-mochi", "day": "day24", "slot": "toi", "category": "an-uong", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 0.8, "images": ["images/d24-to-mochi_1.webp", "images/d24-to-mochi_2.webp", "images/d24-to-mochi_3.webp", "images/d24-to-mochi_4.webp", "images/d24-to-mochi_5.webp", "images/d24-to-mochi_6.webp"], "group": "", "name": "Mochi Giọt Nước & Ăn vặt Hòa Bình", "address": "Khu Hòa Bình, P1, Đà Lạt", "rating": 4.2, "ratingText": "4.2", "distance": "0.8 km", "price": "~25–40k/người", "desc": "Mochi giọt nước trong suốt + bánh tráng/bắp nướng ngay khu Hòa Bình sát KS.", "mapQuery": "Khu Hòa Bình, Phường 1, Đà Lạt", "tiktokQuery": "Mochi giot nuoc Da Lat"},
+      {"id": "d24-to-umee", "day": "day24", "slot": "toi", "category": "cafe", "time": "toi", "hot": true, "free": false, "route": "trung-tam", "distKm": 1.0, "images": ["images/d24-to-umee_1.webp", "images/d24-to-umee_2.webp", "images/d24-to-umee_3.webp", "images/d24-to-umee_4.webp", "images/d24-to-umee_5.webp", "images/d24-to-umee_6.webp"], "group": "", "name": "The Umee", "address": "272 Phan Đình Phùng, P2, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "1.0 km", "price": "~35–45k/người", "desc": "Quán nước & ăn vặt chill tối rất được giới trẻ Đà Lạt yêu thích, ngay gần KS.", "mapQuery": "272 Phan Đình Phùng, Phường 2, Đà Lạt", "tiktokQuery": "The Umee Da Lat"},
+      {"id": "d24-to-acoustic", "day": "day24", "slot": "toi", "category": "cafe", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 1.0, "images": ["images/d24-to-acoustic_1.webp", "images/d24-to-acoustic_2.webp", "images/d24-to-acoustic_3.webp", "images/d24-to-acoustic_4.webp", "images/d24-to-acoustic_5.webp", "images/d24-to-acoustic_6.webp"], "group": "", "name": "Chill Than Acoustic", "address": "Khu trung tâm P1 – P2, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "1.0 km", "price": "~60–90k/người", "desc": "Nghe nhạc sống Acoustic ấm cúng đêm cuối cùng ở Đà Lạt.", "mapQuery": "Đường Nguyễn Chí Thanh, Phường 1, Đà Lạt", "tiktokQuery": "Acoustic cafe dem Da Lat"},
+      {"id": "d24-to-suanhe", "day": "day24", "slot": "toi", "category": "cafe", "time": "toi", "hot": false, "free": false, "route": "trung-tam", "distKm": 1.2, "images": ["images/d24-to-suanhe_1.webp", "images/d24-to-suanhe_2.webp", "images/d24-to-suanhe_3.webp", "images/d24-to-suanhe_4.webp", "images/d24-to-suanhe_5.webp", "images/d24-to-suanhe_6.webp"], "group": "", "name": "Sữa Nhé", "address": "164 Đường 3 Tháng 2, P5, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "1.2 km", "price": "~30–40k/chai", "desc": "Sữa tươi & sữa hạt thơm béo, uống nóng buổi tối trời se lạnh cực đã.", "mapQuery": "164 Đường 3 Tháng 2, Phường 5, Đà Lạt", "tiktokQuery": "Sua Nhe Da Lat"},
+      {"id": "d25-sg-vuonhoatp", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": false, "free": false, "route": "trung-tam", "distKm": 2.0, "images": ["images/d25-sg-vuonhoatp_1.webp", "images/d25-sg-vuonhoatp_2.webp", "images/d25-sg-vuonhoatp_3.webp", "images/d25-sg-vuonhoatp_4.webp", "images/d25-sg-vuonhoatp_5.webp", "images/d25-sg-vuonhoatp_6.webp"], "group": "", "name": "Vườn hoa Thành phố Đà Lạt", "address": "Đường Trần Quốc Toản, P8, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "2.0 km", "price": "~100k/người", "desc": "Hàng trăm loài hoa ôn đới rực rỡ ngay sát Hồ Xuân Hương nếu sáng 25 muốn đi thật gần KS.", "mapQuery": "Đường Trần Quốc Toản, Phường 8, Đà Lạt", "tiktokQuery": "Vuon hoa Thanh pho Da Lat"},
+      {"id": "d25-sg-truclam", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p3-tuyen-lam", "distKm": 6.0, "images": ["images/d25-sg-truclam_1.webp", "images/d25-sg-truclam_2.webp", "images/d25-sg-truclam_3.webp", "images/d25-sg-truclam_4.webp", "images/d25-sg-truclam_5.webp", "images/d25-sg-truclam_6.webp"], "group": "", "name": "Thiền Viện Trúc Lâm Đà Lạt", "address": "Đường Trúc Lâm Yên Tử, P3, Đà Lạt", "rating": 4.6, "ratingText": "4.6", "distance": "6 km", "price": "Miễn phí", "desc": "Ngôi thiền viện lớn đẹp bậc nhất VN, khuôn viên ngập tràn hoa cẩm tú cầu & hoa ôn đới nhìn xuống Hồ Tuyền Lâm.", "mapQuery": "Đường Trúc Lâm Yên Tử, Phường 3, Đà Lạt", "tiktokQuery": "Thien Vien Truc Lam Da Lat"},
+      {"id": "d25-sg-cohong", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p3-tuyen-lam", "distKm": 7.0, "images": ["images/d25-sg-cohong_1.webp", "images/d25-sg-cohong_2.webp", "images/d25-sg-cohong_3.webp", "images/d25-sg-cohong_4.webp", "images/d25-sg-cohong_5.webp", "images/d25-sg-cohong_6.webp"], "group": "", "name": "Hồ Tuyền Lâm & Đồi Cỏ Hồng", "address": "Khu du lịch Hồ Tuyền Lâm, P3, Đà Lạt", "rating": 4.6, "ratingText": "4.5–4.6", "distance": "7 km", "price": "Miễn phí", "desc": "ĐÚNG MÙA THÁNG 11: Sáng sớm có sương trắng trên cỏ hồng (cỏ tuyết), nắng sáng chụp cực ảo!", "mapQuery": "Hồ Tuyền Lâm, Phường 3, Đà Lạt", "tiktokQuery": "Doi Co Hong Ho Tuyen Lam Da Lat"},
+      {"id": "d25-sg-happyhill", "day": "day25", "slot": "sang", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "p3-tuyen-lam", "distKm": 8.0, "images": ["images/d25-sg-happyhill_1.webp", "images/d25-sg-happyhill_2.webp", "images/d25-sg-happyhill_3.webp", "images/d25-sg-happyhill_4.webp", "images/d25-sg-happyhill_5.webp", "images/d25-sg-happyhill_6.webp"], "group": "", "name": "Happy Hill Coffee", "address": "Cuối đường Hoa Phượng Tím, Hồ Tuyền Lâm, P3", "rating": 4.2, "ratingText": "4.0–4.3", "distance": "8 km", "price": "~90k (gồm nước)", "desc": "Phim trường đảo trái tim, nhà trên cây, vườn cúc họa mi ngay sát mặt Hồ Tuyền Lâm.", "mapQuery": "Đường Hoa Phượng Tím, Phường 3, Đà Lạt", "tiktokQuery": "Happy Hill Ho Tuyen Lam Da Lat"},
+      {"id": "d25-sg-freshgarden", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 4.5, "images": ["images/d25-sg-freshgarden_1.webp", "images/d25-sg-freshgarden_2.webp", "images/d25-sg-freshgarden_3.webp", "images/d25-sg-freshgarden_4.webp", "images/d25-sg-freshgarden_5.webp", "images/d25-sg-freshgarden_6.webp"], "group": "", "name": "Fresh Garden Đà Lạt", "address": "90B Vạn Thành, P5, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.3", "distance": "4.5 km", "price": "~100–120k/người", "desc": "Cối xay gió phủ hoa khổng lồ, cổng trời châu Âu, biển hoa đa sắc ngay đầu tuyến Tà Nung.", "mapQuery": "90B Vạn Thành, Phường 5, Đà Lạt", "tiktokQuery": "Fresh Garden Da Lat"},
+      {"id": "d25-sg-puppy", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 8.0, "images": ["images/d25-sg-puppy_1.webp", "images/d25-sg-puppy_2.webp", "images/d25-sg-puppy_3.webp", "images/d25-sg-puppy_4.webp", "images/d25-sg-puppy_5.webp", "images/d25-sg-puppy_6.webp"], "group": "", "name": "Nông trại cún Puppy Farm", "address": "Đường Cam Ly, P7, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.5", "distance": "8 km", "price": "~100–120k/người", "desc": "Hàng chục giống cún cưng + đồi hoa rực rỡ + vườn dâu tây + trượt phao khô.", "mapQuery": "Đường Cam Ly, Phường 7, Đà Lạt", "tiktokQuery": "Puppy Farm Da Lat"},
+      {"id": "d25-sg-caonguyenhoa", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 11.0, "images": ["images/d25-sg-caonguyenhoa_1.webp", "images/d25-sg-caonguyenhoa_2.webp", "images/d25-sg-caonguyenhoa_3.webp", "images/d25-sg-caonguyenhoa_4.webp", "images/d25-sg-caonguyenhoa_5.webp", "images/d25-sg-caonguyenhoa_6.webp"], "group": "", "name": "Cao Nguyên Hoa Đà Lạt", "address": "Tiểu khu 158, Đèo Tà Nung, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.4", "distance": "11 km", "price": "~100k/người", "desc": "Thảm hoa rộng lớn + quán cafe view rừng thông + ngôi nhà cổ tích trên đèo Tà Nung.", "mapQuery": "Tiểu khu 158, Đèo Tà Nung, Đà Lạt", "tiktokQuery": "Cao Nguyen Hoa Da Lat"},
+      {"id": "d25-sg-mongo", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 16.0, "images": ["images/d25-sg-mongo_1.webp", "images/d25-sg-mongo_2.webp", "images/d25-sg-mongo_3.webp", "images/d25-sg-mongo_4.webp", "images/d25-sg-mongo_5.webp", "images/d25-sg-mongo_6.webp"], "group": "", "name": "Mongo Land Đà Lạt", "address": "Tổ 16, Thôn 1, xã Tà Nung, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "16 km", "price": "~120–140k/người", "desc": "Thảo nguyên Mông Cổ siêu hot TikTok: lều Mông Cổ, Alpaca/cừu, trượt phao khô cực vui.", "mapQuery": "Tổ 16, Thôn 1, Xã Tà Nung, Đà Lạt", "tiktokQuery": "Mongo Land Da Lat"},
+      {"id": "d25-sg-florest", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 18.0, "images": ["images/d25-sg-florest_1.webp", "images/d25-sg-florest_2.webp", "images/d25-sg-florest_3.webp", "images/d25-sg-florest_4.webp", "images/d25-sg-florest_5.webp", "images/d25-sg-florest_6.webp"], "group": "", "name": "The Florest – Hoa Trong Rừng", "address": "Thôn 4, xã Tà Nung, Đà Lạt", "rating": 4.5, "ratingText": "4.4–4.6", "distance": "18 km", "price": "~98k/người", "desc": "Vườn hoa tự nhiên hàng chục hecta giữa rừng thông đại ngàn, chụp nàng thơ cực phẩm!", "mapQuery": "Thôn 4, Xã Tà Nung, Đà Lạt", "tiktokQuery": "The Florest Hoa Trong Rung Da Lat"},
+      {"id": "d25-sg-linhan", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "ta-nung", "distKm": 28.0, "images": ["images/d25-sg-linhan_1.webp", "images/d25-sg-linhan_2.webp", "images/d25-sg-linhan_3.webp", "images/d25-sg-linhan_4.webp", "images/d25-sg-linhan_5.webp", "images/d25-sg-linhan_6.webp"], "group": "", "name": "Chùa Linh Ẩn (Tượng Quan Âm 71m)", "address": "Đường Ba Đình, Nam Ban (hướng đèo Tà Nung)", "rating": 4.7, "ratingText": "4.7", "distance": "28 km", "price": "Miễn phí", "desc": "Tượng Phật Quan Âm cao nhất VN (71m) & vườn 500 tượng uy nghiêm, đẹp bậc nhất ngoại ô Đà Lạt.", "mapQuery": "Đường Ba Đình, Thị trấn Nam Ban, Lâm Hà", "tiktokQuery": "Chua Linh An Da Lat"},
+      {"id": "d25-sg-langfarm", "day": "day25", "slot": "trua-ve", "category": "tham-quan", "time": "sang", "hot": false, "free": true, "route": "trung-tam", "distKm": 0.8, "images": ["images/d25-sg-langfarm_1.webp", "images/d25-sg-langfarm_2.webp", "images/d25-sg-langfarm_3.webp", "images/d25-sg-langfarm_4.webp", "images/d25-sg-langfarm_5.webp", "images/d25-sg-langfarm_6.webp"], "group": "", "name": "L'angfarm Store – Mua đặc sản làm quà", "address": "6 Nguyễn Thị Minh Khai, Chợ Đà Lạt, P1", "rating": 4.5, "ratingText": "4.5", "distance": "0.8 km (sát KS)", "price": "Miễn phí vào (tùy mua)", "desc": "Ghé mua hồng treo gió, trà atiso, mứt dâu làm quà ngay sát KS trước khi 14:30 ra BX Đà Lạt (xe chạy 15:35).", "mapQuery": "6 Nguyễn Thị Minh Khai, Phường 1, Đà Lạt", "tiktokQuery": "Langfarm Da Lat mua qua"}
     ];
 
     // =========================================================
@@ -1619,11 +1897,27 @@
 
     let currentUser = localStorage.getItem(LS_USER) || "";
     let activeMainTab = "day23";
-    let activeSlotByDay = { day23: "an-sang" };
+    let activeSlotByDay = { day23: "an-sang", day24: "san-may", day25: "sang" };
     let activePlanBySlot = { "day23:sang": "A" };
     let state = { votes: {}, visited: {} };
     let dbUrl = "";
     let eventSource = null;
+
+    function getRouteModeKey() {
+      return "dalat_route_mode_v1_" + (currentUser || "GUEST");
+    }
+
+    function isRouteModeOn() {
+      const val = localStorage.getItem(getRouteModeKey());
+      return val === null ? true : val === "1"; // AUTO BẬT mặc định, lưu riêng từng tài khoản
+    }
+
+    function toggleRouteMode() {
+      const next = !isRouteModeOn();
+      localStorage.setItem(getRouteModeKey(), next ? "1" : "0");
+      render();
+      showToast(next ? "🛣 Đã BẬT lọc tuyến đường (Gần → Xa)" : "🔥 Đã TẮT lọc tuyến (Xếp theo Vote)");
+    }
 
     const SVG_MAPS = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
     const SVG_TIKTOK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>`;
@@ -1888,17 +2182,21 @@
       return lbl;
     }
 
-    function renderCard(place, indexInList, showSlotTag) {
+    function renderCard(place, indexInList, showSlotTag, showRouteFrame = false) {
       const voters = getVoters(place.id);
       const userVoted = currentUser && voters.includes(currentUser);
       const visited = isVisited(place.id);
-      const isTop = !visited && voters.length > 0 && indexInList === 0;
+      const isTop = !visited && voters.length > 0 && indexInList === 0 && !showRouteFrame;
 
       const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapQuery)}`;
       const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(place.tiktokQuery)}`;
 
+      const routeObj = ROUTES[place.route] || ROUTES["trung-tam"];
       const tags = [];
       if (showSlotTag) tags.push(`<span class="tag-chip tag-slot">${getSlotMetaLabel(place)}</span>`);
+      if (showRouteFrame && routeObj) {
+        tags.push(`<span class="tag-route" style="background:${routeObj.color}">🛣 ${routeObj.label}</span>`);
+      }
       if (isTop) tags.push(`<span class="tag-chip tag-top">🔥 TOP VOTE (${voters.length}/4)</span>`);
 
       const votersHtml = voters.length
@@ -1911,7 +2209,12 @@
         : `<button class="act-btn btn-done" onclick="toggleVisited('${place.id}')">✓ Đã đến</button>`;
 
       const cat = CATEGORY_META[place.category] || CATEGORY_META["tham-quan"];
+      const tm = TIME_META[place.time] || TIME_META["sang"];
       const ribbonHtml = place.hot ? `<div class="hot-ribbon">🔥 HOT CHECK IN</div>` : "";
+      const freeRibbonHtml = place.free
+        ? `<div class="free-ribbon ${place.hot ? "below-hot" : ""}">✨ MIỄN PHÍ</div>`
+        : "";
+
       const pics = (place.images && place.images.length) ? place.images : [];
       const imgsHtml = pics.map((src, idx) =>
         `<img src="${src}" alt="${place.name} (${idx + 1})" loading="lazy" class="${idx === 0 ? "active-slide" : ""}" onerror="this.style.display='none'" />`
@@ -1923,15 +2226,23 @@
         ? `<div class="slide-counter">📷 <span class="sc-num">1</span>/${pics.length}</div>`
         : "";
 
+      const frameStyle = (showRouteFrame && routeObj)
+        ? `style="border: 2.5px solid ${routeObj.color}; box-shadow: 0 4px 16px ${routeObj.color}22;"`
+        : "";
+
       return `
-        <article class="card ${isTop ? "top-voted" : ""}">
+        <article class="card ${isTop ? "top-voted" : ""}" ${frameStyle}>
           <div class="card-media" data-place-id="${place.id}" data-slide="0" data-total="${pics.length}" onclick="openGallery('${place.id}')">
             ${ribbonHtml}
+            ${freeRibbonHtml}
             ${imgsHtml}
             ${counterHtml}
             ${dotsHtml}
             <div class="media-badges-bottom">
-              <span class="cat-badge ${cat.cls}">${cat.label}</span>
+              <div class="media-left-pills">
+                <span class="time-badge ${tm.cls}">${tm.label}</span>
+                <span class="cat-badge ${cat.cls}">${cat.label}</span>
+              </div>
               <span class="media-rating">⭐ ${place.ratingText}</span>
             </div>
           </div>
@@ -2116,23 +2427,59 @@
 
       if (bannerText) html += `<div class="info-banner">${bannerText}</div>`;
 
+      const routeOn = isRouteModeOn();
+      const userLabel = currentUser || "bạn";
+      html += `
+        <div class="route-bar">
+          <div class="route-bar-info">
+            <strong>🛣 Lọc & gom theo tuyến đường (${userLabel})</strong>
+            <span>${routeOn ? "Cùng tuyến = cùng màu khung · Xếp từ gần → xa (tham khảo)" : "Đang tắt · Xếp theo nhiều người Vote nhất"}</span>
+          </div>
+          <button class="route-toggle-btn ${routeOn ? "on" : "off"}" onclick="toggleRouteMode()">
+            ${routeOn ? "ĐANG BẬT" : "ĐANG TẮT"}
+          </button>
+        </div>
+      `;
+
       if (!items.length) {
         html += `<div class="empty-box">Tất cả địa điểm của mục này đã được chuyển sang tab <strong>Đã đến</strong> ✓</div>`;
-      } else {
-        const groups = [];
-        items.forEach(p => { if (!groups.includes(p.group)) groups.push(p.group); });
-        groups.forEach(groupName => {
-          const groupItems = sortByVotesThenRating(items.filter(p => p.group === groupName));
+      } else if (routeOn) {
+        // Group by route, sort routes by nearest place, sort places inside each route near -> far
+        const byRoute = {};
+        items.forEach(p => {
+          const rKey = p.route || "trung-tam";
+          if (!byRoute[rKey]) byRoute[rKey] = [];
+          byRoute[rKey].push(p);
+        });
+        const sortedRouteKeys = Object.keys(byRoute).sort((ra, rb) => {
+          const minA = Math.min(...byRoute[ra].map(x => x.distKm ?? 99));
+          const minB = Math.min(...byRoute[rb].map(x => x.distKm ?? 99));
+          return minA - minB;
+        });
+        sortedRouteKeys.forEach(rKey => {
+          const rObj = ROUTES[rKey] || ROUTES["trung-tam"];
+          const rItems = [...byRoute[rKey]].sort((a, b) => (a.distKm ?? 99) - (b.distKm ?? 99));
           html += `
-            <div class="section-head">
-              <h2 class="section-title">${groupName}</h2>
-              <span class="section-hint">Xếp theo nhiều vote nhất</span>
+            <div class="route-group-header" style="background:${rObj.color}">
+              <span>🛣 ${rObj.label}</span>
+              <small>${rItems.length} điểm · Gần → Xa</small>
             </div>
             <div class="card-list">
-              ${groupItems.map((p, i) => renderCard(p, i, false)).join("")}
+              ${rItems.map((p, i) => renderCard(p, i, false, true)).join("")}
             </div>
           `;
         });
+      } else {
+        const sorted = sortByVotesThenRating(items);
+        html += `
+          <div class="section-head">
+            <h2 class="section-title">Danh sách địa điểm (${sorted.length})</h2>
+            <span class="section-hint">Xếp theo nhiều vote nhất</span>
+          </div>
+          <div class="card-list">
+            ${sorted.map((p, i) => renderCard(p, i, false, false)).join("")}
+          </div>
+        `;
       }
 
       mainEl.innerHTML = html;
