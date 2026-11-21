@@ -284,24 +284,112 @@
       flex-shrink: 0;
     }
 
-    /* ===== PLACE CARD (MOBILE ERGONOMIC) ===== */
+    /* ===== PLACE CARD (MOBILE ERGONOMIC + COVER PHOTO + RIBBON) ===== */
     .card-list {
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 13px;
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 13px;
+      overflow: hidden;
       box-shadow: var(--shadow);
+      position: relative;
     }
 
     .card.top-voted {
       border-color: var(--sunset);
-      box-shadow: 0 5px 18px rgba(217, 102, 54, 0.13);
+      box-shadow: 0 5px 18px rgba(217, 102, 54, 0.16);
+    }
+
+    .card-media {
+      position: relative;
+      width: 100%;
+      height: 162px;
+      background: linear-gradient(135deg, #214E3C 0%, #3C6E58 100%);
+      overflow: hidden;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.06) 45%, rgba(0,0,0,0.52) 100%);
+      pointer-events: none;
+    }
+
+    /* Diagonal HOT CHECK IN Ribbon */
+    .hot-ribbon {
+      position: absolute;
+      top: 16px;
+      left: -34px;
+      z-index: 4;
+      background: linear-gradient(135deg, #FF3B5C 0%, #FF6B2B 100%);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 4px 36px;
+      transform: rotate(-38deg);
+      box-shadow: 0 3px 10px rgba(255, 59, 92, 0.42);
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .media-badges-bottom {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 9px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: #fff;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .cat-tham-quan { background: rgba(29, 77, 59, 0.9); }
+    .cat-cafe { background: rgba(120, 68, 33, 0.92); }
+    .cat-an-uong { background: rgba(217, 102, 54, 0.92); }
+
+    .media-rating {
+      background: rgba(255, 255, 255, 0.95);
+      color: #8A5B06;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .card-body {
+      padding: 12px 13px 13px;
     }
 
     .card-tags {
@@ -847,11 +935,40 @@
       ]
     };
 
+    const CATEGORY_META = {
+      "tham-quan": { label: "📸 THAM QUAN", cls: "cat-tham-quan" },
+      "cafe":      { label: "☕ CAFE",      cls: "cat-cafe" },
+      "an-uong":   { label: "🍜 ĂN UỐNG",   cls: "cat-an-uong" }
+    };
+
+    const IMG = {
+      domaine: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Domaine_de_Marie_19.JPG/960px-Domaine_de_Marie_19.JPG",
+      gadalat: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Da_Lat_train_station_02.JPG/960px-Da_Lat_train_station_02.JPG",
+      hxh: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Da_Lat_-_Xuan_Huong_Lake.jpg/960px-Da_Lat_-_Xuan_Huong_Lake.jpg",
+      chodem: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Ch%E1%BB%A3_%C4%90%C3%A0_L%E1%BA%A1t_to%C3%A0n_c%E1%BA%A3nh.jpg/960px-Ch%E1%BB%A3_%C4%90%C3%A0_L%E1%BA%A1t_to%C3%A0n_c%E1%BA%A3nh.jpg",
+      donbosco: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Detail_of_stone_columns_on_St_Mark%27s_Basilica.JPG/960px-Detail_of_stone_columns_on_St_Mark%27s_Basilica.JPG",
+      pine: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Vasilyev_Road_in_a_pine_forest_1870_grm.jpg/960px-Vasilyev_Road_in_a_pine_forest_1870_grm.jpg",
+      japancafe: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Japanese_tea_house_-_Toulouse_-_2013-12-21.jpg/960px-Japanese_tea_house_-_Toulouse_-_2013-12-21.jpg",
+      cafe_dalat: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Vietnamese_Coffee_in_Da_Lat.jpg/960px-Vietnamese_Coffee_in_Da_Lat.jpg",
+      cafe_forest: "https://upload.wikimedia.org/wikipedia/commons/3/31/Beechenhurst_Lodge%2C_Forest_of_Dean_-_geograph.org.uk_-_1053603.jpg",
+      banhmi: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/B%C3%A1nh_m%C3%AC_k%E1%BA%B9p_b%C3%A1nh_l%E1%BB%8Dc_%E1%BB%9F_%C4%90%C3%B4ng_H%C3%A0_n%C4%83m_2018.jpg/960px-B%C3%A1nh_m%C3%AC_k%E1%BA%B9p_b%C3%A1nh_l%E1%BB%8Dc_%E1%BB%9F_%C4%90%C3%B4ng_H%C3%A0_n%C4%83m_2018.jpg",
+      banhuot: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Banh_cuon_nhan_thit_cha_lua%2C_Banh_Cuon_Thang_Long.jpg/960px-Banh_cuon_nhan_thit_cha_lua%2C_Banh_Cuon_Thang_Long.jpg",
+      comnieu: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Claypot_Chicken_Rice%2C_Singapore.JPG/960px-Claypot_Chicken_Rice%2C_Singapore.JPG",
+      nemnuong: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Nem_n%C6%B0%E1%BB%9Bng_by_Baoothersks.jpg/960px-Nem_n%C6%B0%E1%BB%9Bng_by_Baoothersks.jpg",
+      comga: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Bogus_Chicken_rice.jpg/960px-Bogus_Chicken_rice.jpg",
+      bbq: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Korean_BBQ_Skewer_at_The_Revel_Patio_Grill.jpg/960px-Korean_BBQ_Skewer_at_The_Revel_Patio_Grill.jpg",
+      hotpot: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E7%BE%85%E6%B9%96_Luohu_%E6%9D%B1%E9%96%80_Dongmen_%E5%A4%AA%E9%99%BD%E5%BB%A3%E5%A0%B4_Sun_Plaza_Mall_shop_%E6%B5%B7%E5%BA%95%E6%92%88%E5%A4%A7%E6%8E%92%E6%AA%94%E7%81%AB%E9%8D%8B_Haidilao_Seafood_Hot_Pot_Restaurant_soup_October_2026_N13P_01.jpg/960px-thumbnail.jpg",
+      banhtrang: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Banh_trang_nuong_dalat.jpg/960px-Banh_trang_nuong_dalat.jpg",
+      avocado: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Avocado_Ice_Cream%2C_Jun_2024.jpg/960px-Avocado_Ice_Cream%2C_Jun_2024.jpg",
+      milktea: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Pearl_Milk_Tea_in_Chun_Shui_Tang.jpg/960px-Pearl_Milk_Tea_in_Chun_Shui_Tang.jpg"
+    };
+
     const PLACES = [
       // ===== NGÀY 23 · SÁNG · PLAN A =====
       {
         id: "d23-sa-stopandgo",
         day: "day23", slot: "sang", plan: "A",
+        category: "cafe", hot: false, image: IMG.cafe_dalat,
         group: "Nghỉ chân · Gửi 3 vali & Chụp hình",
         name: "Stop and Go Coffee & Boutique Hotel",
         address: "88 Lý Tự Trọng, P2, Đà Lạt (Hotline: 0263 3556 996)",
@@ -865,6 +982,7 @@
       {
         id: "d23-sa-belinh",
         day: "day23", slot: "sang", plan: "A",
+        category: "an-uong", hot: false, image: IMG.banhmi,
         group: "Ăn sáng gần KS (07:45 – 09:00)",
         name: "Bánh mì xíu mại Bé Linh",
         address: "26 Hoàng Diệu, P5, Đà Lạt",
@@ -878,6 +996,7 @@
       {
         id: "d23-sa-ri79",
         day: "day23", slot: "sang", plan: "A",
+        category: "an-uong", hot: false, image: IMG.banhmi,
         group: "Ăn sáng gần KS (07:45 – 09:00)",
         name: "Bánh mì xíu mại Ri 79",
         address: "1 Thông Thiên Học, P2, Đà Lạt",
@@ -893,6 +1012,7 @@
       {
         id: "d23-sb-donbosco",
         day: "day23", slot: "sang", plan: "B",
+        category: "tham-quan", hot: true, image: IMG.donbosco,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Nhà Mục Vụ Don Bosco",
         address: "36 Bùi Thị Xuân, P2, Đà Lạt",
@@ -906,6 +1026,7 @@
       {
         id: "d23-sb-domaine",
         day: "day23", slot: "sang", plan: "B",
+        category: "tham-quan", hot: true, image: IMG.domaine,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Nhà thờ Domaine de Marie",
         address: "1 Ngô Quyền, P6, Đà Lạt",
@@ -919,6 +1040,7 @@
       {
         id: "d23-sb-bacau",
         day: "day23", slot: "sang", plan: "B",
+        category: "tham-quan", hot: true, image: IMG.pine,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Cung đường Bắc Âu",
         address: "Đường Nguyễn Hữu Cảnh, P2, Đà Lạt",
@@ -932,6 +1054,7 @@
       {
         id: "d23-sb-still",
         day: "day23", slot: "sang", plan: "B",
+        category: "cafe", hot: true, image: IMG.japancafe,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Still Cafe",
         address: "59 Nguyễn Trãi, P9, Đà Lạt",
@@ -945,6 +1068,7 @@
       {
         id: "d23-sb-hanthuyen",
         day: "day23", slot: "sang", plan: "B",
+        category: "tham-quan", hot: false, image: IMG.hxh,
         group: "Top 5 điểm chụp hình sát KS",
         name: "Đường Hàn Thuyên",
         address: "Đường Hàn Thuyên, P6, Đà Lạt",
@@ -960,6 +1084,7 @@
       {
         id: "d23-tr-long",
         day: "day23", slot: "an-trua",
+        category: "an-uong", hot: false, image: IMG.banhuot,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Bánh ướt lòng gà Long",
         address: "Hẻm 202 Phan Đình Phùng, P2, Đà Lạt",
@@ -973,6 +1098,7 @@
       {
         id: "d23-tr-nhungoc",
         day: "day23", slot: "an-trua",
+        category: "an-uong", hot: false, image: IMG.comnieu,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Cơm Niêu Như Ngọc",
         address: "1/18 Hồ Tùng Mậu, P3, Đà Lạt",
@@ -986,6 +1112,7 @@
       {
         id: "d23-tr-trang",
         day: "day23", slot: "an-trua",
+        category: "an-uong", hot: false, image: IMG.banhuot,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Bánh ướt lòng gà Trang",
         address: "15F Tăng Bạt Hổ, P1, Đà Lạt",
@@ -999,6 +1126,7 @@
       {
         id: "d23-tr-bahung",
         day: "day23", slot: "an-trua",
+        category: "an-uong", hot: false, image: IMG.nemnuong,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Nem nướng Bà Hùng",
         address: "328 Phan Đình Phùng, P2, Đà Lạt",
@@ -1012,6 +1140,7 @@
       {
         id: "d23-tr-comga",
         day: "day23", slot: "an-trua",
+        category: "an-uong", hot: false, image: IMG.comga,
         group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
         name: "Cơm gà Phan Rang / Cơm phần Bùi Thị Xuân",
         address: "Trục đường Bùi Thị Xuân – Phan Đình Phùng, P2",
@@ -1027,6 +1156,7 @@
       {
         id: "d23-ch-tramnang",
         day: "day23", slot: "chieu",
+        category: "cafe", hot: true, image: IMG.cafe_dalat,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Trạm Nắng",
         address: "18 Đống Đa, P3, Đà Lạt",
@@ -1040,6 +1170,7 @@
       {
         id: "d23-ch-hxh",
         day: "day23", slot: "chieu",
+        category: "tham-quan", hot: true, image: IMG.hxh,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Hồ Xuân Hương & Quảng trường Lâm Viên",
         address: "Đường Trần Quốc Toản, P1 – P10, Đà Lạt",
@@ -1053,6 +1184,7 @@
       {
         id: "d23-ch-sitooterie",
         day: "day23", slot: "chieu",
+        category: "cafe", hot: true, image: IMG.cafe_forest,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Sitooterie - Coffee & Stories",
         address: "2/35 Khởi Nghĩa Bắc Sơn, P10, Đà Lạt",
@@ -1066,6 +1198,7 @@
       {
         id: "d23-ch-gadalat",
         day: "day23", slot: "chieu",
+        category: "tham-quan", hot: true, image: IMG.gadalat,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Ga Đà Lạt",
         address: "1 Quang Trung, P10, Đà Lạt",
@@ -1079,6 +1212,7 @@
       {
         id: "d23-ch-doimotnguoi",
         day: "day23", slot: "chieu",
+        category: "cafe", hot: true, image: IMG.cafe_forest,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Đợi Một Người (Cafe)",
         address: "Đường Khởi Nghĩa Bắc Sơn, P3, Đà Lạt",
@@ -1092,6 +1226,7 @@
       {
         id: "d23-ch-docnhabo",
         day: "day23", slot: "chieu",
+        category: "tham-quan", hot: true, image: IMG.pine,
         group: "Top 6 điểm chụp hình chiều gần trung tâm",
         name: "Dốc Nhà Bò",
         address: "Cuối đường Đào Duy Từ, P3, Đà Lạt",
@@ -1107,6 +1242,7 @@
       {
         id: "d23-ac-thuongthuong",
         day: "day23", slot: "an-chieu",
+        category: "an-uong", hot: false, image: IMG.bbq,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Tiệm nướng Thương Thương",
         address: "30 Đặng Thái Thân, P3, Đà Lạt",
@@ -1120,6 +1256,7 @@
       {
         id: "d23-ac-chu",
         day: "day23", slot: "an-chieu",
+        category: "an-uong", hot: false, image: IMG.bbq,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Quán nướng Chu",
         address: "Lô B1-18 KQH Golf Valley, P2, Đà Lạt",
@@ -1133,6 +1270,7 @@
       {
         id: "d23-ac-batoa",
         day: "day23", slot: "an-chieu",
+        category: "an-uong", hot: false, image: IMG.hotpot,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Lẩu bò Ba Toa – Quán Gỗ",
         address: "Hẻm 1 Hoàng Diệu, P5, Đà Lạt",
@@ -1146,6 +1284,7 @@
       {
         id: "d23-ac-fungi",
         day: "day23", slot: "an-chieu",
+        category: "an-uong", hot: false, image: IMG.bbq,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Fungi Chingu (Nướng Hàn Quốc)",
         address: "1 Nguyễn Thị Minh Khai, P1, Đà Lạt",
@@ -1159,6 +1298,7 @@
       {
         id: "d23-ac-taongo",
         day: "day23", slot: "an-chieu",
+        category: "an-uong", hot: false, image: IMG.hotpot,
         group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
         name: "Lẩu gà lá é Tao Ngộ (quán gốc)",
         address: "Số 5 đường 3 Tháng 4, P3, Đà Lạt",
@@ -1174,6 +1314,7 @@
       {
         id: "d23-to-chodem",
         day: "day23", slot: "toi",
+        category: "tham-quan", hot: true, image: IMG.chodem,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Chợ Đêm Đà Lạt & Sữa đậu nành nóng",
         address: "Nguyễn Thị Minh Khai, P1, Đà Lạt",
@@ -1187,6 +1328,7 @@
       {
         id: "d23-to-didinh",
         day: "day23", slot: "toi",
+        category: "an-uong", hot: false, image: IMG.banhtrang,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Bánh tráng nướng dì Đinh",
         address: "26 Hoàng Diệu, P5, Đà Lạt",
@@ -1200,6 +1342,7 @@
       {
         id: "d23-to-thanhthao",
         day: "day23", slot: "toi",
+        category: "an-uong", hot: false, image: IMG.avocado,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Kem bơ Thanh Thảo",
         address: "76 Nguyễn Văn Trỗi, P2, Đà Lạt",
@@ -1213,6 +1356,7 @@
       {
         id: "d23-to-hongtra",
         day: "day23", slot: "toi",
+        category: "cafe", hot: false, image: IMG.milktea,
         group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
         name: "Hồng trà Hòa Bình",
         address: "Khu Hòa Bình, P1, Đà Lạt",
@@ -1525,36 +1669,49 @@
         ? `<button class="act-btn btn-undo" onclick="toggleVisited('${place.id}')">↩ Hoàn tác</button>`
         : `<button class="act-btn btn-done" onclick="toggleVisited('${place.id}')">✓ Đã đến</button>`;
 
+      const cat = CATEGORY_META[place.category] || CATEGORY_META["tham-quan"];
+      const ribbonHtml = place.hot ? `<div class="hot-ribbon">🔥 HOT CHECK IN</div>` : "";
+
       return `
         <article class="card ${isTop ? "top-voted" : ""}">
-          ${tags.length ? `<div class="card-tags">${tags.join("")}</div>` : ""}
-          <div class="card-top">
-            <div>
-              <h3 class="card-name">${place.name}</h3>
-              <div class="card-addr">${place.address}</div>
+          <div class="card-media">
+            ${ribbonHtml}
+            <img src="${place.image}" alt="${place.name}" loading="lazy" onerror="this.style.display='none'" />
+            <div class="media-badges-bottom">
+              <span class="cat-badge ${cat.cls}">${cat.label}</span>
+              <span class="media-rating">⭐ ${place.ratingText}</span>
             </div>
-            <div class="rating-badge">⭐ ${place.ratingText}</div>
           </div>
 
-          <div class="stats-row">
-            <span class="stat-chip">📍 Cách KS: ${place.distance}</span>
-            <span class="stat-chip">💰 ${place.price}</span>
-          </div>
+          <div class="card-body">
+            ${tags.length ? `<div class="card-tags">${tags.join("")}</div>` : ""}
+            <div class="card-top">
+              <div>
+                <h3 class="card-name">${place.name}</h3>
+                <div class="card-addr">${place.address}</div>
+              </div>
+            </div>
 
-          <p class="card-desc">${place.desc}</p>
-          <div class="voters-row">${votersHtml}</div>
+            <div class="stats-row">
+              <span class="stat-chip">📍 Cách KS: ${place.distance}</span>
+              <span class="stat-chip">💰 ${place.price}</span>
+            </div>
 
-          <div class="actions-grid">
-            <button class="act-btn btn-vote ${userVoted ? "voted" : ""}" onclick="toggleVote('${place.id}')">
-              ${userVoted ? "♥ Đã vote" : "♡ Vote"} (${voters.length})
-            </button>
-            ${doneBtnHtml}
-            <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
-              ${SVG_MAPS} Google Maps
-            </a>
-            <a class="act-btn btn-tiktok" href="${tiktokUrl}" target="_blank" rel="noopener">
-              ${SVG_TIKTOK} Xem TikTok
-            </a>
+            <p class="card-desc">${place.desc}</p>
+            <div class="voters-row">${votersHtml}</div>
+
+            <div class="actions-grid">
+              <button class="act-btn btn-vote ${userVoted ? "voted" : ""}" onclick="toggleVote('${place.id}')">
+                ${userVoted ? "♥ Đã vote" : "♡ Vote"} (${voters.length})
+              </button>
+              ${doneBtnHtml}
+              <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
+                ${SVG_MAPS} Google Maps
+              </a>
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" target="_blank" rel="noopener">
+                ${SVG_TIKTOK} Xem TikTok
+              </a>
+            </div>
           </div>
         </article>
       `;
