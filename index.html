@@ -689,6 +689,44 @@
     }
     .select-input:focus { border-color: var(--pine); }
 
+    /* Live Search Drawer under Topbar */
+    .search-bar-wrap {
+      margin-top: 8px;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 6px 8px 6px 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+    }
+    .search-bar-wrap.open { display: flex; }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      outline: none;
+      min-width: 0;
+    }
+
+    .search-clear-btn {
+      border: none;
+      background: var(--surface-soft);
+      color: var(--muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
     .admin-bar {
       margin-top: 8px;
       padding: 8px 10px;
@@ -1250,6 +1288,9 @@
           <div class="brand-sub">Mỹ Lan Hotel · 24 Lý Tự Trọng, P2</div>
         </div>
         <div class="top-actions">
+          <button class="sync-btn" id="searchToggleBtn" onclick="toggleSearchBar()" title="Tìm kiếm địa điểm">
+            🔍
+          </button>
           <button class="user-pill" onclick="openLoginModal()" title="Đổi tài khoản">
             👤 <span id="currentUserLabel">Chọn tên</span> ▾
           </button>
@@ -1258,6 +1299,11 @@
             <span class="sync-dot-mini" id="syncDotMini"></span>
           </button>
         </div>
+      </div>
+      <div class="search-bar-wrap" id="searchBarWrap">
+        <span style="font-size:14px;">🔍</span>
+        <input class="search-input" id="globalSearchInput" type="search" placeholder="Tìm tên địa điểm, quán ăn, đường..." oninput="handleSearchInput(this.value)" />
+        <button class="search-clear-btn" onclick="closeSearchBar()" title="Đóng tìm kiếm">✕</button>
       </div>
       <div class="sync-strip">
         <span id="syncStatusText" onclick="handleSyncStripClick()">🟡 Chế độ cục bộ</span>
@@ -2375,9 +2421,44 @@
     let activeSlotByDay = { day23: "an-sang", day24: "san-may", day25: "san-may" };
     let activePlanBySlot = { "day23:sang": "A" };
     let selectedMemberFilters = [];
+    let searchQuery = "";
     let state = { votes: {}, visited: {}, moved: {} };
     let dbUrl = "";
     let eventSource = null;
+
+    function stripVN(str) {
+      return (str || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toLowerCase();
+    }
+
+    function toggleSearchBar() {
+      const wrap = document.getElementById("searchBarWrap");
+      const inp = document.getElementById("globalSearchInput");
+      const isOpen = wrap.classList.toggle("open");
+      if (isOpen) {
+        setTimeout(() => inp.focus(), 50);
+      } else {
+        searchQuery = "";
+        inp.value = "";
+        render();
+      }
+    }
+
+    function closeSearchBar() {
+      document.getElementById("searchBarWrap").classList.remove("open");
+      document.getElementById("globalSearchInput").value = "";
+      searchQuery = "";
+      render();
+    }
+
+    function handleSearchInput(val) {
+      searchQuery = (val || "").trim();
+      renderContent();
+    }
 
     function toggleMemberFilter(member) {
       const idx = selectedMemberFilters.indexOf(member);
@@ -2995,6 +3076,30 @@
     function renderContent() {
       const mainEl = document.getElementById("mainContent");
       let html = "";
+
+      // Live global search mode (searches across all 3 days + rentals, accent-insensitive)
+      if (searchQuery) {
+        const needle = stripVN(searchQuery);
+        const matchedPlaces = sortByVotesThenRating(
+          PLACES.filter(p => stripVN(`${p.name} ${p.address} ${p.desc}`).includes(needle))
+        );
+        const matchedRentals = RENTALS.filter(r => stripVN(`${r.name} ${r.address} ${r.desc}`).includes(needle));
+        const totalFound = matchedPlaces.length + matchedRentals.length;
+        html += `<div class="info-banner"><strong>🔍 Kết quả tìm kiếm cho "${searchQuery.replace(/</g, "&lt;")}":</strong> tìm thấy <strong>${totalFound}</strong> địa điểm.</div>`;
+        if (!totalFound) {
+          html += `<div class="empty-box">Không tìm thấy địa điểm nào khớp từ khóa <strong>"${searchQuery.replace(/</g, "&lt;")}"</strong>. Thử gõ ngắn hơn (vd: <em>lẩu, bánh, chùa, cầu đất</em>).</div>`;
+        } else {
+          if (matchedPlaces.length) {
+            html += `<div class="card-list">${matchedPlaces.map((p, i) => renderCard(p, i, true)).join("")}</div>`;
+          }
+          if (matchedRentals.length) {
+            html += `<div class="section-head"><h2 class="section-title">🛵 Tiệm thuê xe (${matchedRentals.length})</h2></div>`;
+            html += `<div class="card-list">${matchedRentals.map((r, i) => renderRentalCard(r, i)).join("")}</div>`;
+          }
+        }
+        mainEl.innerHTML = html;
+        return;
+      }
 
       if (activeMainTab === "rentals") {
         html += `<div class="info-banner"><strong>Top 6 chỗ thuê xe máy Đà Lạt uy tín (sắp xếp từ GẦN → XA Mỹ Lan Hotel – 24 Lý Tự Trọng).</strong> Nhóm 4 người cần 2 xe từ sáng 23/11 đến trưa 25/11 — nhớ hỏi giá đỡ ĐT & quay video xe trước khi nhận!</div>`;
