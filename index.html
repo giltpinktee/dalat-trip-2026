@@ -689,13 +689,58 @@
     }
     .select-input:focus { border-color: var(--pine); }
 
-    .phi-tip {
-      margin-top: 6px;
-      font-size: 11px;
-      color: #FDE68A;
+    .admin-bar {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 11px;
+      background: rgba(251, 191, 36, 0.16);
+      border: 1px solid rgba(251, 191, 36, 0.45);
       display: none;
+      flex-direction: column;
+      gap: 7px;
     }
-    .phi-tip.show { display: block; }
+    .admin-bar.show { display: flex; }
+
+    .admin-bar-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #FDE68A;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .admin-act-btn {
+      flex: 1 1 auto;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.28);
+      color: #fff;
+      padding: 6px 9px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .admin-act-btn:active { transform: scale(0.97); }
+    .admin-act-btn.danger { background: rgba(201, 59, 59, 0.85); border-color: rgba(255,255,255,0.25); }
+
+    .admin-login-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border: 2px dashed #D97706;
+      border-radius: 14px;
+      background: #FFFBEB;
+      color: #92400E;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
 
     .media-rating {
       background: rgba(255, 255, 255, 0.95);
@@ -1153,7 +1198,14 @@
         <span id="syncStatusText">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
         <span>🚌 00:05 (23/11) → 15:35 (25/11)</span>
       </div>
-      <div class="phi-tip" id="phiTip">👑 Quyền PHI: Nhấn giữ (0.5s) lên bất kỳ địa điểm nào để chuyển ngày / buổi</div>
+      <div class="admin-bar" id="adminBar">
+        <div class="admin-bar-title">👑 Chế độ ADMIN: Nhấn giữ (0.5s) lên thẻ bất kỳ để chuyển ngày / buổi</div>
+        <div class="admin-actions">
+          <button class="admin-act-btn danger" onclick="adminResetVotes()">🗑 Reset Vote</button>
+          <button class="admin-act-btn danger" onclick="adminResetVisited()">↩ Reset Đã đến</button>
+          <button class="admin-act-btn" onclick="adminResetMoved()">📌 Reset Chuyển ngày</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -1198,7 +1250,20 @@
           GẤM
         </button>
       </div>
+      <button class="admin-login-btn" onclick="openAdminPassModal()">👑 ADMIN (Quản trị viên · Yêu cầu mật khẩu)</button>
       <button class="secondary-btn" id="logoutBtn" style="display:none; color: var(--danger);" onclick="logoutUser()">Đăng xuất tài khoản hiện tại</button>
+    </div>
+  </div>
+
+  <!-- ADMIN PASSWORD MODAL -->
+  <div class="modal-backdrop" id="adminPassModal">
+    <div class="modal-card">
+      <h2 class="modal-title">👑 Đăng nhập ADMIN</h2>
+      <p class="modal-sub">Nhập mật khẩu quản trị viên để chuyển ngày/buổi & reset dữ liệu.</p>
+      <input class="text-input" id="adminPassInput" type="password" placeholder="Nhập mật khẩu Admin..." onkeydown="if(event.key==='Enter') verifyAdminPass()" />
+      <div id="adminPassError" style="color: var(--danger); font-size: 12px; font-weight: 700; margin-top: 6px; display: none;">Mật khẩu không đúng!</div>
+      <button class="primary-btn" onclick="verifyAdminPass()">Xác nhận đăng nhập</button>
+      <button class="secondary-btn" onclick="closeAdminPassModal()">Quay lại</button>
     </div>
   </div>
 
@@ -1261,6 +1326,7 @@
     // 1. CẤU HÌNH & DỮ LIỆU PHÂN CẤP (NGÀY -> BUỔI -> PLAN)
     // =========================================================
     const DEFAULT_FIREBASE_URL = "https://dalat-9b971-default-rtdb.asia-southeast1.firebasedatabase.app";
+    const ADMIN_PASS = "Phi2803@@@";
     const MEMBERS = ["PHI", "PHẤN", "HÂN", "GẤM"];
 
     // Tab lớn nhất (Bottom Nav)
@@ -2346,17 +2412,73 @@
     function updateUserUI() {
       const label = document.getElementById("currentUserLabel");
       const logoutBtn = document.getElementById("logoutBtn");
-      const phiTip = document.getElementById("phiTip");
+      const adminBar = document.getElementById("adminBar");
       if (currentUser) {
-        label.textContent = currentUser;
+        label.textContent = currentUser === "ADMIN" ? "👑 ADMIN" : currentUser;
         logoutBtn.style.display = "block";
       } else {
         label.textContent = "Chọn tên";
         logoutBtn.style.display = "none";
       }
-      if (phiTip) {
-        phiTip.classList.toggle("show", currentUser === "PHI");
+      if (adminBar) {
+        adminBar.classList.toggle("show", currentUser === "ADMIN");
       }
+    }
+
+    function openAdminPassModal() {
+      document.getElementById("adminPassInput").value = "";
+      document.getElementById("adminPassError").style.display = "none";
+      document.getElementById("adminPassModal").classList.add("open");
+      setTimeout(() => document.getElementById("adminPassInput").focus(), 100);
+    }
+
+    function closeAdminPassModal() {
+      document.getElementById("adminPassModal").classList.remove("open");
+    }
+
+    function verifyAdminPass() {
+      const val = document.getElementById("adminPassInput").value;
+      if (val === ADMIN_PASS) {
+        currentUser = "ADMIN";
+        localStorage.setItem(LS_USER, "ADMIN");
+        updateUserUI();
+        closeAdminPassModal();
+        closeLoginModal();
+        render();
+        showToast("👑 Đã đăng nhập tài khoản ADMIN!");
+      } else {
+        document.getElementById("adminPassError").style.display = "block";
+      }
+    }
+
+    async function adminResetVotes() {
+      if (currentUser !== "ADMIN") return;
+      if (!confirm("Xác nhận XÓA TOÀN BỘ VOTE của cả 4 thành viên?")) return;
+      state.votes = {};
+      saveLocalState();
+      render();
+      showToast("🗑 Đã reset toàn bộ Vote!");
+      await pushFirebase("votes", null);
+    }
+
+    async function adminResetVisited() {
+      if (currentUser !== "ADMIN") return;
+      if (!confirm("Xác nhận RESET toàn bộ danh sách Đã đến về Chưa đến?")) return;
+      state.visited = {};
+      saveLocalState();
+      render();
+      showToast("↩ Đã reset toàn bộ Đã đến!");
+      await pushFirebase("visited", null);
+    }
+
+    async function adminResetMoved() {
+      if (currentUser !== "ADMIN") return;
+      if (!confirm("Xác nhận đưa toàn bộ địa điểm đã chuyển về lại ngày/buổi gốc?")) return;
+      state.moved = {};
+      saveLocalState();
+      render();
+      showToast("📌 Đã khôi phục toàn bộ lịch gốc!");
+      await pushFirebase("moved", null);
     }
 
     function openLoginModal() {
@@ -2399,6 +2521,10 @@
 
     async function toggleVote(placeId) {
       if (!currentUser) { openLoginModal(); return; }
+      if (currentUser === "ADMIN") {
+        showToast("Tài khoản ADMIN chỉ quản trị · Chọn PHI/PHẤN/HÂN/GẤM để vote");
+        return;
+      }
       if (!state.votes[placeId]) state.votes[placeId] = {};
       if (state.votes[placeId][currentUser]) {
         delete state.votes[placeId][currentUser];
@@ -2495,7 +2621,7 @@
 
       const routeObj = ROUTES[place.route] || ROUTES["trung-tam"];
       const tags = [];
-      if (isPinnedMove) tags.push(`<span class="tag-chip tag-pinned">📌 ĐÃ CHUYỂN VÀO BUỔI NÀY (PHI)</span>`);
+      if (isPinnedMove) tags.push(`<span class="tag-chip tag-pinned">📌 ĐÃ CHUYỂN VÀO BUỔI NÀY (ADMIN)</span>`);
       if (showSlotTag) tags.push(`<span class="tag-chip tag-slot">${getSlotMetaLabel(place)}</span>`);
       if (showRouteFrame && !isPinnedMove && routeObj) {
         tags.push(`<span class="tag-route" style="background:${routeObj.color}">🛣 ${routeObj.label}</span>`);
@@ -2772,7 +2898,7 @@
         if (movedItems.length) {
           html += `
             <div class="pinned-group-header">
-              <span>📌 ĐỊA ĐIỂM PHI ĐÃ CHUYỂN VÀO BUỔI NÀY</span>
+              <span>📌 ĐỊA ĐIỂM ADMIN ĐÃ CHUYỂN VÀO BUỔI NÀY</span>
               <small>${movedItems.length} điểm · Ưu tiên đầu</small>
             </div>
             <div class="card-list">
@@ -3004,7 +3130,7 @@
     }, { passive: true });
 
     // =========================================================
-    // 8. PHI-ONLY LONG-PRESS MOVE DAY / SLOT (PIN TO TOP)
+    // 8. ADMIN-ONLY LONG-PRESS MOVE DAY / SLOT (PIN TO TOP)
     // =========================================================
     let movingPlaceId = "";
     let holdTimer = null;
@@ -3012,7 +3138,7 @@
     let holdStartY = 0;
 
     function openMoveModal(placeId) {
-      if (currentUser !== "PHI") return;
+      if (currentUser !== "ADMIN") return;
       const place = PLACES.find(p => p.id === placeId);
       if (!place) return;
       movingPlaceId = placeId;
@@ -3060,7 +3186,7 @@
     }
 
     async function confirmMovePlace() {
-      if (currentUser !== "PHI" || !movingPlaceId) return;
+      if (currentUser !== "ADMIN" || !movingPlaceId) return;
       const day = document.getElementById("moveDaySelect").value;
       const [slot, plan] = document.getElementById("moveSlotSelect").value.split("::");
       const record = { day, slot, plan: plan || "", at: Date.now() };
@@ -3075,7 +3201,7 @@
     }
 
     async function resetMovePlace() {
-      if (currentUser !== "PHI" || !movingPlaceId) return;
+      if (currentUser !== "ADMIN" || !movingPlaceId) return;
       const targetId = movingPlaceId;
       if (state.moved) delete state.moved[targetId];
       saveLocalState();
@@ -3085,10 +3211,10 @@
       await pushFirebase(`moved/${targetId}`, null);
     }
 
-    // Long-press (0.5s) listener on cards — strictly PHI only
+    // Long-press (0.5s) listener on cards — strictly ADMIN only
     const mainElForHold = document.getElementById("mainContent");
     function startCardHold(e, clientX, clientY) {
-      if (currentUser !== "PHI") return;
+      if (currentUser !== "ADMIN") return;
       // Ignore if pressing directly on buttons/links/photo
       if (e.target.closest("button, a, .card-media")) return;
       const card = e.target.closest(".card[data-card-id]");
