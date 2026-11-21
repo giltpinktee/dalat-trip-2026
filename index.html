@@ -649,6 +649,54 @@
       border-radius: 999px;
     }
 
+    .pinned-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 10px 0 9px;
+      padding: 8px 12px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #B45309 0%, #D97706 100%);
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 800;
+      box-shadow: 0 3px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    .card.pinned-card {
+      border: 2.5px solid #D97706 !important;
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.16) !important;
+    }
+
+    .tag-pinned {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+    }
+
+    .select-input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--ink);
+      outline: none;
+    }
+    .select-input:focus { border-color: var(--pine); }
+
+    .phi-tip {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #FDE68A;
+      display: none;
+    }
+    .phi-tip.show { display: block; }
+
     .media-rating {
       background: rgba(255, 255, 255, 0.95);
       color: #8A5B06;
@@ -1083,6 +1131,7 @@
         <span id="syncStatusText">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
         <span>🚌 00:05 (23/11) → 15:35 (25/11)</span>
       </div>
+      <div class="phi-tip" id="phiTip">👑 Quyền PHI: Nhấn giữ (0.5s) lên bất kỳ địa điểm nào để chuyển ngày / buổi</div>
     </div>
   </header>
 
@@ -1166,6 +1215,21 @@
       <button class="gallery-nav gallery-next" onclick="stepGallery(1)">›</button>
     </div>
     <div class="gallery-thumbs" id="galleryThumbs"></div>
+  </div>
+
+  <!-- MOVE DAY/SLOT MODAL (PHI ONLY) -->
+  <div class="modal-backdrop" id="moveModal">
+    <div class="modal-card">
+      <h2 class="modal-title">📌 Chuyển ngày / buổi</h2>
+      <p class="modal-sub" id="movePlaceTitle">Tên địa điểm</p>
+      <label class="field-label" for="moveDaySelect">Chọn Ngày:</label>
+      <select class="select-input" id="moveDaySelect" onchange="populateMoveSlots()"></select>
+      <label class="field-label" for="moveSlotSelect">Chọn Buổi / Plan:</label>
+      <select class="select-input" id="moveSlotSelect"></select>
+      <button class="primary-btn" onclick="confirmMovePlace()">Xác nhận chuyển & Ghim lên đầu</button>
+      <button class="secondary-btn" id="resetMoveBtn" style="display:none; color: var(--danger);" onclick="resetMovePlace()">↩ Khôi phục về lịch gốc</button>
+      <button class="secondary-btn" onclick="closeMoveModal()">Hủy</button>
+    </div>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -1290,9 +1354,19 @@
       ],
       day25: [
         {
+          id: "san-may",
+          label: "Săn mây",
+          banner: "<strong>Săn mây & Sương sớm 25/11 (05:00 – 07:30):</strong> 5 điểm săn mây & Cỏ Tuyết GẦN KS (3.5 – 10 km), dự phòng cực tiện cho ngày trả phòng 12:00."
+        },
+        {
+          id: "an-sang",
+          label: "Ăn sáng",
+          banner: "<strong>Ăn sáng 25/11 (07:30 – 08:45):</strong> Các quán ăn sáng ngon–bổ–rẻ gần KS tiện sau khi săn mây."
+        },
+        {
           id: "sang",
           label: "Sáng",
-          banner: "<strong>Sáng 25/11 (07:30 – 11:30):</strong> Đồi Cỏ Hồng nắng sớm, Thiền Viện Trúc Lâm ngập hoa, Chùa Linh Ẩn, vườn hoa & nông trại Tà Nung! (Nhớ về KS trả phòng lúc 12:00)."
+          banner: "<strong>Sáng 25/11 (08:45 – 11:30):</strong> Hồ Tuyền Lâm, Đồi Cỏ Hồng, các Chùa đẹp (có cả chùa dự phòng từ ngày 24), vườn hoa & nông trại Tà Nung! Nhớ về KS trả phòng trước 12:00."
         },
         {
           id: "trua-ve",
@@ -1885,7 +1959,19 @@
       {"id": "d25-sg-mongo", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 16.0, "images": ["images/d25-sg-mongo_1.webp", "images/d25-sg-mongo_2.webp", "images/d25-sg-mongo_3.webp", "images/d25-sg-mongo_4.webp", "images/d25-sg-mongo_5.webp", "images/d25-sg-mongo_6.webp"], "group": "", "name": "Mongo Land Đà Lạt", "address": "Tổ 16, Thôn 1, xã Tà Nung, Đà Lạt", "rating": 4.3, "ratingText": "4.2–4.4", "distance": "16 km", "price": "~120–140k/người", "desc": "Thảo nguyên Mông Cổ siêu hot TikTok: lều Mông Cổ, Alpaca/cừu, trượt phao khô cực vui.", "mapQuery": "Tổ 16, Thôn 1, Xã Tà Nung, Đà Lạt", "tiktokQuery": "Mongo Land Da Lat"},
       {"id": "d25-sg-florest", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": false, "route": "ta-nung", "distKm": 18.0, "images": ["images/d25-sg-florest_1.webp", "images/d25-sg-florest_2.webp", "images/d25-sg-florest_3.webp", "images/d25-sg-florest_4.webp", "images/d25-sg-florest_5.webp", "images/d25-sg-florest_6.webp"], "group": "", "name": "The Florest – Hoa Trong Rừng", "address": "Thôn 4, xã Tà Nung, Đà Lạt", "rating": 4.5, "ratingText": "4.4–4.6", "distance": "18 km", "price": "~98k/người", "desc": "Vườn hoa tự nhiên hàng chục hecta giữa rừng thông đại ngàn, chụp nàng thơ cực phẩm!", "mapQuery": "Thôn 4, Xã Tà Nung, Đà Lạt", "tiktokQuery": "The Florest Hoa Trong Rung Da Lat"},
       {"id": "d25-sg-linhan", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "ta-nung", "distKm": 28.0, "images": ["images/d25-sg-linhan_1.webp", "images/d25-sg-linhan_2.webp", "images/d25-sg-linhan_3.webp", "images/d25-sg-linhan_4.webp", "images/d25-sg-linhan_5.webp", "images/d25-sg-linhan_6.webp"], "group": "", "name": "Chùa Linh Ẩn (Tượng Quan Âm 71m)", "address": "Đường Ba Đình, Nam Ban (hướng đèo Tà Nung)", "rating": 4.7, "ratingText": "4.7", "distance": "28 km", "price": "Miễn phí", "desc": "Tượng Phật Quan Âm cao nhất VN (71m) & vườn 500 tượng uy nghiêm, đẹp bậc nhất ngoại ô Đà Lạt.", "mapQuery": "Đường Ba Đình, Thị trấn Nam Ban, Lâm Hà", "tiktokQuery": "Chua Linh An Da Lat"},
-      {"id": "d25-sg-langfarm", "day": "day25", "slot": "trua-ve", "category": "tham-quan", "time": "sang", "hot": false, "free": true, "route": "trung-tam", "distKm": 0.8, "images": ["images/d25-sg-langfarm_1.webp", "images/d25-sg-langfarm_2.webp", "images/d25-sg-langfarm_3.webp", "images/d25-sg-langfarm_4.webp", "images/d25-sg-langfarm_5.webp", "images/d25-sg-langfarm_6.webp"], "group": "", "name": "L'angfarm Store – Mua đặc sản làm quà", "address": "6 Nguyễn Thị Minh Khai, Chợ Đà Lạt, P1", "rating": 4.5, "ratingText": "4.5", "distance": "0.8 km (sát KS)", "price": "Miễn phí vào (tùy mua)", "desc": "Ghé mua hồng treo gió, trà atiso, mứt dâu làm quà ngay sát KS trước khi 14:30 ra BX Đà Lạt (xe chạy 15:35).", "mapQuery": "6 Nguyễn Thị Minh Khai, Phường 1, Đà Lạt", "tiktokQuery": "Langfarm Da Lat mua qua"}
+      {"id": "d25-sg-langfarm", "day": "day25", "slot": "trua-ve", "category": "tham-quan", "time": "sang", "hot": false, "free": true, "route": "trung-tam", "distKm": 0.8, "images": ["images/d25-sg-langfarm_1.webp", "images/d25-sg-langfarm_2.webp", "images/d25-sg-langfarm_3.webp", "images/d25-sg-langfarm_4.webp", "images/d25-sg-langfarm_5.webp", "images/d25-sg-langfarm_6.webp"], "group": "", "name": "L'angfarm Store – Mua đặc sản làm quà", "address": "6 Nguyễn Thị Minh Khai, Chợ Đà Lạt, P1", "rating": 4.5, "ratingText": "4.5", "distance": "0.8 km (sát KS)", "price": "Miễn phí vào (tùy mua)", "desc": "Ghé mua hồng treo gió, trà atiso, mứt dâu làm quà ngay sát KS trước khi 14:30 ra BX Đà Lạt (xe chạy 15:35).", "mapQuery": "6 Nguyễn Thị Minh Khai, Phường 1, Đà Lạt", "tiktokQuery": "Langfarm Da Lat mua qua"},
+      // ===== NGÀY 25 · SĂN MÂY, ĂN SÁNG & CHÙA DỰ PHÒNG =====
+      {"id": "d25-sm-horizon", "day": "day25", "slot": "san-may", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "p3-tuyen-lam", "distKm": 3.5, "images": ["images/d25-sm-horizon_1.webp", "images/d25-sm-horizon_2.webp", "images/d25-sm-horizon_3.webp", "images/d25-sm-horizon_4.webp", "images/d25-sm-horizon_5.webp", "images/d25-sm-horizon_6.webp"], "group": "", "name": "Horizon Coffee (Săn mây đèo Prenn)", "address": "31/6 Đường 3 Tháng 4, P3, Đà Lạt", "rating": 4.2, "ratingText": "4.2", "distance": "3.5 km", "price": "~60–80k/người", "desc": "View rừng thông bạt ngàn săn mây buổi sáng ngay đầu đèo Prenn, siêu tiện đi tiếp xuống Hồ Tuyền Lâm.", "mapQuery": "31/6 Đường 3 Tháng 4, Phường 3, Đà Lạt", "tiktokQuery": "Horizon Coffee Da Lat"},
+      {"id": "d25-sm-binhminhoi", "day": "day25", "slot": "san-may", "category": "cafe", "time": "sang", "hot": true, "free": false, "route": "p9-p10", "distKm": 3.5, "images": ["images/d24-sm-binhminhoi_1.webp", "images/d24-sm-binhminhoi_2.webp", "images/d24-sm-binhminhoi_3.webp", "images/d24-sm-binhminhoi_4.webp", "images/d24-sm-binhminhoi_5.webp", "images/d24-sm-binhminhoi_6.webp"], "group": "", "name": "Tiệm cà phê Bình Minh Ơi (Dự phòng 25)", "address": "89 Hoàng Hoa Thám, P10, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "3.5 km", "price": "~60–75k/người", "desc": "Gần KS, săn mây & ăn bánh căn nóng ngay tại quán, cực tiện ngày trả phòng.", "mapQuery": "89 Hoàng Hoa Thám, Phường 10, Đà Lạt", "tiktokQuery": "Tiem ca phe Binh Minh Oi Da Lat"},
+      {"id": "d25-sm-cohong", "day": "day25", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p3-tuyen-lam", "distKm": 7.0, "images": ["images/d25-sg-cohong_1.webp", "images/d25-sg-cohong_2.webp", "images/d25-sg-cohong_3.webp", "images/d25-sg-cohong_4.webp", "images/d25-sg-cohong_5.webp", "images/d25-sg-cohong_6.webp"], "group": "", "name": "Đồi Cỏ Hồng (Săn sương Cỏ Tuyết bình minh)", "address": "Khu du lịch Hồ Tuyền Lâm, P3, Đà Lạt", "rating": 4.6, "ratingText": "4.5–4.6", "distance": "7 km", "price": "Miễn phí", "desc": "Đúng mùa cuối tháng 11: sáng sớm 05:30–07:30 sương trắng phủ trên cỏ hồng cực kỳ huyền ảo!", "mapQuery": "Hồ Tuyền Lâm, Phường 3, Đà Lạt", "tiktokQuery": "Doi Co Tuyet Co Hong Da Lat"},
+      {"id": "d25-sm-thienphucduc", "day": "day25", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p7-san-may", "distKm": 8.0, "images": ["images/d24-sm-thienphucduc_1.webp", "images/d24-sm-thienphucduc_2.webp", "images/d24-sm-thienphucduc_3.webp", "images/d24-sm-thienphucduc_4.webp", "images/d24-sm-thienphucduc_5.webp", "images/d24-sm-thienphucduc_6.webp"], "group": "", "name": "Đồi Thiên Phúc Đức (Dự phòng 25)", "address": "Phường 7, Đà Lạt", "rating": 4.3, "ratingText": "4.3", "distance": "8 km", "price": "Miễn phí", "desc": "Gần trung tâm, cây thông cô đơn nhìn thẳng sang đỉnh núi Langbiang.", "mapQuery": "Đồi Thiên Phúc Đức, Phường 7, Đà Lạt", "tiktokQuery": "Doi Thien Phuc Duc Da Lat"},
+      {"id": "d25-sm-daphu", "day": "day25", "slot": "san-may", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "p7-san-may", "distKm": 10.0, "images": ["images/d24-sm-daphu_1.webp", "images/d24-sm-daphu_2.webp", "images/d24-sm-daphu_3.webp", "images/d24-sm-daphu_4.webp", "images/d24-sm-daphu_5.webp", "images/d24-sm-daphu_6.webp"], "group": "", "name": "Đồi Đa Phú (Dự phòng 25)", "address": "Phường 7, Đà Lạt", "rating": 4.5, "ratingText": "4.5", "distance": "10 km", "price": "Miễn phí", "desc": "Đồi thông rộng hoang sơ săn biển mây & bình minh miễn phí.", "mapQuery": "Đồi Đa Phú, Phường 7, Đà Lạt", "tiktokQuery": "Doi Da Phu Da Lat san may"},
+      {"id": "d25-as-ri79", "day": "day25", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "trung-tam", "distKm": 1.0, "images": ["images/d23-sa-ri79_1.webp", "images/d23-sa-ri79_3.webp", "images/d23-sa-ri79_4.webp", "images/d23-sa-ri79_5.webp", "images/d23-sa-ri79_6.webp", "images/d23-sa-ri79_7.webp"], "group": "", "name": "Bánh mì xíu mại Ri 79", "address": "1 Thông Thiên Học, P2, Đà Lạt", "rating": 4.3, "ratingText": "4.0–4.5", "distance": "1.0 km", "price": "~25–35k/người", "desc": "Sát đường Lý Tự Trọng, ăn sáng nhanh gọn để kịp đi chơi buổi cuối.", "mapQuery": "1 Thông Thiên Học, Phường 2, Đà Lạt", "tiktokQuery": "Banh mi xiu mai Ri 79 Da Lat"},
+      {"id": "d25-as-xuanan", "day": "day25", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p3-tuyen-lam", "distKm": 1.2, "images": ["images/d23-as-xuanan_1.webp", "images/d23-as-xuanan_2.webp", "images/d23-as-xuanan_3.webp", "images/d23-as-xuanan_4.webp", "images/d23-as-xuanan_5.webp", "images/d23-as-xuanan_6.webp"], "group": "", "name": "Bánh canh Xuân An", "address": "15A Nhà Chung, P3, Đà Lạt", "rating": 4.1, "ratingText": "4.0–4.2", "distance": "1.2 km", "price": "~40–50k/người", "desc": "Bánh canh bột lọc dai trong, nước dùng xương ngọt thanh, tiện hướng P3 – Hồ Tuyền Lâm.", "mapQuery": "15A Nhà Chung, Phường 3, Đà Lạt", "tiktokQuery": "Banh canh Xuan An Da Lat"},
+      {"id": "d25-as-thientrang", "day": "day25", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p9-p10", "distKm": 1.5, "images": ["images/d24-as-thientrang_1.webp", "images/d24-as-thientrang_2.webp", "images/d24-as-thientrang_3.webp", "images/d24-as-thientrang_4.webp", "images/d24-as-thientrang_5.webp", "images/d24-as-thientrang_6.webp"], "group": "", "name": "Bún bò Huế Thiên Trang", "address": "2 Hồ Tùng Mậu, P10, Đà Lạt", "rating": 4.2, "ratingText": "4.1–4.3", "distance": "1.5 km", "price": "~45–55k/người", "desc": "Quán bún bò lâu năm rộng rãi, đậm đà, ngay trung tâm.", "mapQuery": "2 Hồ Tùng Mậu, Phường 10, Đà Lạt", "tiktokQuery": "Bun bo Hue Thien Trang Da Lat"},
+      {"id": "d25-as-phouyen", "day": "day25", "slot": "an-sang", "category": "an-uong", "time": "sang", "hot": false, "free": false, "route": "p7-san-may", "distKm": 3.0, "images": ["images/d24-as-phouyen_1.webp", "images/d24-as-phouyen_2.webp", "images/d24-as-phouyen_3.webp", "images/d24-as-phouyen_4.webp", "images/d24-as-phouyen_5.webp", "images/d24-as-phouyen_6.webp"], "group": "", "name": "Phở Uyên", "address": "167 Xô Viết Nghệ Tĩnh, P7, Đà Lạt", "rating": 4.5, "ratingText": "4.4–4.6", "distance": "3.0 km", "price": "~30–40k/người", "desc": "Phở gia truyền vintage + yaourt phô mai nhà làm cực ngon, tiện hướng P7.", "mapQuery": "167 Xô Viết Nghệ Tĩnh, Phường 7, Đà Lạt", "tiktokQuery": "Pho Uyen Da Lat"},
+      {"id": "d25-sg-chuatau", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": false, "free": true, "route": "p9-p10", "distKm": 4.5, "images": ["images/d24-sg-chuatau_1.webp", "images/d24-sg-chuatau_2.webp", "images/d24-sg-chuatau_3.webp", "images/d24-sg-chuatau_4.webp", "images/d24-sg-chuatau_5.webp", "images/d24-sg-chuatau_6.webp"], "group": "", "name": "Chùa Thiên Vương Cổ Sát (Dự phòng 25)", "address": "385 Khe Sanh, P10, Đà Lạt", "rating": 4.4, "ratingText": "4.3–4.4", "distance": "4.5 km", "price": "Miễn phí", "desc": "Chùa Tàu kiến trúc Á Đông cổ kính, dự phòng nếu ngày 24 chưa kịp đi.", "mapQuery": "385 Khe Sanh, Phường 10, Đà Lạt", "tiktokQuery": "Chua Thien Vuong Co Sat Da Lat"},
+      {"id": "d25-sg-linhphuoc", "day": "day25", "slot": "sang", "category": "tham-quan", "time": "sang", "hot": true, "free": true, "route": "trai-mat-cau-dat", "distKm": 8.0, "images": ["images/d24-sg-linhphuoc_1.webp", "images/d24-sg-linhphuoc_2.webp", "images/d24-sg-linhphuoc_3.webp", "images/d24-sg-linhphuoc_4.webp", "images/d24-sg-linhphuoc_5.webp", "images/d24-sg-linhphuoc_6.webp"], "group": "", "name": "Chùa Linh Phước – Chùa Ve Chai (Dự phòng 25)", "address": "120 Tự Phước, Trại Mát, P11, Đà Lạt", "rating": 4.7, "ratingText": "4.6–4.7", "distance": "8 km", "price": "Miễn phí (gửi xe 10k)", "desc": "Chùa khảm sành sứ độc nhất VN, dự phòng nếu ngày 24 chưa kịp ghé.", "mapQuery": "120 Tự Phước, Phường 11, Đà Lạt", "tiktokQuery": "Chua Linh Phuoc Da Lat"}
     ];
 
     // =========================================================
@@ -1897,11 +1983,19 @@
 
     let currentUser = localStorage.getItem(LS_USER) || "";
     let activeMainTab = "day23";
-    let activeSlotByDay = { day23: "an-sang", day24: "san-may", day25: "sang" };
+    let activeSlotByDay = { day23: "an-sang", day24: "san-may", day25: "san-may" };
     let activePlanBySlot = { "day23:sang": "A" };
-    let state = { votes: {}, visited: {} };
+    let state = { votes: {}, visited: {}, moved: {} };
     let dbUrl = "";
     let eventSource = null;
+
+    function getEffectiveLoc(place) {
+      const mv = state.moved && state.moved[place.id];
+      if (mv && mv.day && mv.slot) {
+        return { day: mv.day, slot: mv.slot, plan: mv.plan || "", moved: true, at: mv.at || 0 };
+      }
+      return { day: place.day, slot: place.slot, plan: place.plan || "", moved: false, at: 0 };
+    }
 
     function getRouteModeKey() {
       return "dalat_route_mode_v1_" + (currentUser || "GUEST");
@@ -1944,6 +2038,7 @@
           const parsed = JSON.parse(raw);
           state.votes = parsed.votes || {};
           state.visited = parsed.visited || {};
+          state.moved = parsed.moved || {};
         }
       } catch (e) {}
     }
@@ -1975,6 +2070,7 @@
         if (data) {
           state.votes = data.votes || {};
           state.visited = data.visited || {};
+          state.moved = data.moved || {};
           saveLocalState();
           render();
         }
@@ -1995,6 +2091,7 @@
       if (path === "/") {
         state.votes = (data && data.votes) ? data.votes : {};
         state.visited = (data && data.visited) ? data.visited : {};
+        state.moved = (data && data.moved) ? data.moved : {};
       } else {
         const parts = path.split("/").filter(Boolean);
         let target = state;
@@ -2035,6 +2132,7 @@
             if (data) {
               state.votes = data.votes || {};
               state.visited = data.visited || {};
+              state.moved = data.moved || {};
               saveLocalState();
               render();
               updateSyncUI(true);
@@ -2049,12 +2147,16 @@
     function updateUserUI() {
       const label = document.getElementById("currentUserLabel");
       const logoutBtn = document.getElementById("logoutBtn");
+      const phiTip = document.getElementById("phiTip");
       if (currentUser) {
         label.textContent = currentUser;
         logoutBtn.style.display = "block";
       } else {
         label.textContent = "Chọn tên";
         logoutBtn.style.display = "none";
+      }
+      if (phiTip) {
+        phiTip.classList.toggle("show", currentUser === "PHI");
       }
     }
 
@@ -2175,26 +2277,28 @@
     }
 
     function getSlotMetaLabel(place) {
-      const dayTab = MAIN_TABS.find(t => t.id === place.day);
-      const slotObj = (DAY_SLOTS[place.day] || []).find(s => s.id === place.slot);
+      const loc = getEffectiveLoc(place);
+      const dayTab = MAIN_TABS.find(t => t.id === loc.day);
+      const slotObj = (DAY_SLOTS[loc.day] || []).find(s => s.id === loc.slot);
       let lbl = `${dayTab ? dayTab.label : ""} · ${slotObj ? slotObj.label : ""}`;
-      if (place.plan) lbl += ` (Plan ${place.plan})`;
+      if (loc.plan) lbl += ` (Plan ${loc.plan})`;
       return lbl;
     }
 
-    function renderCard(place, indexInList, showSlotTag, showRouteFrame = false) {
+    function renderCard(place, indexInList, showSlotTag, showRouteFrame = false, isPinnedMove = false) {
       const voters = getVoters(place.id);
       const userVoted = currentUser && voters.includes(currentUser);
       const visited = isVisited(place.id);
-      const isTop = !visited && voters.length > 0 && indexInList === 0 && !showRouteFrame;
+      const isTop = !visited && voters.length > 0 && indexInList === 0 && !showRouteFrame && !isPinnedMove;
 
       const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapQuery)}`;
       const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(place.tiktokQuery)}`;
 
       const routeObj = ROUTES[place.route] || ROUTES["trung-tam"];
       const tags = [];
+      if (isPinnedMove) tags.push(`<span class="tag-chip tag-pinned">📌 ĐÃ CHUYỂN VÀO BUỔI NÀY (PHI)</span>`);
       if (showSlotTag) tags.push(`<span class="tag-chip tag-slot">${getSlotMetaLabel(place)}</span>`);
-      if (showRouteFrame && routeObj) {
+      if (showRouteFrame && !isPinnedMove && routeObj) {
         tags.push(`<span class="tag-route" style="background:${routeObj.color}">🛣 ${routeObj.label}</span>`);
       }
       if (isTop) tags.push(`<span class="tag-chip tag-top">🔥 TOP VOTE (${voters.length}/4)</span>`);
@@ -2226,12 +2330,12 @@
         ? `<div class="slide-counter">📷 <span class="sc-num">1</span>/${pics.length}</div>`
         : "";
 
-      const frameStyle = (showRouteFrame && routeObj)
+      const frameStyle = (!isPinnedMove && showRouteFrame && routeObj)
         ? `style="border: 2.5px solid ${routeObj.color}; box-shadow: 0 4px 16px ${routeObj.color}22;"`
         : "";
 
       return `
-        <article class="card ${isTop ? "top-voted" : ""}" ${frameStyle}>
+        <article class="card ${isTop ? "top-voted" : ""} ${isPinnedMove ? "pinned-card" : ""}" data-card-id="${place.id}" ${frameStyle}>
           <div class="card-media" data-place-id="${place.id}" data-slide="0" data-total="${pics.length}" onclick="openGallery('${place.id}')">
             ${ribbonHtml}
             ${freeRibbonHtml}
@@ -2328,7 +2432,10 @@
       const currentSlotId = activeSlotByDay[activeMainTab] || slots[0].id;
 
       scrollEl.innerHTML = slots.map(slot => {
-        const count = PLACES.filter(p => p.day === activeMainTab && p.slot === slot.id && !isVisited(p.id)).length;
+        const count = PLACES.filter(p => {
+          const loc = getEffectiveLoc(p);
+          return loc.day === activeMainTab && loc.slot === slot.id && !isVisited(p.id);
+        }).length;
         return `
           <button class="subtab-btn ${slot.id === currentSlotId ? "active" : ""}" onclick="switchSlot('${activeMainTab}', '${slot.id}')">
             ${slot.label} <span class="pill-badge">${count}</span>
@@ -2342,7 +2449,10 @@
         const currentPlanId = activePlanBySlot[planKey] || slotObj.plans[0].id;
         planWrap.style.display = "block";
         planEl.innerHTML = slotObj.plans.map(pl => {
-          const cnt = PLACES.filter(p => p.day === activeMainTab && p.slot === currentSlotId && p.plan === pl.id && !isVisited(p.id)).length;
+          const cnt = PLACES.filter(p => {
+            const loc = getEffectiveLoc(p);
+            return loc.day === activeMainTab && loc.slot === currentSlotId && loc.plan === pl.id && !isVisited(p.id);
+          }).length;
           return `
             <button class="plan-btn ${pl.id === currentPlanId ? "active" : ""}" onclick="switchPlan('${planKey}', '${pl.id}')">
               <span>${pl.label} (${cnt})</span>
@@ -2415,14 +2525,17 @@
       const slotObj = slots.find(s => s.id === currentSlotId);
 
       let bannerText = slotObj.banner || "";
-      let items = PLACES.filter(p => p.day === activeMainTab && p.slot === currentSlotId && !isVisited(p.id));
+      let items = PLACES.filter(p => {
+        const loc = getEffectiveLoc(p);
+        return loc.day === activeMainTab && loc.slot === currentSlotId && !isVisited(p.id);
+      });
 
       if (slotObj.plans && slotObj.plans.length) {
         const planKey = `${activeMainTab}:${currentSlotId}`;
         const currentPlanId = activePlanBySlot[planKey] || slotObj.plans[0].id;
         const planObj = slotObj.plans.find(pl => pl.id === currentPlanId);
         if (planObj) bannerText = planObj.banner;
-        items = items.filter(p => p.plan === currentPlanId);
+        items = items.filter(p => getEffectiveLoc(p).plan === currentPlanId);
       }
 
       if (bannerText) html += `<div class="info-banner">${bannerText}</div>`;
@@ -2441,45 +2554,65 @@
         </div>
       `;
 
+      // Tách riêng các địa điểm đã được PHI đổi ngày/buổi lên TRÊN ĐẦU (không lọc theo tuyến!)
+      const movedItems = items.filter(p => getEffectiveLoc(p).moved)
+        .sort((a, b) => (getEffectiveLoc(b).at || 0) - (getEffectiveLoc(a).at || 0));
+      const normalItems = items.filter(p => !getEffectiveLoc(p).moved);
+
       if (!items.length) {
         html += `<div class="empty-box">Tất cả địa điểm của mục này đã được chuyển sang tab <strong>Đã đến</strong> ✓</div>`;
-      } else if (routeOn) {
-        // Group by route, sort routes by nearest place, sort places inside each route near -> far
-        const byRoute = {};
-        items.forEach(p => {
-          const rKey = p.route || "trung-tam";
-          if (!byRoute[rKey]) byRoute[rKey] = [];
-          byRoute[rKey].push(p);
-        });
-        const sortedRouteKeys = Object.keys(byRoute).sort((ra, rb) => {
-          const minA = Math.min(...byRoute[ra].map(x => x.distKm ?? 99));
-          const minB = Math.min(...byRoute[rb].map(x => x.distKm ?? 99));
-          return minA - minB;
-        });
-        sortedRouteKeys.forEach(rKey => {
-          const rObj = ROUTES[rKey] || ROUTES["trung-tam"];
-          const rItems = [...byRoute[rKey]].sort((a, b) => (a.distKm ?? 99) - (b.distKm ?? 99));
+      } else {
+        if (movedItems.length) {
           html += `
-            <div class="route-group-header" style="background:${rObj.color}">
-              <span>🛣 ${rObj.label}</span>
-              <small>${rItems.length} điểm · Gần → Xa</small>
+            <div class="pinned-group-header">
+              <span>📌 ĐỊA ĐIỂM PHI ĐÃ CHUYỂN VÀO BUỔI NÀY</span>
+              <small>${movedItems.length} điểm · Ưu tiên đầu</small>
             </div>
             <div class="card-list">
-              ${rItems.map((p, i) => renderCard(p, i, false, true)).join("")}
+              ${movedItems.map((p, i) => renderCard(p, i, false, false, true)).join("")}
             </div>
           `;
-        });
-      } else {
-        const sorted = sortByVotesThenRating(items);
-        html += `
-          <div class="section-head">
-            <h2 class="section-title">Danh sách địa điểm (${sorted.length})</h2>
-            <span class="section-hint">Xếp theo nhiều vote nhất</span>
-          </div>
-          <div class="card-list">
-            ${sorted.map((p, i) => renderCard(p, i, false, false)).join("")}
-          </div>
-        `;
+        }
+
+        if (normalItems.length) {
+          if (routeOn) {
+            const byRoute = {};
+            normalItems.forEach(p => {
+              const rKey = p.route || "trung-tam";
+              if (!byRoute[rKey]) byRoute[rKey] = [];
+              byRoute[rKey].push(p);
+            });
+            const sortedRouteKeys = Object.keys(byRoute).sort((ra, rb) => {
+              const minA = Math.min(...byRoute[ra].map(x => x.distKm ?? 99));
+              const minB = Math.min(...byRoute[rb].map(x => x.distKm ?? 99));
+              return minA - minB;
+            });
+            sortedRouteKeys.forEach(rKey => {
+              const rObj = ROUTES[rKey] || ROUTES["trung-tam"];
+              const rItems = [...byRoute[rKey]].sort((a, b) => (a.distKm ?? 99) - (b.distKm ?? 99));
+              html += `
+                <div class="route-group-header" style="background:${rObj.color}">
+                  <span>🛣 ${rObj.label}</span>
+                  <small>${rItems.length} điểm · Gần → Xa</small>
+                </div>
+                <div class="card-list">
+                  ${rItems.map((p, i) => renderCard(p, i, false, true, false)).join("")}
+                </div>
+              `;
+            });
+          } else {
+            const sorted = sortByVotesThenRating(normalItems);
+            html += `
+              <div class="section-head">
+                <h2 class="section-title">Danh sách địa điểm (${sorted.length})</h2>
+                <span class="section-hint">Xếp theo nhiều vote nhất</span>
+              </div>
+              <div class="card-list">
+                ${sorted.map((p, i) => renderCard(p, i, false, false, false)).join("")}
+              </div>
+            `;
+          }
+        }
       }
 
       mainEl.innerHTML = html;
@@ -2593,6 +2726,134 @@
       const dx = e.changedTouches[0].clientX - touchStartX;
       if (Math.abs(dx) > 40) stepGallery(dx < 0 ? 1 : -1);
     }, { passive: true });
+
+    // =========================================================
+    // 8. PHI-ONLY LONG-PRESS MOVE DAY / SLOT (PIN TO TOP)
+    // =========================================================
+    let movingPlaceId = "";
+    let holdTimer = null;
+    let holdStartX = 0;
+    let holdStartY = 0;
+
+    function openMoveModal(placeId) {
+      if (currentUser !== "PHI") return;
+      const place = PLACES.find(p => p.id === placeId);
+      if (!place) return;
+      movingPlaceId = placeId;
+      document.getElementById("movePlaceTitle").textContent = place.name;
+
+      const daySelect = document.getElementById("moveDaySelect");
+      const dayTabs = MAIN_TABS.filter(t => t.type === "day");
+      const loc = getEffectiveLoc(place);
+      daySelect.innerHTML = dayTabs.map(t =>
+        `<option value="${t.id}" ${t.id === loc.day ? "selected" : ""}>${t.label}</option>`
+      ).join("");
+
+      populateMoveSlots(loc.slot, loc.plan);
+
+      const resetBtn = document.getElementById("resetMoveBtn");
+      resetBtn.style.display = loc.moved ? "block" : "none";
+      document.getElementById("moveModal").classList.add("open");
+      if (navigator.vibrate) navigator.vibrate(25);
+    }
+
+    function populateMoveSlots(selectedSlot = "", selectedPlan = "") {
+      const dayId = document.getElementById("moveDaySelect").value;
+      const slots = DAY_SLOTS[dayId] || [];
+      const slotSelect = document.getElementById("moveSlotSelect");
+      const options = [];
+      slots.forEach(s => {
+        if (s.plans && s.plans.length) {
+          s.plans.forEach(pl => {
+            const val = `${s.id}::${pl.id}`;
+            const sel = (s.id === selectedSlot && pl.id === selectedPlan) ? "selected" : "";
+            options.push(`<option value="${val}" ${sel}>${s.label} — ${pl.label} (${pl.sub})</option>`);
+          });
+        } else {
+          const val = `${s.id}::`;
+          const sel = (s.id === selectedSlot) ? "selected" : "";
+          options.push(`<option value="${val}" ${sel}>${s.label}</option>`);
+        }
+      });
+      slotSelect.innerHTML = options.join("");
+    }
+
+    function closeMoveModal() {
+      document.getElementById("moveModal").classList.remove("open");
+      movingPlaceId = "";
+    }
+
+    async function confirmMovePlace() {
+      if (currentUser !== "PHI" || !movingPlaceId) return;
+      const day = document.getElementById("moveDaySelect").value;
+      const [slot, plan] = document.getElementById("moveSlotSelect").value.split("::");
+      const record = { day, slot, plan: plan || "", at: Date.now() };
+      if (!state.moved) state.moved = {};
+      state.moved[movingPlaceId] = record;
+      saveLocalState();
+      const targetId = movingPlaceId;
+      closeMoveModal();
+      render();
+      showToast("📌 Đã chuyển & ghim lên đầu buổi mới!");
+      await pushFirebase(`moved/${targetId}`, record);
+    }
+
+    async function resetMovePlace() {
+      if (currentUser !== "PHI" || !movingPlaceId) return;
+      const targetId = movingPlaceId;
+      if (state.moved) delete state.moved[targetId];
+      saveLocalState();
+      closeMoveModal();
+      render();
+      showToast("↩ Đã khôi phục về lịch gốc");
+      await pushFirebase(`moved/${targetId}`, null);
+    }
+
+    // Long-press (0.5s) listener on cards — strictly PHI only
+    const mainElForHold = document.getElementById("mainContent");
+    function startCardHold(e, clientX, clientY) {
+      if (currentUser !== "PHI") return;
+      // Ignore if pressing directly on buttons/links/photo
+      if (e.target.closest("button, a, .card-media")) return;
+      const card = e.target.closest(".card[data-card-id]");
+      if (!card) return;
+      holdStartX = clientX;
+      holdStartY = clientY;
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(() => {
+        openMoveModal(card.dataset.cardId);
+      }, 500);
+    }
+    function cancelCardHold() {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+    }
+
+    mainElForHold.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) startCardHold(e, e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    mainElForHold.addEventListener("touchmove", (e) => {
+      if (!holdTimer || !e.touches.length) return;
+      const dx = Math.abs(e.touches[0].clientX - holdStartX);
+      const dy = Math.abs(e.touches[0].clientY - holdStartY);
+      if (dx > 10 || dy > 10) cancelCardHold();
+    }, { passive: true });
+    mainElForHold.addEventListener("touchend", cancelCardHold, { passive: true });
+    mainElForHold.addEventListener("touchcancel", cancelCardHold, { passive: true });
+
+    mainElForHold.addEventListener("mousedown", (e) => {
+      if (e.button === 0) startCardHold(e, e.clientX, e.clientY);
+    });
+    mainElForHold.addEventListener("mousemove", (e) => {
+      if (!holdTimer) return;
+      if (Math.abs(e.clientX - holdStartX) > 10 || Math.abs(e.clientY - holdStartY) > 10) cancelCardHold();
+    });
+    mainElForHold.addEventListener("mouseup", cancelCardHold);
+    mainElForHold.addEventListener("mouseleave", cancelCardHold);
+
+    document.getElementById("moveModal").addEventListener("click", (e) => {
+      if (e.target.id === "moveModal") closeMoveModal();
+    });
 
     // Boot
     initDbUrl();
