@@ -2934,14 +2934,12 @@
     }
 
     function copyTikTokKeyword(q) {
-      const done = () => {
-        if (IS_IOS_UA) showToast("📋 Đã copy tên · Dán vào ô tìm kiếm TikTok!");
-      };
+      // Synchronous copy FIRST so iOS finishes copying before switching to TikTok app
+      fallbackCopy(q);
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(q).then(done).catch(() => fallbackCopy(q, done));
-      } else {
-        fallbackCopy(q, done);
+        navigator.clipboard.writeText(q).catch(() => {});
       }
+      if (IS_IOS_UA) showToast("📋 Đã copy: " + q);
     }
 
     function renderCard(place, indexInList, showSlotTag, showRouteFrame = false, isPinnedMove = false) {
