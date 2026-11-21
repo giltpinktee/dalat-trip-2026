@@ -2934,8 +2934,13 @@
     }
 
     function copyTikTokKeyword(q) {
+      const done = () => {
+        if (IS_IOS_UA) showToast("📋 Đã copy tên · Dán vào ô tìm kiếm TikTok!");
+      };
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(q).catch(() => {});
+        navigator.clipboard.writeText(q).then(done).catch(() => fallbackCopy(q, done));
+      } else {
+        fallbackCopy(q, done);
       }
     }
 
@@ -3030,7 +3035,7 @@
               <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
                 ${SVG_MAPS} Google Maps
               </a>
-              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(place.tiktokQuery).replace(/"/g, '&quot;')})">
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(place.name + ' Đà Lạt').replace(/"/g, '&quot;')})">
                 ${SVG_TIKTOK} Xem TikTok
               </a>
             </div>
@@ -3445,7 +3450,7 @@
               <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
                 ${SVG_MAPS} Google Maps
               </a>
-              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(r.tiktokQuery).replace(/"/g, '&quot;')})">
+              <a class="act-btn btn-tiktok" href="${tiktokUrl}" ${IS_MOBILE_UA ? "" : 'target="_blank"'} rel="noopener" onclick="copyTikTokKeyword(${JSON.stringify(r.name + ' Đà Lạt').replace(/"/g, '&quot;')})">
                 ${SVG_TIKTOK} Review TikTok
               </a>
             </div>
