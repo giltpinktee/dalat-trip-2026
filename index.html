@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Đà Lạt 23–25/11 · PHI · PHẤN · HÂN · GẤM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F6F3EC;
+      --surface: #FFFFFF;
+      --surface-soft: #EFECE3;
+      --pine: #1D4D3B;
+      --pine-dark: #133528;
+      --pine-light: #E6F1EC;
+      --sunset: #D96636;
+      --sunset-soft: #FDF0EA;
+      --gold-soft: #FEF7E6;
+      --ink: #1B201E;
+      --muted: #5C6561;
+      --border: #E4DFD3;
+      --maps: #1A73E8;
+      --maps-bg: #F0F6FF;
+      --tiktok: #111111;
+      --danger: #C93B3B;
+      --radius: 16px;
+      --shadow: 0 3px 14px rgba(27, 32, 30, 0.06);
+      --bottom-nav-h: 68px;
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.48;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 22px);
+    }
+
+    /* ===== TOP HEADER (COMPACT FOR MOBILE) ===== */
+    .topbar {
+      background: linear-gradient(135deg, var(--pine-dark) 0%, var(--pine) 100%);
+      color: #fff;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 12px;
+    }
+
+    .topbar-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .topbar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    .brand-sub {
+      font-size: 11.5px;
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .sync-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .sync-dot-mini {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FBBF24;
+      border: 1.5px solid var(--pine-dark);
+    }
+    .sync-dot-mini.online { background: #34D399; }
+
+    .sync-strip {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.18);
+      padding: 5px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* ===== STICKY SUB-TABS (Sáng · Ăn trưa · Chiều · Ăn chiều · Tối) ===== */
+    .subtabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(246, 243, 236, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .subtabs-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .subtabs-scroll {
+      display: flex;
+      gap: 6px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .subtabs-scroll::-webkit-scrollbar { display: none; }
+
+    .subtab-btn {
+      flex: 0 0 auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.16s ease;
+    }
+
+    .subtab-btn.active {
+      background: var(--pine);
+      border-color: var(--pine);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(29, 77, 59, 0.25);
+    }
+
+    .pill-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+    .subtab-btn.active .pill-badge { background: rgba(255, 255, 255, 0.24); color: #fff; }
+
+    /* ===== PLAN A / PLAN B SEGMENTED CONTROL ===== */
+    .plan-switch-wrap {
+      padding: 0 12px 10px;
+    }
+
+    .plan-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface-soft);
+      padding: 4px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      gap: 4px;
+    }
+
+    .plan-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 9px 8px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.25;
+    }
+
+    .plan-btn small {
+      font-size: 10.5px;
+      font-weight: 500;
+      opacity: 0.85;
+      margin-top: 1px;
+    }
+
+    .plan-btn.active {
+      background: var(--surface);
+      color: var(--sunset);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* ===== MAIN CONTAINER ===== */
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 12px 12px 16px;
+    }
+
+    .info-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--sunset);
+      border-radius: 13px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.48;
+    }
+    .info-banner strong { color: var(--ink); }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 14px 2px 9px;
+      gap: 8px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--pine-dark);
+    }
+
+    .section-hint {
+      font-size: 11px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* ===== PLACE CARD (MOBILE ERGONOMIC) ===== */
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .card.top-voted {
+      border-color: var(--sunset);
+      box-shadow: 0 5px 18px rgba(217, 102, 54, 0.13);
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .tag-chip {
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .tag-top { background: var(--sunset-soft); color: var(--sunset); }
+    .tag-slot { background: var(--pine-light); color: var(--pine); }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-name {
+      margin: 0;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .card-addr {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .rating-badge {
+      flex-shrink: 0;
+      background: var(--gold-soft);
+      color: #8A5B06;
+      border: 1px solid #F3DFAF;
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 9px 0 8px;
+    }
+
+    .stat-chip {
+      font-size: 11.5px;
+      font-weight: 600;
+      background: var(--surface-soft);
+      color: var(--ink);
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .card-desc {
+      margin: 0 0 10px;
+      font-size: 12.8px;
+      color: #3A423E;
+      line-height: 1.5;
+    }
+
+    .voters-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+      min-height: 22px;
+    }
+
+    .voter-label {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .voter-chip {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: #fff;
+    }
+    .voter-PHI { background: #1D4D3B; }
+    .voter-PHẤN { background: #D96636; }
+    .voter-HÂN { background: #2B6CB0; }
+    .voter-GẤM { background: #9B3B6B; }
+
+    /* 2x2 Thumb-friendly Action Buttons */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .act-btn {
+      min-height: 40px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+    .act-btn:active { transform: scale(0.97); }
+
+    .btn-vote {
+      background: #FFFBF8;
+      border-color: #F2CFC0;
+      color: var(--sunset);
+    }
+    .btn-vote.voted {
+      background: var(--sunset);
+      border-color: var(--sunset);
+      color: #fff;
+    }
+
+    .btn-done {
+      background: var(--pine-light);
+      border-color: #C5DDD3;
+      color: var(--pine);
+    }
+
+    .btn-undo {
+      background: #FDF2F2;
+      border-color: #F3CACA;
+      color: var(--danger);
+    }
+
+    .btn-maps {
+      background: var(--maps-bg);
+      border-color: #CFE0FC;
+      color: var(--maps);
+    }
+
+    .btn-tiktok {
+      background: var(--tiktok);
+      border-color: var(--tiktok);
+      color: #fff;
+    }
+
+    .empty-box {
+      text-align: center;
+      padding: 34px 18px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ===== BOTTOM NAVIGATION BAR (TAB LỚN NHẤT) ===== */
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 60;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .bottom-nav-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .bnav-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 6px 4px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+
+    .bnav-btn.active {
+      background: var(--pine-light);
+      color: var(--pine-dark);
+    }
+
+    .bnav-icon {
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .bnav-badge {
+      position: absolute;
+      top: 3px;
+      right: calc(50% - 26px);
+      background: var(--sunset);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 5px;
+      border-radius: 999px;
+      min-width: 18px;
+      text-align: center;
+    }
+    .bnav-badge.pine { background: var(--pine); }
+
+    /* ===== MODALS ===== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 19, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-card {
+      background: var(--surface);
+      width: 100%;
+      max-width: 400px;
+      border-radius: 22px;
+      padding: 22px 18px 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      margin: 0 0 6px;
+      color: var(--pine-dark);
+      text-align: center;
+    }
+
+    .modal-sub {
+      font-size: 12.8px;
+      color: var(--muted);
+      text-align: center;
+      margin: 0 0 16px;
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .member-btn {
+      border: 2px solid var(--border);
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 15px 10px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .member-btn:active { transform: scale(0.97); border-color: var(--pine); background: var(--pine-light); }
+
+    .member-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin: 12px 0 6px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+    .text-input:focus { border-color: var(--pine); }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: var(--pine);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .secondary-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 11px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .guide-box {
+      background: var(--surface-soft);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #3A423E;
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 14px);
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: #1B201E;
+      color: #fff;
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.22s ease;
+      z-index: 200;
+      white-space: nowrap;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-row">
+        <div>
+          <h1 class="brand-title">Đà Lạt 23–25/11</h1>
+          <div class="brand-sub">Mỹ Lan Hotel · 24 Lý Tự Trọng, P2</div>
+        </div>
+        <div class="top-actions">
+          <button class="user-pill" onclick="openLoginModal()" title="Đổi tài khoản">
+            👤 <span id="currentUserLabel">Chọn tên</span> ▾
+          </button>
+          <button class="sync-btn" onclick="openSyncModal()" title="Cài đặt đồng bộ 4 máy">
+            ⚙
+            <span class="sync-dot-mini" id="syncDotMini"></span>
+          </button>
+        </div>
+      </div>
+      <div class="sync-strip" onclick="openSyncModal()">
+        <span id="syncStatusText">🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy</span>
+        <span>🚌 00:05 (23/11) → 15:35 (25/11)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY SUB-TABS (HIỆN KHI ĐANG Ở TAB NGÀY) -->
+  <div class="subtabs-wrap" id="subtabsWrap">
+    <div class="subtabs-inner">
+      <div class="subtabs-scroll" id="subtabsScroll"></div>
+      <div class="plan-switch-wrap" id="planSwitchWrap" style="display:none;">
+        <div class="plan-switch" id="planSwitch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="container" id="mainContent"></main>
+
+  <!-- BOTTOM NAVIGATION (TAB LỚN NHẤT: NGÀY 23 · CHƯA ĐẾN · ĐÃ ĐẾN) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner" id="bottomNavInner"></div>
+  </nav>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal-card">
+      <h2 class="modal-title">Bạn là ai trong team?</h2>
+      <p class="modal-sub">Chọn đúng tên để vote địa điểm & đồng bộ với cả nhóm. Có thể đổi tài khoản bất cứ lúc nào.</p>
+      <div class="member-grid">
+        <button class="member-btn" onclick="selectUser('PHI')">
+          <span class="member-avatar voter-PHI">P</span>
+          PHI
+        </button>
+        <button class="member-btn" onclick="selectUser('PHẤN')">
+          <span class="member-avatar voter-PHẤN">P</span>
+          PHẤN
+        </button>
+        <button class="member-btn" onclick="selectUser('HÂN')">
+          <span class="member-avatar voter-HÂN">H</span>
+          HÂN
+        </button>
+        <button class="member-btn" onclick="selectUser('GẤM')">
+          <span class="member-avatar voter-GẤM">G</span>
+          GẤM
+        </button>
+      </div>
+      <button class="secondary-btn" id="logoutBtn" style="display:none; color: var(--danger);" onclick="logoutUser()">Đăng xuất tài khoản hiện tại</button>
+    </div>
+  </div>
+
+  <!-- SYNC MODAL -->
+  <div class="modal-backdrop" id="syncModal">
+    <div class="modal-card">
+      <h2 class="modal-title">Đồng bộ tức thì 4 máy</h2>
+      <p class="modal-sub">Không cần server — dán 1 link Firebase Realtime Database miễn phí của Google để 4 máy nhảy vote tức thì.</p>
+      <label class="field-label" for="dbUrlInput">URL Firebase Realtime Database:</label>
+      <input class="text-input" id="dbUrlInput" type="url" placeholder="https://ten-du-an-default-rtdb.asia-southeast1.firebasedatabase.app" />
+      <button class="primary-btn" onclick="saveDbUrl()">Lưu & Kết nối đồng bộ ngay</button>
+      <button class="secondary-btn" onclick="copyShareLink()">📋 Copy link gửi Messenger (kèm đồng bộ)</button>
+      <button class="secondary-btn" onclick="closeSyncModal()">Đóng</button>
+      <div class="guide-box">
+        <strong>Tạo link miễn phí trong 2 phút:</strong><br/>
+        1. Vào <strong>console.firebase.google.com</strong> → Create project.<br/>
+        2. Chọn <strong>Build → Realtime Database → Create Database</strong> (Singapore, <em>Test mode</em>).<br/>
+        3. Copy link <code>https://...firebasedatabase.app</code> dán vào ô trên.<br/>
+        4. Bấm <strong>Copy link gửi Messenger</strong> gửi cho 3 bạn kia — bấm vào là tự đồng bộ!
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // =========================================================
+    // 1. CẤU HÌNH & DỮ LIỆU PHÂN CẤP (NGÀY -> BUỔI -> PLAN)
+    // =========================================================
+    const DEFAULT_FIREBASE_URL = "";
+    const MEMBERS = ["PHI", "PHẤN", "HÂN", "GẤM"];
+
+    // Tab lớn nhất (Bottom Nav) — sau này thêm day24, day25 ngay đây
+    const MAIN_TABS = [
+      { id: "day23", label: "Ngày 23", icon: "📅", type: "day" },
+      { id: "unvisited", label: "Chưa đến", icon: "📍", type: "unvisited" },
+      { id: "visited", label: "Đã đến", icon: "✅", type: "visited" }
+    ];
+
+    // Các buổi bên trong từng Ngày
+    const DAY_SLOTS = {
+      day23: [
+        {
+          id: "sang",
+          label: "Sáng",
+          plans: [
+            {
+              id: "A",
+              label: "Plan A",
+              sub: "Chưa nhận phòng",
+              banner: "<strong>Sáng 23 · Plan A (07:00 – 12:00):</strong> Xuống BX Đà Lạt → xe trung chuyển/taxi 7 chỗ về <strong>Stop and Go Coffee (88 Lý Tự Trọng)</strong> gửi 3 vali lớn, nghỉ chân + chụp hình tại quán & ăn sáng gần đó. Chờ 14:00 nhận phòng Mỹ Lan Hotel (cách 300m)."
+            },
+            {
+              id: "B",
+              label: "Plan B",
+              sub: "Gửi đồ / Nhận sớm",
+              banner: "<strong>Sáng 23 · Plan B (07:30 – 12:00):</strong> Gửi 3 vali sớm tại <strong>Mỹ Lan Hotel (24 Lý Tự Trọng)</strong> → vote chọn 1–2 điểm chụp hình hot TikTok siêu gần KS (0.5 – 2.2 km)."
+            }
+          ]
+        },
+        {
+          id: "an-trua",
+          label: "Ăn trưa",
+          banner: "<strong>Ăn trưa 23/11 (12:00 – 13:30):</strong> Top 5 quán ngon–bổ–rẻ sát Mỹ Lan Hotel (dùng chung cho cả Plan A & Plan B). Ăn xong 14:00 về nhận phòng nghỉ ngơi tới 15:00."
+        },
+        {
+          id: "chieu",
+          label: "Chiều",
+          banner: "<strong>Chiều 23/11 (15:00 – 18:00):</strong> Cung chụp hình nhẹ gần trung tâm (1 – 3.5 km), để dành toàn bộ điểm Best Choice / Must-Go cho ngày 24 đi sớm full ngày."
+        },
+        {
+          id: "an-chieu",
+          label: "Ăn chiều",
+          banner: "<strong>Ăn chiều / Bữa tối chính 23/11 (18:00 – 20:00):</strong> Top 5 quán lẩu & nướng ngon–bổ–rẻ gần trung tâm, cực ấm bụng trong tiết trời tháng 11."
+        },
+        {
+          id: "toi",
+          label: "Tối",
+          banner: "<strong>Tối 23/11 (20:00 – 21:30):</strong> Dạo Chợ Đêm & ăn vặt sát Mỹ Lan Hotel rồi về ngủ sớm giữ sức sáng 24 đi sớm!"
+        }
+      ]
+    };
+
+    const PLACES = [
+      // ===== NGÀY 23 · SÁNG · PLAN A =====
+      {
+        id: "d23-sa-stopandgo",
+        day: "day23", slot: "sang", plan: "A",
+        group: "Nghỉ chân · Gửi 3 vali & Chụp hình",
+        name: "Stop and Go Coffee & Boutique Hotel",
+        address: "88 Lý Tự Trọng, P2, Đà Lạt (Hotline: 0263 3556 996)",
+        rating: 4.5, ratingText: "4.4–4.5",
+        distance: "0.3 km (cùng đường KS)",
+        price: "~50–70k/người",
+        desc: "Mở từ 04:30 sáng (lễ tân 24/7), hỗ trợ giữ 3 vali lớn, sân vườn thông vintage chụp hình rất chill. Đi bộ qua Mỹ Lan Hotel chỉ 3 phút.",
+        mapQuery: "Stop and Go Boutique Hotel 88 Ly Tu Trong Da Lat",
+        tiktokQuery: "Stop and Go Coffee 88 Ly Tu Trong Da Lat"
+      },
+      {
+        id: "d23-sa-belinh",
+        day: "day23", slot: "sang", plan: "A",
+        group: "Ăn sáng gần KS (07:45 – 09:00)",
+        name: "Bánh mì xíu mại Bé Linh",
+        address: "26 Hoàng Diệu, P5, Đà Lạt",
+        rating: 4.6, ratingText: "4.6",
+        distance: "2.0 km",
+        price: "~25–35k/người",
+        desc: "Quán bánh mì xíu mại nổi tiếng, xíu mại chắc thịt, nước dùng ngọt thanh kèm da heo & chả. Lưu ý hay hết sớm trước 9h30.",
+        mapQuery: "Banh mi xiu mai Be Linh 26 Hoang Dieu Da Lat",
+        tiktokQuery: "Banh mi xiu mai Be Linh Da Lat"
+      },
+      {
+        id: "d23-sa-ri79",
+        day: "day23", slot: "sang", plan: "A",
+        group: "Ăn sáng gần KS (07:45 – 09:00)",
+        name: "Bánh mì xíu mại Ri 79",
+        address: "1 Thông Thiên Học, P2, Đà Lạt",
+        rating: 4.3, ratingText: "4.0–4.5",
+        distance: "1.0 km",
+        price: "~25–35k/người",
+        desc: "Rất sát đường Lý Tự Trọng, nước dùng đậm đà chuẩn vị Đà Lạt, ăn nóng sáng sớm cực hợp.",
+        mapQuery: "Banh mi xiu mai Ri 79 1 Thong Thien Hoc Da Lat",
+        tiktokQuery: "Banh mi xiu mai Ri 79 Da Lat"
+      },
+
+      // ===== NGÀY 23 · SÁNG · PLAN B (5 ĐIỂM CHỤP HÌNH) =====
+      {
+        id: "d23-sb-donbosco",
+        day: "day23", slot: "sang", plan: "B",
+        group: "Top 5 điểm chụp hình sát KS",
+        name: "Nhà Mục Vụ Don Bosco",
+        address: "36 Bùi Thị Xuân, P2, Đà Lạt",
+        rating: 4.9, ratingText: "4.8–4.9",
+        distance: "0.5 km (đi bộ 5 phút)",
+        price: "Miễn phí",
+        desc: "Trend TikTok cực mạnh: hàng cột trắng uy nghi như châu Âu / đền Hy Lạp. Nắng sáng chiếu xiên lên hình cực sang và vắng người.",
+        mapQuery: "Nha Muc Vu Don Bosco 36 Bui Thi Xuan Da Lat",
+        tiktokQuery: "Nha muc vu Don Bosco Da Lat chup hinh"
+      },
+      {
+        id: "d23-sb-domaine",
+        day: "day23", slot: "sang", plan: "B",
+        group: "Top 5 điểm chụp hình sát KS",
+        name: "Nhà thờ Domaine de Marie",
+        address: "1 Ngô Quyền, P6, Đà Lạt",
+        rating: 4.5, ratingText: "4.5",
+        distance: "1.5 km",
+        price: "Miễn phí (gửi xe 5k)",
+        desc: "Nhà thờ tường hồng pastel & hành lang Pháp cổ. Mặc outfit trắng/be/đen lên hình cực nổi.",
+        mapQuery: "Nha tho Domaine de Marie Da Lat",
+        tiktokQuery: "Nha tho Domaine de Marie Da Lat"
+      },
+      {
+        id: "d23-sb-bacau",
+        day: "day23", slot: "sang", plan: "B",
+        group: "Top 5 điểm chụp hình sát KS",
+        name: "Cung đường Bắc Âu",
+        address: "Đường Nguyễn Hữu Cảnh, P2, Đà Lạt",
+        rating: 4.5, ratingText: "4.5",
+        distance: "2.0 km",
+        price: "Miễn phí",
+        desc: "Hai hàng cây thông/tùng cao thẳng tắp như trời Âu, nắng sáng xuyên tán cây chụp ngoại cảnh cực ảo.",
+        mapQuery: "Cung duong Bac Au Nguyen Huu Canh Da Lat",
+        tiktokQuery: "Cung duong Bac Au Da Lat"
+      },
+      {
+        id: "d23-sb-still",
+        day: "day23", slot: "sang", plan: "B",
+        group: "Top 5 điểm chụp hình sát KS",
+        name: "Still Cafe",
+        address: "59 Nguyễn Trãi, P9, Đà Lạt",
+        rating: 4.5, ratingText: "4.5",
+        distance: "2.2 km",
+        price: "~55–70k/người",
+        desc: "Tổ hợp phong cách Nhật Bản kinh điển trên TikTok: nhà gỗ, tiệm bánh, vườn Nhật — 1 chỗ chụp được cả chục góc.",
+        mapQuery: "Still Cafe 59 Nguyen Trai Da Lat",
+        tiktokQuery: "Still Cafe Da Lat"
+      },
+      {
+        id: "d23-sb-hanthuyen",
+        day: "day23", slot: "sang", plan: "B",
+        group: "Top 5 điểm chụp hình sát KS",
+        name: "Đường Hàn Thuyên",
+        address: "Đường Hàn Thuyên, P6, Đà Lạt",
+        rating: 4.4, ratingText: "4.4–4.5",
+        distance: "1.5 km",
+        price: "Miễn phí",
+        desc: "Con phố dốc nhẹ với góc tường vàng, cổng xanh style Hàn–Nhật rất được giới trẻ check-in trên TikTok.",
+        mapQuery: "Duong Han Thuyen Phuong 6 Da Lat",
+        tiktokQuery: "Duong Han Thuyen Da Lat chup hinh"
+      },
+
+      // ===== NGÀY 23 · ĂN TRƯA (5 QUÁN) =====
+      {
+        id: "d23-tr-long",
+        day: "day23", slot: "an-trua",
+        group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
+        name: "Bánh ướt lòng gà Long",
+        address: "Hẻm 202 Phan Đình Phùng, P2, Đà Lạt",
+        rating: 4.3, ratingText: "4.2–4.4",
+        distance: "1.0 km",
+        price: "~35–45k/người",
+        desc: "Quán ruột dân địa phương, bánh ướt dẻo, thịt gà xé, lòng gà & trứng non béo ngậy, giá rất bình dân.",
+        mapQuery: "Banh uot long ga Long Hem 202 Phan Dinh Phung Da Lat",
+        tiktokQuery: "Banh uot long ga Long Da Lat"
+      },
+      {
+        id: "d23-tr-nhungoc",
+        day: "day23", slot: "an-trua",
+        group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
+        name: "Cơm Niêu Như Ngọc",
+        address: "1/18 Hồ Tùng Mậu, P3, Đà Lạt",
+        rating: 4.2, ratingText: "4.0–4.3",
+        distance: "1.5 km",
+        price: "~80–120k/người",
+        desc: "Cơm niêu gia đình chắc bụng, không gian rộng, nhóm 4 người gọi mâm cơm chia ra rất hợp lý.",
+        mapQuery: "Com Nieu Nhu Ngoc Ho Tung Mau Da Lat",
+        tiktokQuery: "Com nieu Nhu Ngoc Da Lat"
+      },
+      {
+        id: "d23-tr-trang",
+        day: "day23", slot: "an-trua",
+        group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
+        name: "Bánh ướt lòng gà Trang",
+        address: "15F Tăng Bạt Hổ, P1, Đà Lạt",
+        rating: 4.1, ratingText: "4.1",
+        distance: "0.8 km (đi bộ được)",
+        price: "~40–50k/người",
+        desc: "Rất sát khách sạn, phần ăn đầy đặn có thêm bánh chiên giòn ăn kèm lạ miệng.",
+        mapQuery: "Banh uot long ga Trang 15F Tang Bat Ho Da Lat",
+        tiktokQuery: "Banh uot long ga Trang Da Lat"
+      },
+      {
+        id: "d23-tr-bahung",
+        day: "day23", slot: "an-trua",
+        group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
+        name: "Nem nướng Bà Hùng",
+        address: "328 Phan Đình Phùng, P2, Đà Lạt",
+        rating: 4.1, ratingText: "4.0–4.2",
+        distance: "1.2 km",
+        price: "~55–70k/người",
+        desc: "Đặc sản nem nướng than hoa, nước chấm tương đậu phộng sền sệt đặc trưng, rau sống Đà Lạt tươi.",
+        mapQuery: "Nem nuong Ba Hung 328 Phan Dinh Phung Da Lat",
+        tiktokQuery: "Nem nuong Ba Hung Da Lat"
+      },
+      {
+        id: "d23-tr-comga",
+        day: "day23", slot: "an-trua",
+        group: "Top 5 quán ăn trưa ngon–bổ–rẻ gần KS",
+        name: "Cơm gà Phan Rang / Cơm phần Bùi Thị Xuân",
+        address: "Trục đường Bùi Thị Xuân – Phan Đình Phùng, P2",
+        rating: 4.0, ratingText: "3.8–4.1",
+        distance: "0.5 km (sát KS)",
+        price: "~35–50k/người",
+        desc: "Gà ta dai ngon, cơm vàng óng tơi thơm kèm canh. Ăn nhanh gọn, siêu tiết kiệm ngay cạnh khách sạn.",
+        mapQuery: "Com ga Phan Rang Bui Thi Xuan Da Lat",
+        tiktokQuery: "Com ga Phan Rang Bui Thi Xuan Da Lat"
+      },
+
+      // ===== NGÀY 23 · CHIỀU (6 ĐIỂM CHỤP HÌNH) =====
+      {
+        id: "d23-ch-tramnang",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Trạm Nắng",
+        address: "18 Đống Đa, P3, Đà Lạt",
+        rating: 4.7, ratingText: "4.5–4.8",
+        distance: "2.5 km",
+        price: "~60–150k/người",
+        desc: "View đồi Đống Đa ngắm hoàng hôn & thành phố lên đèn cực chill, không gian thoáng đãng, rất gần trung tâm.",
+        mapQuery: "Tram Nang 18 Dong Da Da Lat",
+        tiktokQuery: "Tram Nang 18 Dong Da Da Lat"
+      },
+      {
+        id: "d23-ch-hxh",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Hồ Xuân Hương & Quảng trường Lâm Viên",
+        address: "Đường Trần Quốc Toản, P1 – P10, Đà Lạt",
+        rating: 4.6, ratingText: "4.5–4.7",
+        distance: "1.0 – 1.5 km",
+        price: "Miễn phí",
+        desc: "Nắng chiều 16:30–17:30 chụp ngược sáng ven hồ & check-in Nụ hoa Atiso / Hoa Dã Quỳ siêu đẹp, không bị nắng gắt.",
+        mapQuery: "Quang truong Lam Vien Da Lat",
+        tiktokQuery: "Quang truong Lam Vien Ho Xuan Huong hoang hon Da Lat"
+      },
+      {
+        id: "d23-ch-sitooterie",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Sitooterie - Coffee & Stories",
+        address: "2/35 Khởi Nghĩa Bắc Sơn, P10, Đà Lạt",
+        rating: 4.6, ratingText: "4.6",
+        distance: "2.5 km",
+        price: "~60–75k/người",
+        desc: "Quán Gen Z cực hot TikTok: tone tối giản kiểu Hàn Quốc, ô cửa kính lớn ôm trọn rừng thông, ánh nắng chiều lên hình như phim.",
+        mapQuery: "Sitooterie Coffee Stories 2/35 Khoi Nghia Bac Son Da Lat",
+        tiktokQuery: "Sitooterie Coffee Da Lat"
+      },
+      {
+        id: "d23-ch-gadalat",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Ga Đà Lạt",
+        address: "1 Quang Trung, P10, Đà Lạt",
+        rating: 4.5, ratingText: "4.4–4.6",
+        distance: "2.5 km",
+        price: "~50k/người (vé vào cổng)",
+        desc: "Nhà ga cổ kính nhất Việt Nam, toa tàu cổ & kiến trúc vintage, chụp nắng xiên lúc 15:00–16:00 cực ăn ảnh.",
+        mapQuery: "Ga Da Lat Quang Trung",
+        tiktokQuery: "Ga Da Lat chup hinh"
+      },
+      {
+        id: "d23-ch-doimotnguoi",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Đợi Một Người (Cafe)",
+        address: "Đường Khởi Nghĩa Bắc Sơn, P3, Đà Lạt",
+        rating: 4.4, ratingText: "4.3–4.5",
+        distance: "3.5 km",
+        price: "~60–75k/người",
+        desc: "Căn nhà kính nổi trên mặt hồ giữa rừng thông, vibe chữa lành mộc mạc rất nổi trên TikTok.",
+        mapQuery: "Doi Mot Nguoi Cafe Da Lat",
+        tiktokQuery: "Doi Mot Nguoi Cafe Da Lat"
+      },
+      {
+        id: "d23-ch-docnhabo",
+        day: "day23", slot: "chieu",
+        group: "Top 6 điểm chụp hình chiều gần trung tâm",
+        name: "Dốc Nhà Bò",
+        address: "Cuối đường Đào Duy Từ, P3, Đà Lạt",
+        rating: 4.3, ratingText: "4.3",
+        distance: "1.8 km",
+        price: "Miễn phí",
+        desc: "Con dốc thanh xuân vườn trường kinh điển trên TikTok, tiện ghé chụp nhanh 15 phút trên đường qua khu P3.",
+        mapQuery: "Doc Nha Bo Da Lat",
+        tiktokQuery: "Doc Nha Bo Da Lat"
+      },
+
+      // ===== NGÀY 23 · ĂN CHIỀU / BỮA TỐI CHÍNH (5 QUÁN) =====
+      {
+        id: "d23-ac-thuongthuong",
+        day: "day23", slot: "an-chieu",
+        group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
+        name: "Tiệm nướng Thương Thương",
+        address: "30 Đặng Thái Thân, P3, Đà Lạt",
+        rating: 4.6, ratingText: "4.6",
+        distance: "3.0 km",
+        price: "~150–220k/người",
+        desc: "View đồi thoáng, ít bị ám khói, giá mềm so với các tiệm nướng view đẹp; tiện đường từ Đống Đa/P3 về.",
+        mapQuery: "Tiem nuong Thuong Thuong 30 Dang Thai Than Da Lat",
+        tiktokQuery: "Tiem nuong Thuong Thuong Da Lat"
+      },
+      {
+        id: "d23-ac-chu",
+        day: "day23", slot: "an-chieu",
+        group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
+        name: "Quán nướng Chu",
+        address: "Lô B1-18 KQH Golf Valley, P2, Đà Lạt",
+        rating: 4.3, ratingText: "4.2–4.4",
+        distance: "1.2 km",
+        price: "~180–250k/người",
+        desc: "Rất gần khách sạn, nổi tiếng nướng trên đá độc đáo, không gian rộng rãi, đồ ăn tươi.",
+        mapQuery: "Quan nuong Chu Golf Valley Da Lat",
+        tiktokQuery: "Quan nuong Chu Da Lat"
+      },
+      {
+        id: "d23-ac-batoa",
+        day: "day23", slot: "an-chieu",
+        group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
+        name: "Lẩu bò Ba Toa – Quán Gỗ",
+        address: "Hẻm 1 Hoàng Diệu, P5, Đà Lạt",
+        rating: 4.2, ratingText: "4.1–4.3",
+        distance: "1.8 km",
+        price: "~80–120k/người",
+        desc: "Nồi lẩu bò gân đuôi siêu đầy, nước dùng ngọt thanh, nhóm 4 người chia ra cực rẻ & ấm bụng.",
+        mapQuery: "Lau bo Quan Go Ba Toa 1 Hoang Dieu Da Lat",
+        tiktokQuery: "Lau bo Ba Toa Quan Go Da Lat"
+      },
+      {
+        id: "d23-ac-fungi",
+        day: "day23", slot: "an-chieu",
+        group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
+        name: "Fungi Chingu (Nướng Hàn Quốc)",
+        address: "1 Nguyễn Thị Minh Khai, P1, Đà Lạt",
+        rating: 4.2, ratingText: "4.1–4.3",
+        distance: "0.8 km (sát Chợ Đêm)",
+        price: "~120–180k/người",
+        desc: "Ngay sát Chợ Đêm, sạch sẽ, ấm cúng, thịt ướp thấm vị, ăn xong đi bộ dạo Chợ Đêm luôn.",
+        mapQuery: "Fungi Chingu 1 Nguyen Thi Minh Khai Da Lat",
+        tiktokQuery: "Fungi Chingu Da Lat"
+      },
+      {
+        id: "d23-ac-taongo",
+        day: "day23", slot: "an-chieu",
+        group: "Top 5 quán lẩu & nướng ngon–bổ–rẻ gần KS",
+        name: "Lẩu gà lá é Tao Ngộ (quán gốc)",
+        address: "Số 5 đường 3 Tháng 4, P3, Đà Lạt",
+        rating: 4.1, ratingText: "4.0–4.2",
+        distance: "2.5 km",
+        price: "~80–110k/người",
+        desc: "Lẩu gà lá é cay thơm đặc sản, chuẩn ngon-bổ-rẻ cho nhóm 4 người trong thời tiết se lạnh.",
+        mapQuery: "Lau ga la e Tao Ngo 5 duong 3 thang 4 Da Lat",
+        tiktokQuery: "Lau ga la e Tao Ngo Da Lat"
+      },
+
+      // ===== NGÀY 23 · TỐI (DẠO ĐÊM & ĂN VẶT) =====
+      {
+        id: "d23-to-chodem",
+        day: "day23", slot: "toi",
+        group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
+        name: "Chợ Đêm Đà Lạt & Sữa đậu nành nóng",
+        address: "Nguyễn Thị Minh Khai, P1, Đà Lạt",
+        rating: 4.4, ratingText: "4.4",
+        distance: "0.8 km (đi bộ về KS)",
+        price: "~15–30k/người",
+        desc: "Dạo nhẹ chợ đêm, uống sữa đậu nành nóng + bánh ngọt rồi đi bộ về Mỹ Lan Hotel ngủ sớm chuẩn bị sáng 24.",
+        mapQuery: "Cho Dem Da Lat",
+        tiktokQuery: "Cho dem Da Lat sua dau nanh"
+      },
+      {
+        id: "d23-to-didinh",
+        day: "day23", slot: "toi",
+        group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
+        name: "Bánh tráng nướng dì Đinh",
+        address: "26 Hoàng Diệu, P5, Đà Lạt",
+        rating: 4.3, ratingText: "4.3",
+        distance: "1.8 km",
+        price: "~25–45k/người",
+        desc: "Bánh tráng nướng giòn rụm, nhiều topping phô mai/trứng/pate, rất hợp trời lạnh Đà Lạt.",
+        mapQuery: "Banh trang nuong di Dinh 26 Hoang Dieu Da Lat",
+        tiktokQuery: "Banh trang nuong di Dinh Da Lat"
+      },
+      {
+        id: "d23-to-thanhthao",
+        day: "day23", slot: "toi",
+        group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
+        name: "Kem bơ Thanh Thảo",
+        address: "76 Nguyễn Văn Trỗi, P2, Đà Lạt",
+        rating: 4.2, ratingText: "4.2",
+        distance: "0.6 km (sát KS)",
+        price: "~35–45k/người",
+        desc: "Quán kem bơ huyền thoại ngay gần đường Lý Tự Trọng, bơ béo mịn kèm kem dừa.",
+        mapQuery: "Kem bo Thanh Thao 76 Nguyen Van Troi Da Lat",
+        tiktokQuery: "Kem bo Thanh Thao Da Lat"
+      },
+      {
+        id: "d23-to-hongtra",
+        day: "day23", slot: "toi",
+        group: "Dạo đêm & Ăn vặt sát KS (20:00 – 21:30)",
+        name: "Hồng trà Hòa Bình",
+        address: "Khu Hòa Bình, P1, Đà Lạt",
+        rating: 4.2, ratingText: "4.2",
+        distance: "0.7 km (đi bộ được)",
+        price: "~35–45k/người",
+        desc: "Trà sữa/hồng trà nóng ấm ngay khu Hòa Bình, tiện mua cầm tay đi dạo phố đêm.",
+        mapQuery: "Hong tra Hoa Binh Da Lat",
+        tiktokQuery: "Hong tra Hoa Binh Da Lat"
+      }
+    ];
+
+    // =========================================================
+    // 2. STATE & REAL-TIME SYNC
+    // =========================================================
+    const LS_USER = "dalat_current_user_v2";
+    const LS_STATE = "dalat_trip_state_v2";
+    const LS_DB = "dalat_firebase_url_v2";
+
+    let currentUser = localStorage.getItem(LS_USER) || "";
+    let activeMainTab = "day23";
+    let activeSlotByDay = { day23: "sang" };
+    let activePlanBySlot = { "day23:sang": "A" };
+    let state = { votes: {}, visited: {} };
+    let dbUrl = "";
+    let eventSource = null;
+
+    const SVG_MAPS = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+    const SVG_TIKTOK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>`;
+
+    function normalizeDbUrl(url) {
+      return (url || "").trim().replace(/\/+$/, "");
+    }
+
+    function initDbUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const fromParam = params.get("db");
+      if (fromParam) {
+        dbUrl = normalizeDbUrl(fromParam);
+        localStorage.setItem(LS_DB, dbUrl);
+      } else {
+        dbUrl = normalizeDbUrl(localStorage.getItem(LS_DB) || DEFAULT_FIREBASE_URL);
+      }
+    }
+
+    function loadLocalState() {
+      try {
+        const raw = localStorage.getItem(LS_STATE);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state.votes = parsed.votes || {};
+          state.visited = parsed.visited || {};
+        }
+      } catch (e) {}
+    }
+
+    function saveLocalState() {
+      localStorage.setItem(LS_STATE, JSON.stringify(state));
+    }
+
+    function updateSyncUI(online, text) {
+      const dot = document.getElementById("syncDotMini");
+      const strip = document.getElementById("syncStatusText");
+      if (online) {
+        dot.classList.add("online");
+        strip.textContent = text || "🟢 Đồng bộ tức thì đang bật (4 máy)";
+      } else {
+        dot.classList.remove("online");
+        strip.textContent = text || "🟡 Chế độ cục bộ · Chạm để bật đồng bộ 4 máy";
+      }
+    }
+
+    async function connectRealtimeSync() {
+      if (eventSource) { eventSource.close(); eventSource = null; }
+      if (!dbUrl) { updateSyncUI(false); return; }
+      updateSyncUI(false, "🟡 Đang kết nối đồng bộ...");
+      try {
+        const res = await fetch(`${dbUrl}/dalat_state.json`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        if (data) {
+          state.votes = data.votes || {};
+          state.visited = data.visited || {};
+          saveLocalState();
+          render();
+        }
+        updateSyncUI(true);
+        eventSource = new EventSource(`${dbUrl}/dalat_state.json`);
+        eventSource.addEventListener("put", (e) => applyFirebasePatch(JSON.parse(e.data)));
+        eventSource.addEventListener("patch", (e) => applyFirebasePatch(JSON.parse(e.data)));
+        eventSource.onopen = () => updateSyncUI(true);
+        eventSource.onerror = () => updateSyncUI(false, "🟡 Đang kết nối lại...");
+      } catch (e) {
+        updateSyncUI(false, "🔴 Lỗi kết nối DB · Chạm ⚙ kiểm tra URL");
+      }
+    }
+
+    function applyFirebasePatch(payload) {
+      if (!payload || typeof payload.path !== "string") return;
+      const { path, data } = payload;
+      if (path === "/") {
+        state.votes = (data && data.votes) ? data.votes : {};
+        state.visited = (data && data.visited) ? data.visited : {};
+      } else {
+        const parts = path.split("/").filter(Boolean);
+        let target = state;
+        for (let i = 0; i < parts.length - 1; i++) {
+          if (!target[parts[i]] || typeof target[parts[i]] !== "object") target[parts[i]] = {};
+          target = target[parts[i]];
+        }
+        const lastKey = parts[parts.length - 1];
+        if (data === null) delete target[lastKey];
+        else target[lastKey] = data;
+      }
+      saveLocalState();
+      render();
+    }
+
+    async function pushFirebase(subPath, value) {
+      if (!dbUrl) return;
+      try {
+        if (value === null) {
+          await fetch(`${dbUrl}/dalat_state/${subPath}.json`, { method: "DELETE" });
+        } else {
+          await fetch(`${dbUrl}/dalat_state/${subPath}.json`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(value)
+          });
+        }
+      } catch (e) {
+        showToast("Mạng yếu, đã lưu tạm trên máy");
+      }
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && dbUrl) {
+        fetch(`${dbUrl}/dalat_state.json`)
+          .then(r => r.ok ? r.json() : null)
+          .then(data => {
+            if (data) {
+              state.votes = data.votes || {};
+              state.visited = data.visited || {};
+              saveLocalState();
+              render();
+              updateSyncUI(true);
+            }
+          }).catch(() => {});
+      }
+    });
+
+    // =========================================================
+    // 3. USER AUTH
+    // =========================================================
+    function updateUserUI() {
+      const label = document.getElementById("currentUserLabel");
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (currentUser) {
+        label.textContent = currentUser;
+        logoutBtn.style.display = "block";
+      } else {
+        label.textContent = "Chọn tên";
+        logoutBtn.style.display = "none";
+      }
+    }
+
+    function openLoginModal() {
+      updateUserUI();
+      document.getElementById("loginModal").classList.add("open");
+    }
+
+    function closeLoginModal() {
+      document.getElementById("loginModal").classList.remove("open");
+    }
+
+    function selectUser(name) {
+      currentUser = name;
+      localStorage.setItem(LS_USER, name);
+      updateUserUI();
+      closeLoginModal();
+      render();
+      showToast(`Xin chào ${name}!`);
+    }
+
+    function logoutUser() {
+      currentUser = "";
+      localStorage.removeItem(LS_USER);
+      updateUserUI();
+      render();
+      showToast("Đã đăng xuất · Chọn tài khoản khác");
+    }
+
+    // =========================================================
+    // 4. VOTE & ĐÃ ĐẾN
+    // =========================================================
+    function getVoters(placeId) {
+      const map = state.votes[placeId] || {};
+      return MEMBERS.filter(m => map[m]);
+    }
+
+    function isVisited(placeId) {
+      return Boolean(state.visited[placeId]);
+    }
+
+    async function toggleVote(placeId) {
+      if (!currentUser) { openLoginModal(); return; }
+      if (!state.votes[placeId]) state.votes[placeId] = {};
+      if (state.votes[placeId][currentUser]) {
+        delete state.votes[placeId][currentUser];
+        saveLocalState();
+        render();
+        await pushFirebase(`votes/${placeId}/${encodeURIComponent(currentUser)}`, null);
+      } else {
+        state.votes[placeId][currentUser] = true;
+        saveLocalState();
+        render();
+        showToast(`${currentUser} đã vote ♥`);
+        await pushFirebase(`votes/${placeId}/${encodeURIComponent(currentUser)}`, true);
+      }
+    }
+
+    async function toggleVisited(placeId) {
+      if (!currentUser) { openLoginModal(); return; }
+      if (isVisited(placeId)) {
+        delete state.visited[placeId];
+        saveLocalState();
+        render();
+        showToast("Đã đưa lại về danh sách chưa đến");
+        await pushFirebase(`visited/${placeId}`, null);
+      } else {
+        const record = { by: currentUser, at: Date.now() };
+        state.visited[placeId] = record;
+        saveLocalState();
+        render();
+        showToast("Đã chuyển sang tab Đã đến ✓");
+        await pushFirebase(`visited/${placeId}`, record);
+      }
+    }
+
+    // =========================================================
+    // 5. SYNC MODAL
+    // =========================================================
+    function openSyncModal() {
+      document.getElementById("dbUrlInput").value = dbUrl;
+      document.getElementById("syncModal").classList.add("open");
+    }
+
+    function closeSyncModal() {
+      document.getElementById("syncModal").classList.remove("open");
+    }
+
+    async function saveDbUrl() {
+      const val = normalizeDbUrl(document.getElementById("dbUrlInput").value);
+      dbUrl = val;
+      if (val) localStorage.setItem(LS_DB, val);
+      else localStorage.removeItem(LS_DB);
+      closeSyncModal();
+      await connectRealtimeSync();
+      showToast(val ? "Đã bật đồng bộ tức thì!" : "Đã chuyển về chế độ cục bộ");
+    }
+
+    async function copyShareLink() {
+      const base = window.location.href.split("?")[0];
+      const shareUrl = dbUrl ? `${base}?db=${encodeURIComponent(dbUrl)}` : base;
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        showToast("Đã copy link gửi Messenger!");
+      } catch (e) {
+        prompt("Copy link này gửi vào Messenger:", shareUrl);
+      }
+    }
+
+    // =========================================================
+    // 6. RENDER
+    // =========================================================
+    function sortByVotesThenRating(list) {
+      return [...list].sort((a, b) => {
+        const diff = getVoters(b.id).length - getVoters(a.id).length;
+        return diff !== 0 ? diff : b.rating - a.rating;
+      });
+    }
+
+    function getSlotMetaLabel(place) {
+      const dayTab = MAIN_TABS.find(t => t.id === place.day);
+      const slotObj = (DAY_SLOTS[place.day] || []).find(s => s.id === place.slot);
+      let lbl = `${dayTab ? dayTab.label : ""} · ${slotObj ? slotObj.label : ""}`;
+      if (place.plan) lbl += ` (Plan ${place.plan})`;
+      return lbl;
+    }
+
+    function renderCard(place, indexInList, showSlotTag) {
+      const voters = getVoters(place.id);
+      const userVoted = currentUser && voters.includes(currentUser);
+      const visited = isVisited(place.id);
+      const isTop = !visited && voters.length > 0 && indexInList === 0;
+
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapQuery)}`;
+      const tiktokUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(place.tiktokQuery)}`;
+
+      const tags = [];
+      if (showSlotTag) tags.push(`<span class="tag-chip tag-slot">${getSlotMetaLabel(place)}</span>`);
+      if (isTop) tags.push(`<span class="tag-chip tag-top">🔥 TOP VOTE (${voters.length}/4)</span>`);
+
+      const votersHtml = voters.length
+        ? `<span class="voter-label">Vote (${voters.length}/4):</span>` +
+          voters.map(v => `<span class="voter-chip voter-${v}">${v}</span>`).join("")
+        : `<span class="voter-label">Chưa ai vote</span>`;
+
+      const doneBtnHtml = visited
+        ? `<button class="act-btn btn-undo" onclick="toggleVisited('${place.id}')">↩ Hoàn tác</button>`
+        : `<button class="act-btn btn-done" onclick="toggleVisited('${place.id}')">✓ Đã đến</button>`;
+
+      return `
+        <article class="card ${isTop ? "top-voted" : ""}">
+          ${tags.length ? `<div class="card-tags">${tags.join("")}</div>` : ""}
+          <div class="card-top">
+            <div>
+              <h3 class="card-name">${place.name}</h3>
+              <div class="card-addr">${place.address}</div>
+            </div>
+            <div class="rating-badge">⭐ ${place.ratingText}</div>
+          </div>
+
+          <div class="stats-row">
+            <span class="stat-chip">📍 Cách KS: ${place.distance}</span>
+            <span class="stat-chip">💰 ${place.price}</span>
+          </div>
+
+          <p class="card-desc">${place.desc}</p>
+          <div class="voters-row">${votersHtml}</div>
+
+          <div class="actions-grid">
+            <button class="act-btn btn-vote ${userVoted ? "voted" : ""}" onclick="toggleVote('${place.id}')">
+              ${userVoted ? "♥ Đã vote" : "♡ Vote"} (${voters.length})
+            </button>
+            ${doneBtnHtml}
+            <a class="act-btn btn-maps" href="${mapsUrl}" target="_blank" rel="noopener">
+              ${SVG_MAPS} Google Maps
+            </a>
+            <a class="act-btn btn-tiktok" href="${tiktokUrl}" target="_blank" rel="noopener">
+              ${SVG_TIKTOK} Xem TikTok
+            </a>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderBottomNav() {
+      const unvisitedCount = PLACES.filter(p => !isVisited(p.id)).length;
+      const visitedCount = PLACES.filter(p => isVisited(p.id)).length;
+      const navEl = document.getElementById("bottomNavInner");
+      navEl.innerHTML = MAIN_TABS.map(tab => {
+        let badge = "";
+        if (tab.type === "unvisited" && unvisitedCount > 0) {
+          badge = `<span class="bnav-badge">${unvisitedCount}</span>`;
+        } else if (tab.type === "visited" && visitedCount > 0) {
+          badge = `<span class="bnav-badge pine">${visitedCount}</span>`;
+        }
+        return `
+          <button class="bnav-btn ${tab.id === activeMainTab ? "active" : ""}" onclick="switchMainTab('${tab.id}')">
+            <span class="bnav-icon">${tab.icon}</span>
+            <span>${tab.label}</span>
+            ${badge}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderSubTabs() {
+      const wrap = document.getElementById("subtabsWrap");
+      const scrollEl = document.getElementById("subtabsScroll");
+      const planWrap = document.getElementById("planSwitchWrap");
+      const planEl = document.getElementById("planSwitch");
+
+      const currentMain = MAIN_TABS.find(t => t.id === activeMainTab);
+      if (!currentMain || currentMain.type !== "day") {
+        wrap.style.display = "none";
+        return;
+      }
+
+      wrap.style.display = "block";
+      const slots = DAY_SLOTS[activeMainTab] || [];
+      const currentSlotId = activeSlotByDay[activeMainTab] || slots[0].id;
+
+      scrollEl.innerHTML = slots.map(slot => {
+        const count = PLACES.filter(p => p.day === activeMainTab && p.slot === slot.id && !isVisited(p.id)).length;
+        return `
+          <button class="subtab-btn ${slot.id === currentSlotId ? "active" : ""}" onclick="switchSlot('${activeMainTab}', '${slot.id}')">
+            ${slot.label} <span class="pill-badge">${count}</span>
+          </button>
+        `;
+      }).join("");
+
+      const slotObj = slots.find(s => s.id === currentSlotId);
+      if (slotObj && slotObj.plans && slotObj.plans.length) {
+        const planKey = `${activeMainTab}:${currentSlotId}`;
+        const currentPlanId = activePlanBySlot[planKey] || slotObj.plans[0].id;
+        planWrap.style.display = "block";
+        planEl.innerHTML = slotObj.plans.map(pl => {
+          const cnt = PLACES.filter(p => p.day === activeMainTab && p.slot === currentSlotId && p.plan === pl.id && !isVisited(p.id)).length;
+          return `
+            <button class="plan-btn ${pl.id === currentPlanId ? "active" : ""}" onclick="switchPlan('${planKey}', '${pl.id}')">
+              <span>${pl.label} (${cnt})</span>
+              <small>${pl.sub}</small>
+            </button>
+          `;
+        }).join("");
+      } else {
+        planWrap.style.display = "none";
+      }
+    }
+
+    function renderContent() {
+      const mainEl = document.getElementById("mainContent");
+      let html = "";
+
+      if (activeMainTab === "unvisited") {
+        html += `<div class="info-banner"><strong>Tổng hợp toàn bộ điểm chưa đến</strong> trên tất cả các ngày & buổi, tự xếp nhiều người vote nhất lên đầu.</div>`;
+        const list = sortByVotesThenRating(PLACES.filter(p => !isVisited(p.id)));
+        html += list.length
+          ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
+          : `<div class="empty-box">🎉 Cả nhóm đã đi hết tất cả địa điểm!</div>`;
+        mainEl.innerHTML = html;
+        return;
+      }
+
+      if (activeMainTab === "visited") {
+        html += `<div class="info-banner"><strong>Các địa điểm cả nhóm đã đến.</strong> Bấm <em>Hoàn tác</em> nếu lỡ tay bấm nhầm.</div>`;
+        const list = PLACES.filter(p => isVisited(p.id)).sort((a, b) => (state.visited[b.id]?.at || 0) - (state.visited[a.id]?.at || 0));
+        html += list.length
+          ? `<div class="card-list">${list.map((p, i) => renderCard(p, i, true)).join("")}</div>`
+          : `<div class="empty-box">Chưa có địa điểm nào ở mục <strong>Đã đến</strong>. Đi xong chỗ nào nhớ bấm <strong>✓ Đã đến</strong> nhé!</div>`;
+        mainEl.innerHTML = html;
+        return;
+      }
+
+      // Day view
+      const slots = DAY_SLOTS[activeMainTab] || [];
+      const currentSlotId = activeSlotByDay[activeMainTab] || slots[0].id;
+      const slotObj = slots.find(s => s.id === currentSlotId);
+
+      let bannerText = slotObj.banner || "";
+      let items = PLACES.filter(p => p.day === activeMainTab && p.slot === currentSlotId && !isVisited(p.id));
+
+      if (slotObj.plans && slotObj.plans.length) {
+        const planKey = `${activeMainTab}:${currentSlotId}`;
+        const currentPlanId = activePlanBySlot[planKey] || slotObj.plans[0].id;
+        const planObj = slotObj.plans.find(pl => pl.id === currentPlanId);
+        if (planObj) bannerText = planObj.banner;
+        items = items.filter(p => p.plan === currentPlanId);
+      }
+
+      if (bannerText) html += `<div class="info-banner">${bannerText}</div>`;
+
+      if (!items.length) {
+        html += `<div class="empty-box">Tất cả địa điểm của mục này đã được chuyển sang tab <strong>Đã đến</strong> ✓</div>`;
+      } else {
+        const groups = [];
+        items.forEach(p => { if (!groups.includes(p.group)) groups.push(p.group); });
+        groups.forEach(groupName => {
+          const groupItems = sortByVotesThenRating(items.filter(p => p.group === groupName));
+          html += `
+            <div class="section-head">
+              <h2 class="section-title">${groupName}</h2>
+              <span class="section-hint">Xếp theo nhiều vote nhất</span>
+            </div>
+            <div class="card-list">
+              ${groupItems.map((p, i) => renderCard(p, i, false)).join("")}
+            </div>
+          `;
+        });
+      }
+
+      mainEl.innerHTML = html;
+    }
+
+    function render() {
+      renderBottomNav();
+      renderSubTabs();
+      renderContent();
+    }
+
+    function switchMainTab(tabId) {
+      activeMainTab = tabId;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function switchSlot(dayId, slotId) {
+      activeSlotByDay[dayId] = slotId;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function switchPlan(planKey, planId) {
+      activePlanBySlot[planKey] = planId;
+      render();
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+    }
+
+    document.getElementById("loginModal").addEventListener("click", (e) => {
+      if (e.target.id === "loginModal" && currentUser) closeLoginModal();
+    });
+    document.getElementById("syncModal").addEventListener("click", (e) => {
+      if (e.target.id === "syncModal") closeSyncModal();
+    });
+
+    // Boot
+    initDbUrl();
+    loadLocalState();
+    updateUserUI();
+    render();
+    if (!currentUser) openLoginModal();
+    connectRealtimeSync();
+  </script>
+</body>
+</html>
