@@ -888,6 +888,16 @@
       font-weight: 800;
       color: var(--ink);
       line-height: 1.3;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .card-name:active { opacity: 0.65; }
+    .copy-hint-ico {
+      font-size: 12px;
+      opacity: 0.45;
+      font-weight: 400;
     }
 
     .card-addr {
@@ -2902,6 +2912,27 @@
       return `https://www.tiktok.com/search?q=${encodeURIComponent(q)}`;
     }
 
+    function copyPlaceName(name) {
+      const done = () => showToast(`📋 Đã copy: ${name}`);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(name).then(done).catch(() => fallbackCopy(name, done));
+      } else {
+        fallbackCopy(name, done);
+      }
+    }
+
+    function fallbackCopy(text, cb) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand("copy"); if (cb) cb(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
     function copyTikTokKeyword(q) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(q).catch(() => {});
@@ -2978,7 +3009,7 @@
             ${tags.length ? `<div class="card-tags">${tags.join("")}</div>` : ""}
             <div class="card-top">
               <div>
-                <h3 class="card-name">${place.name}</h3>
+                <h3 class="card-name" onclick="copyPlaceName(${JSON.stringify(place.name).replace(/"/g, '&quot;')})" title="Bấm để copy tên">${place.name} <span class="copy-hint-ico">📋</span></h3>
                 <div class="card-addr">${place.address}</div>
               </div>
             </div>
@@ -3391,7 +3422,7 @@
           </div>
 
           <div class="card-body">
-            <h3 class="card-name">${r.name}</h3>
+            <h3 class="card-name" onclick="copyPlaceName(${JSON.stringify(r.name).replace(/"/g, '&quot;')})" title="Bấm để copy tên">${r.name} <span class="copy-hint-ico">📋</span></h3>
             <div class="card-addr">${r.address}</div>
             <div class="stats-row">
               <span class="stat-chip">📍 Cách KS: ${r.distance}</span>
